@@ -11,7 +11,11 @@ SceneID Scene::GetNextSceneID() const
 {
 	return nextSceneID;
 }
-void Scene::SetNextSceneID(bool value)
+bool Scene::GetWantsChange() const
+{
+	return wantsChange;
+}
+void Scene::SetWantsChange(bool value)
 {
 	wantsChange = value;
 }

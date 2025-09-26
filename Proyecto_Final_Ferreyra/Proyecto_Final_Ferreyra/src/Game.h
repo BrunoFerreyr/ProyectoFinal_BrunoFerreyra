@@ -1,10 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Player.h"
-#include "Map.h"
 #include "ResourceManager.h"
 #include "Dialog.h"
 #include "Scene.h"
+#include "MainMenu.h"
+#include "Gameplay.h"
 
 class Game
 {
@@ -15,7 +16,7 @@ private:
 	void CreateWindow();
 	void GetFont();
 	void CreatePlayer();
-	void CreateMap();
+	//void CreateMap();
 	void Input();
 	void HandleEvents();
 	void Update();
@@ -27,13 +28,17 @@ private:
 	sf::RenderWindow* window;
 	Player* player;
 	sf::Clock clockk;
-	std::vector<Map*> maps;
 	ResourceManager resourceManager;
 	Dialog* dialog;
 	sf::Font font;
 
 	std::map<SceneID, Scene*> scenes;
 	Scene* currentScene;
+
+	MainMenu* mainMenu;
+	Gameplay* gameplay;
+
+	//PauseManager* pauseManager;
 
 public:
 	Game();

@@ -43,6 +43,10 @@ bool Asset::setUpSprite(const std::string& filePath)
 	sprite->setTextureRect(size);
 	return true;
 }
+sf::Sprite* Asset::GetSprite() const
+{
+	return sprite;
+}
 void Asset::deleteSprite()
 {
 	delete sprite;

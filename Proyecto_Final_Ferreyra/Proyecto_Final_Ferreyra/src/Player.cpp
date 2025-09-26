@@ -1,5 +1,5 @@
 #include "Player.h"
-Player::Player(const std::string& path, const sf::Vector2i& spriteSheetSize, ResourceManager& resourceManager, Map* map, Dialog* dialog)
+Player::Player(const std::string& path, const sf::Vector2i& spriteSheetSize, ResourceManager& resourceManager, Dialog* dialog)
 {
 	sf::IntRect area({0,0}, spriteSheetSize);
 
@@ -8,7 +8,6 @@ Player::Player(const std::string& path, const sf::Vector2i& spriteSheetSize, Res
 	sprite = new sf::Sprite(texture);
 
 	//sprite->setTextureRect(currentValue); ver para animacion
-	currentMap = map;
 	sprite->setPosition({ 600.0f, 600.0f });
 	sprite->setScale({ 1.0f, 1.0f });
 
@@ -53,13 +52,11 @@ void Player::MovementInput()
 		direction += sf::Vector2f({ 0,-1 });
 	}
 
-	
-	//direction += VectorUtilities::NormalizeVector(direction);
 }
 
 void Player::Movement(float deltaTime)
 {
-	if (dialog->IsActive()) return;
+	if (dialog->IsActive() && currentMap == nullptr) return;
 
 	sf::Vector2f movement = direction * speed * deltaTime;
 	sf::Vector2f newPosition = sprite->getPosition();
@@ -104,6 +101,10 @@ void Player::Draw(sf::RenderWindow& window)
 sf::FloatRect Player::GetBounds()
 {
 	return sprite->getGlobalBounds();
+}
+void Player::SetCurrentMap(Map* map)
+{
+	currentMap = map;
 }
 void Player::HandleEvents(const sf::Event& event)
 {

@@ -5,13 +5,16 @@ class Asset
 public:
 	//Asset(std::string filePath, const sf::Vector2f pos, sf::IntRect size, bool collision);
 	Asset(sf::Texture* texture, const sf::Vector2f pos, sf::IntRect size, bool collision);
-	~Asset();
-	bool haveCollision;
-	sf::Vector2f position;
-	sf::IntRect size;
-	sf::Sprite* sprite;
-	sf::Texture* texture;
+	virtual ~Asset();
 	bool setUpSprite(const std::string&);
 	void deleteSprite();
+	sf::Sprite* GetSprite() const;
+
+protected:
+	bool haveCollision;
+	sf::Sprite* sprite;
+	sf::Vector2f position;
+	sf::IntRect size;
+	sf::Texture* texture;	
 	bool isTextureCreator = false;
 };

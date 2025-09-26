@@ -18,11 +18,18 @@ void Game::Initialize()
 {
 	CreateWindow();
 	GetFont();
-	CreateMap();
+	//CreateMap();
 	CreatePlayer();
+
+	mainMenu = new MainMenu(*window, resourceManager);
+	gameplay = new Gameplay(*window, resourceManager, player, dialog);
+	scenes.emplace(SceneID::MainMenu, mainMenu);
+	scenes.emplace(SceneID::Gameplay, gameplay);
+
 }
 void Game::GameLoop()
 {
+	currentScene = scenes.find(SceneID::MainMenu)->second;
 	while (window->isOpen())
 	{
 		Input();
@@ -53,18 +60,19 @@ void Game::CreatePlayer()
 {
 	std::string path = "../textures/PlayerIdle.png";
 	sf::Vector2i spriteSheetSize = { 47, 60 };
-	player = new Player(path, spriteSheetSize, resourceManager,maps[0], dialog);
+	player = new Player(path, spriteSheetSize, resourceManager, dialog);
 }
-void Game::CreateMap() 
+/*void Game::CreateMap()
 {
-	Map* map = new Map("../textures/floor.png", resourceManager, *dialog);
+	//map llevarlo a gameplay, y ahi ver de hacer logica para cambiar a otro mapa
+	Level01* map = new Level01("../textures/floor.png", resourceManager, *dialog);
 	maps.push_back(map);	
-}
+}*/
 void Game::Input()
 {
 	HandleEvents();
-	player->Input();
-	//currentScene->Input();
+	//player->Input();
+	currentScene->Input();
 }
 void Game::HandleEvents() 
 {
@@ -73,22 +81,30 @@ void Game::HandleEvents()
 		if (event->is<sf::Event::Closed>())
 			window->close();
 
-		player->HandleEvents(*event);
-		//currentScene->HandleEvents(*event);
+		//player->HandleEvents(*event);
+		currentScene->HandleEvents(*event);
 	}
 }
 void Game::Update()
 {
 	float deltaTime = clockk.restart().asSeconds();
-	player->Update(deltaTime);
-	//currentScene->Update(deltaTime);
+	//player->Update(deltaTime);
+	currentScene->Update(deltaTime);
+
+	if (currentScene->GetWantsChange()) 
+	{
+		currentScene->SetWantsChange(false);
+		std::cout << (int)currentScene->GetNextSceneID();
+
+		currentScene = scenes.find(currentScene->GetNextSceneID())->second;
+	}
 }
 void Game::Draw() 
 {
 	window->clear();
-	maps[0]->Draw(*window);
-	//currentScene->Draw();
-	player->Draw(*window);
+	//maps[0]->Draw(*window);
+	currentScene->Draw();
+	//player->Draw(*window);
 	dialog->Draw(*window);
 	window->display();
 }
@@ -103,8 +119,5 @@ void Game::DestroyPlayer()
 }
 void Game::DestroyMaps()
 {
-	for (size_t i = 0; i < maps.size(); i++)
-	{
-		delete maps[i];
-	}
+	
 }

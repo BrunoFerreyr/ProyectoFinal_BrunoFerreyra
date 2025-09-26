@@ -8,19 +8,18 @@ class Map
 {
 public:
 	Map(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog);
-	~Map();
+	virtual ~Map() = 0;
 	void Draw(sf::RenderWindow& window);
-	bool CheckCollision(const sf::FloatRect& playerBounds, bool isInteractable);
+	virtual bool CheckCollision(const sf::FloatRect& playerBounds, bool isInteractable);
 	sf::FloatRect GetBounds();
 
 	std::vector<Interactable*> interactables;
 
-private:
-	std::vector<sf::Sprite*> walls;
-	std::vector<Asset*> assetsWall;
-
+protected:	
 	std::vector<sf::Sprite*> assets;
 	std::vector<Asset*> assetsObjects;
+
+	std::vector<Asset*> changeMapCollisions;
 
 	sf::Sprite* floor;
 	sf::Texture	textureFloor;

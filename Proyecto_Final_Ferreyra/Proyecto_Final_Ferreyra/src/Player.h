@@ -16,7 +16,7 @@ private:
 	Dialog* dialog;
 
 public:
-	Player(const std::string& path, const sf::Vector2i& spriteSheetSize, ResourceManager& resourceManager, Map* map, Dialog* dialog);
+	Player(const std::string& path, const sf::Vector2i& spriteSheetSize, ResourceManager& resourceManager, Dialog* dialog);
 	~Player();
 
 	void Input();
@@ -26,6 +26,7 @@ public:
 	void Interact();
 	void Draw(sf::RenderWindow& window);
 	sf::FloatRect GetBounds();
+	void SetCurrentMap(Map* map);
 
 	void HandleEvents(const sf::Event& event);
 
