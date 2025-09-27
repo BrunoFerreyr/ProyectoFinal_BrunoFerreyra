@@ -57,7 +57,7 @@
     <ClCompile Include="src\Level02.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="src\MapChangeAsset.cpp">
+    <ClCompile Include="src\TriggerAsset.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -101,7 +101,7 @@
     <ClInclude Include="src\Level02.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\MapChangeAsset.h">
+    <ClInclude Include="src\TriggerAsset.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
