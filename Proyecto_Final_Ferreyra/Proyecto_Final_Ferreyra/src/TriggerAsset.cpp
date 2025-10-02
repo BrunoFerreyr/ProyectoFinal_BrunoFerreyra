@@ -1,7 +1,9 @@
 #include "TriggerAsset.h"
-TriggerAsset::TriggerAsset(sf::Texture* texture, const sf::Vector2f pos, sf::IntRect size, bool collision)
+TriggerAsset::TriggerAsset(sf::Texture* texture, const sf::Vector2f pos, sf::IntRect size, bool collision, std::function<void()> func)
 	: Asset(texture, pos, size, collision)
 {
+	SetOnTriggerEnter(std::move(func));
+	this->assetType = AssetType::Trigger;
 }
 TriggerAsset::~TriggerAsset()
 {
@@ -22,7 +24,8 @@ void TriggerAsset::SetOnTriggerEnter(std::function<void()> func)
 }
 void TriggerAsset::OnTriggerEnter()
 {
-	if (onTriggerEnterFunc) {
+	if (onTriggerEnterFunc && haveCollision) {
 		onTriggerEnterFunc();
+		haveCollision = false; 
 	}
 }

@@ -1,5 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "AssetType.h"
+
 class Asset
 {
 public:
@@ -9,6 +11,7 @@ public:
 	bool setUpSprite(const std::string&);
 	void deleteSprite();
 	sf::Sprite* GetSprite() const;
+	virtual AssetType GetType() const;
 
 protected:
 	bool haveCollision;
@@ -16,5 +19,6 @@ protected:
 	sf::Vector2f position;
 	sf::IntRect size;
 	sf::Texture* texture;	
+	AssetType assetType = AssetType::Static;
 	bool isTextureCreator = false;
 };

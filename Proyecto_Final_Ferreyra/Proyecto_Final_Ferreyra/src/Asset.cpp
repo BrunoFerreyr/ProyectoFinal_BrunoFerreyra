@@ -47,6 +47,10 @@ sf::Sprite* Asset::GetSprite() const
 {
 	return sprite;
 }
+AssetType Asset::GetType() const
+{
+	return assetType;
+}
 void Asset::deleteSprite()
 {
 	delete sprite;

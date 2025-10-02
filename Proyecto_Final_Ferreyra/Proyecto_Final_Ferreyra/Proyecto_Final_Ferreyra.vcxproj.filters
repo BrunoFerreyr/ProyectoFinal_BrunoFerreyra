@@ -60,6 +60,9 @@
     <ClCompile Include="src\TriggerAsset.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="src\PlayerAnimations.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game.h">
@@ -102,6 +105,18 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="src\TriggerAsset.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AssetType.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MapID.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PlayerAnimations.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PlayerState.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

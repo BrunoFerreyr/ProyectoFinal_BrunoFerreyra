@@ -4,16 +4,20 @@ Player::Player(const std::string& path, const sf::Vector2i& spriteSheetSize, Res
 	sf::IntRect area({0,0}, spriteSheetSize);
 
 	sf::Texture& texture = resourceManager.GetTexture(path,false,area);
+	animations = new PlayerAnimations(texture);
 
 	sprite = new sf::Sprite(texture);
 
-	//sprite->setTextureRect(currentValue); ver para animacion
+	sf::IntRect startArea({0,0}, {64, 96});
+	sprite->setTextureRect(startArea);
+
 	sprite->setPosition({ 600.0f, 600.0f });
 	sprite->setScale({ 1.0f, 1.0f });
 
 	speed = 200.0f;
+	moveDirection = { 0,0 };
 
-	this->dialog = dialog;
+	this->dialog = dialog;	
 }
 Player::~Player()
 {
@@ -26,32 +30,46 @@ void Player::Input()
 void Player::Update(float deltaTime)
 {
 	Movement(deltaTime);
+	Animation(deltaTime);
 	Interact();
 }
 void Player::MovementInput() 
 {
-	direction = sf::Vector2f({ 0,0 });
+	direction = sf::Vector2f();
+	//moveDirection = sf::Vector2f({ 0,0 });
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) 
 	{
-		direction += sf::Vector2f({ 1,0 });
+		moveDirection = sf::Vector2f({ 1,0 });
+		direction += moveDirection;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
 	{
-		direction += sf::Vector2f({ -1,0 });
+		moveDirection = sf::Vector2f({ -1,0 });
+		direction += moveDirection;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
 	{
-		direction += sf::Vector2f({ 0,1 });
+		moveDirection = sf::Vector2f({ 0,1 });
+		direction += moveDirection;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
 	{
-		direction += sf::Vector2f({ 0,-1 });
-	}
+		moveDirection = sf::Vector2f({ 0,-1 });
+		direction += moveDirection;
+	}	
 
+	if (std::abs(direction.x) < 0.0001f && std::abs(direction.y) < 0.0001f)
+	{
+		animations->SetState(PlayerState::Idle);
+	}
+	else
+	{
+		animations->SetState(PlayerState::Walking);
+	}
 }
 
 void Player::Movement(float deltaTime)
@@ -81,6 +99,11 @@ void Player::Movement(float deltaTime)
 
 	sprite->setPosition(newPosition);
 }
+void Player::Animation(float deltaTime) 
+{
+	animations->Update(deltaTime, moveDirection);
+	sprite->setTextureRect(animations->GetSprite());
+}
 void Player::Interact() 
 {
 	if (isInteracting && !dialog->IsActive())
@@ -102,9 +125,10 @@ sf::FloatRect Player::GetBounds()
 {
 	return sprite->getGlobalBounds();
 }
-void Player::SetCurrentMap(Map* map)
+void Player::SetCurrentMap(Map* map, sf::Vector2f position)
 {
 	currentMap = map;
+	sprite->setPosition(position);
 }
 void Player::HandleEvents(const sf::Event& event)
 {

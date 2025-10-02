@@ -5,7 +5,7 @@
 class TriggerAsset : public Asset
 {
 public:
-	TriggerAsset(sf::Texture* texture, const sf::Vector2f pos, sf::IntRect size, bool collision);
+	TriggerAsset(sf::Texture* texture, const sf::Vector2f pos, sf::IntRect size, bool collision, std::function<void()> func);
 	~TriggerAsset() override;
 
 	bool SetCollision(bool collision);

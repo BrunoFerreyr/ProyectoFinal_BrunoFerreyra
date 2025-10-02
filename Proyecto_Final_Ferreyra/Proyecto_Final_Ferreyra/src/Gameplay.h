@@ -7,11 +7,6 @@
 #include "Level01.h"
 #include "Level02.h"
 
-enum class MapID
-{
-	OldWomanHouse,
-	Woods01,
-};
 class Gameplay : public Scene
 {
 public:
@@ -29,7 +24,7 @@ private:
 	Dialog* dialog;		
 
 	//std::vector<Map*> maps;
-	std::map<MapID, Map*> maps;
+	std::vector<Map*> maps;
 	Map* currentMap;
 	Level01* level01;
 	Level02* level02;

@@ -59,7 +59,7 @@ void Game::GetFont()
 void Game::CreatePlayer()
 {
 	std::string path = "../textures/PlayerIdle.png";
-	sf::Vector2i spriteSheetSize = { 47, 60 };
+	sf::Vector2i spriteSheetSize = { 378, 768 };
 	player = new Player(path, spriteSheetSize, resourceManager, dialog);
 }
 /*void Game::CreateMap()
@@ -94,7 +94,7 @@ void Game::Update()
 	if (currentScene->GetWantsChange()) 
 	{
 		currentScene->SetWantsChange(false);
-		std::cout << (int)currentScene->GetNextSceneID();
+		//std::cout << (int)currentScene->GetNextSceneID();
 
 		currentScene = scenes.find(currentScene->GetNextSceneID())->second;
 	}
