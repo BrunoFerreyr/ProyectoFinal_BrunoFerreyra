@@ -24,7 +24,7 @@ private:
 	Dialog* dialog;		
 
 	//std::vector<Map*> maps;
-	std::vector<Map*> maps;
+	std::map<MapID,Map*> maps;
 	Map* currentMap;
 	Level01* level01;
 	Level02* level02;

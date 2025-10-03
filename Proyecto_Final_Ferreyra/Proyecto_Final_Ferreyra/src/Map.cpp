@@ -28,6 +28,7 @@ void Map::Draw(sf::RenderWindow& window)
 	{
 		window.draw(*asset);
 	}
+	if(npc != nullptr)//DO solucionar esto y agregar siguientes mapas, luego gameplay de gameloop
 	window.draw(*npc->sprite);
 }
 bool Map::CheckCollision(const sf::FloatRect& playerBounds, bool isInteractable)
@@ -89,13 +90,13 @@ bool Map::CheckCollision(const sf::FloatRect& playerBounds, bool isInteractable)
 	return false;
 }
 
-Map* Map::GetNextMap() const
+MapID& Map::GetNextMap() 
 {
-	return nextMap;
+	return nextMapID;
 }
-void Map::SetNextMap(Map* map)
+void Map::SetNextMap(MapID& map)
 {
-	nextMap = map;
+	nextMapID = map;
 }
 sf::Vector2f Map::GetPlayerInitPosition()
 {

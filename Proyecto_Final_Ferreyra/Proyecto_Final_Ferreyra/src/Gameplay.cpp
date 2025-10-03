@@ -6,23 +6,21 @@ Gameplay::Gameplay(sf::RenderWindow& window, ResourceManager& resources, Player*
 {
 	level01 = new Level01("../textures/floor.png", resources, *dialog);
 	level02 = new Level02("../textures/woodsFloor.png", resources, *dialog);
-	level01->SetNextMap(level02);
 
-	maps.push_back(level01);
-	maps.push_back(level02);
+	maps.emplace(MapID::OldWomanHouse,level01);
+	maps.emplace(MapID::Camp,level02);
 
 	//maps.emplace(MapID::OldWomanHouse, level01);
 	//maps.emplace(MapID::Woods01, level02);
 	//currentMap = maps[MapID::OldWomanHouse];
 	currentMap = level01;
 	player->SetCurrentMap(currentMap, { 400.0f, 400.0f });
-	//DO seguir documento, empezar logica de batalla, pensar en tema sobre posiciones.
 }
 Gameplay::~Gameplay()
 {
 	for (auto value : maps) 
 	{
-		delete value;
+		delete value.second;
 	}
 	maps.clear();
 }
@@ -35,7 +33,7 @@ void Gameplay::Update(float deltaTime)
 	if (currentMap->wantsChange) //DO pasar logica de cambio al mapa, asi podemos acceder al evento
 	{
 		currentMap->wantsChange = false;
-		Map* map = currentMap->GetNextMap();// ver porque no asigna
+		Map* map = maps.find(currentMap->GetNextMap())->second;
 		currentMap = map;
 		player->SetCurrentMap(currentMap, currentMap->GetPlayerInitPosition());
 		return;

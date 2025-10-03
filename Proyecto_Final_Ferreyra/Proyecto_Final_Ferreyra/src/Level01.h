@@ -7,7 +7,7 @@ public:
 	~Level01() override;
 	bool CheckCollision(const sf::FloatRect& playerBounds, bool isInteractable);
 
-	Asset* doorToWoods;
+	Asset* goToWoods;
 	Map* nextMap;
 private: 
 	void LoadNextMap();

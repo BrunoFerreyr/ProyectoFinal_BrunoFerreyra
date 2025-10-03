@@ -37,13 +37,13 @@ void PlayerAnimations::IdleAnimation(float deltaTime, sf::Vector2f& direction)
 	if (animationTimer >= animationSpeed)
 	{
 		if (direction == sf::Vector2f({ 1,0 })) // Right
-			area = GetClip(spriteWidth, 96 * 3);
+			area = GetClip(spriteWidth, spriteHeight * 3);
 		else if (direction == sf::Vector2f({ -1,0 })) // Left
-			area = GetClip(spriteWidth, 96);
+			area = GetClip(spriteWidth, spriteHeight);
 		else if (direction == sf::Vector2f({ 0,-1 })) // Up
 			area = GetClip(spriteWidth, 0);
 		else if (direction == sf::Vector2f({ 0,1 })) // Down
-			area = GetClip(spriteWidth, 96 * 2);
+			area = GetClip(spriteWidth, spriteHeight * 2);
 
 		animationTimer = 0.0f;
 	}
@@ -55,13 +55,13 @@ void PlayerAnimations::WalkingAnimation(float deltaTime, sf::Vector2f& direction
 	if (animationTimer >= animationSpeed)
 	{	
 		if (direction == sf::Vector2f({ 1,0 })) // Right
-			area = GetClip(378 ,96 * 7);
+			area = GetClip(378 , spriteHeight * 7);
 		else if (direction == sf::Vector2f({ -1,0 })) // Left
-			area = GetClip(378 ,96 * 5);
+			area = GetClip(378 , spriteHeight * 5);
 		else if (direction == sf::Vector2f({ 0,-1 })) // Up
-			area = GetClip(378 ,96* 4);
+			area = GetClip(378 , spriteHeight * 4);
 		else if (direction == sf::Vector2f({ 0,1 })) // Down
-		area = GetClip(378 ,96 * 6);
+		area = GetClip(378 , spriteHeight * 6);
 
 		animationTimer = 0.0f;
 	}

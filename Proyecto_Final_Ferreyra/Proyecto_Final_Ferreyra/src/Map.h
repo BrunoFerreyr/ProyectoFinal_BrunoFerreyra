@@ -5,6 +5,8 @@
 #include "ResourceManager.h"
 #include "NPC.h"
 #include "Dialog.h"
+#include "MapID.h"
+
 class Map
 {
 public:
@@ -16,14 +18,16 @@ public:
 
 	std::vector<Interactable*> interactables;
 	bool wantsChange = false;
-	Map* GetNextMap() const;
-	void SetNextMap(Map* map);
+	MapID& GetNextMap();
+	void SetNextMap(MapID& map);
 	sf::Vector2f GetPlayerInitPosition();
 protected:	
 
 	std::vector<sf::Sprite*> assets;
 	std::vector<Asset*> assetsObjects;
-	Map* nextMap;
+	//Map* nextMap;
+	MapID nextMapID;
+	std::vector<MapID> nextMapsIDs;
 
 	sf::Vector2f playerInitPosition;
 	std::vector<Asset*> changeMapCollisions;

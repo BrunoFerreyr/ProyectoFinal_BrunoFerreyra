@@ -26,6 +26,6 @@ void TriggerAsset::OnTriggerEnter()
 {
 	if (onTriggerEnterFunc && haveCollision) {
 		onTriggerEnterFunc();
-		haveCollision = false; 
+		//haveCollision = false; 
 	}
 }
