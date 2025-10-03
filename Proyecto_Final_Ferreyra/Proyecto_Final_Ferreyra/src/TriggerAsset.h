@@ -12,8 +12,13 @@ public:
 	bool GetCollision() const;
 	void OnTriggerEnter();
 	void SetOnTriggerEnter(std::function<void()> func);
+	void IdleAnimation(float deltaTime);
+
+	void SetOnTriggerInteract(std::function<void()> func);
+	void Interact();
 
 private:
 	std::function<void()> onTriggerEnterFunc;
+	std::function<void()> onInteractFunc;
 };
 

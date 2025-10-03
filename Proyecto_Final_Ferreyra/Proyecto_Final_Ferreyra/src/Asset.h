@@ -21,4 +21,5 @@ protected:
 	sf::Texture* texture;	
 	AssetType assetType = AssetType::Static;
 	bool isTextureCreator = false;
+	bool haveIdleAnimation = false;
 };

@@ -18,6 +18,8 @@ Level01::Level01(const std::string& filePath, ResourceManager& resourceManager, 
 	goToWoods = new TriggerAsset(&resourceManager.GetTexture("../textures/changeMapCollision.png", false, sf::IntRect()), sf::Vector2f{ 1280.0f * 0.5f, 720.0f - 40.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(126, 40)), true, [this]() { this->LoadNextMap(); });
 	assetsObjects.push_back(goToWoods);
 
+	//assetsObjects.push_back(new TriggerAsset(&resourceManager.GetTexture("../textures/table.png", false, sf::IntRect()), sf::Vector2f{ 400.0f, 300.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(100, 100)), true,));
+
 	for (auto asset : assetsObjects)
 	{
 		assets.push_back(asset->GetSprite());

@@ -29,3 +29,15 @@ void TriggerAsset::OnTriggerEnter()
 		//haveCollision = false; 
 	}
 }
+void TriggerAsset::IdleAnimation(float deltaTime)
+{
+	if (haveIdleAnimation) {
+		//AGREGAR ANIMACION
+	}
+}
+void TriggerAsset::Interact()
+{
+	if (onInteractFunc) {
+		onInteractFunc();
+	}
+}

@@ -12,6 +12,7 @@ class Map
 public:
 	Map(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog);
 	virtual ~Map() = 0;
+	void Update(float deltaTime);
 	void Draw(sf::RenderWindow& window);
 	bool CheckCollision(const sf::FloatRect& playerBounds, bool isInteractable);
 	sf::FloatRect GetBounds();

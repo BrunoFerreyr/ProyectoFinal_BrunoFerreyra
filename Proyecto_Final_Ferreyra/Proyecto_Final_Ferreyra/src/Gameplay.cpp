@@ -30,6 +30,7 @@ void Gameplay::Input()
 }
 void Gameplay::Update(float deltaTime)
 {
+	currentMap->Update(deltaTime);
 	if (currentMap->wantsChange) //DO pasar logica de cambio al mapa, asi podemos acceder al evento
 	{
 		currentMap->wantsChange = false;

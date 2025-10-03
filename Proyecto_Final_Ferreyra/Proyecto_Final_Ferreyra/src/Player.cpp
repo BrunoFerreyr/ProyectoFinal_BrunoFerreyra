@@ -31,7 +31,6 @@ void Player::Update(float deltaTime)
 {
 	Movement(deltaTime);
 	Animation(deltaTime);
-	Interact();
 }
 void Player::MovementInput() 
 {
@@ -114,7 +113,6 @@ void Player::Interact()
 		{///TO DO
 			interacted = currentMap->CheckCollision(GetBounds(),true);
 		}
-		// Aquí puedes agregar la lógica para interactuar con NPCs u objetos
 	}
 }
 void Player::Draw(sf::RenderWindow& window)
@@ -139,6 +137,7 @@ void Player::HandleEvents(const sf::Event& event)
 		{
 			std::cout << "Interaccion" << std::endl;
 			isInteracting = true;
+			Interact();
 		}
 		if (keyEvent->code == sf::Keyboard::Key::Enter && dialog->IsActive()) 
 		{

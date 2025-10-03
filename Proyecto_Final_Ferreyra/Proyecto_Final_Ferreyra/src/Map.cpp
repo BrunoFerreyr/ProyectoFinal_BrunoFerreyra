@@ -13,7 +13,18 @@ Map::~Map()
 	assets.clear();
 	delete floor;
 }
-
+void Map::Update(float deltaTime)
+{
+	//std::cout << "update..." << this << std::endl;
+	if (assetsObjects.empty()) return;
+	for (auto asset : assetsObjects)
+	{
+		if (asset->GetType() == AssetType::Trigger)
+		{
+			dynamic_cast<TriggerAsset*>(asset)->IdleAnimation(deltaTime);
+		}
+	}
+}
 void Map::Draw(sf::RenderWindow& window)
 {
 	//std::cout << "draw..." << this << std::endl;
@@ -60,10 +71,20 @@ bool Map::CheckCollision(const sf::FloatRect& playerBounds, bool isInteractable)
 				}
 				break;
 			case AssetType::Trigger:
+				
 				if (asset->GetSprite()->getGlobalBounds().findIntersection(playerBounds))
 				{
-					dynamic_cast<TriggerAsset*>(asset)->OnTriggerEnter();
-				}
+					//dynamic_cast<TriggerAsset*>(asset)->OnTriggerEnter();
+
+					if (!asset->GetIsInteractable())
+					{
+						dynamic_cast<TriggerAsset*>(asset)->OnTriggerEnter();
+					}
+					else 
+					{
+						asset->Interact();
+					}
+				}			
 				//std::cout << "Trigger asset..." << std::endl;			
 				break;
 			default:				
