@@ -1,6 +1,6 @@
 #include "Level01.h"
 
-Level01::Level01(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog) : Map(filePath, resourceManager, dialog)
+Level01::Level01(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog, AudioManager& audioManager) : Map(filePath, resourceManager, dialog, audioManager)
 {
 	//floor = nullptr;
 
@@ -27,6 +27,9 @@ Level01::Level01(const std::string& filePath, ResourceManager& resourceManager, 
 
 	nextMapsIDs.push_back(MapID::Camp);
 	SetNextMap(nextMapsIDs[0]);
+
+	
+	//audioManager.PlayMusic(musicPath);
 }
 Level01::~Level01()
 {
@@ -39,6 +42,11 @@ void Level01::LoadNextMap()
 void Level01::StartDialog()
 {
 	dialog->Start(0,3);
+}
+void Level01::PlayBackgroundMusic()
+{
+	std::string musicPath = "../audios/houseMusic.ogg";
+	audioManager->PlayMusic(musicPath);
 }
 
 

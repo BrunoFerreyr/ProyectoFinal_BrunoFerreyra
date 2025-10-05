@@ -7,11 +7,11 @@
 #include "LevelCave.h"
 #include "Level01.h"
 #include "Level02.h"
-
+#include "Pause.h"
 class Gameplay : public Scene
 {
 public:
-	Gameplay(sf::RenderWindow& window, ResourceManager& resources, Player* player, Dialog* dialog);
+	Gameplay(sf::RenderWindow& window, ResourceManager& resources, Player* player, Dialog* dialog, Pause& pauseManager, AudioManager& audioManager);
 	~Gameplay() override;
 	void Input() override;
 	void Update(float deltaTime) override;
@@ -30,4 +30,6 @@ private:
 	LevelCave* levelCave;
 	Level01* level01;
 	Level02* level02;
+	Pause& pauseManager;
+	bool gameStarted = false;
 };

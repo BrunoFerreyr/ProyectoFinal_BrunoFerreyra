@@ -3,7 +3,7 @@
 class Level02 : public Map
 {
 public:
-	Level02(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog);
+	Level02(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog, AudioManager& audioManager);
 	~Level02() override;
 	Asset* goToHouse;
 	Asset* goToCave;

@@ -1,7 +1,8 @@
 #include "MainMenu.h"
 
-MainMenu::MainMenu(sf::RenderWindow& window, ResourceManager& resources)
-	: Scene(window),
+MainMenu::MainMenu(sf::RenderWindow& window, ResourceManager& resources, AudioManager& audioManager) 
+	: Scene(window),  
+	audioManager(audioManager),
 	text(resources.GetFont("../fonts/dogicapixel.ttf"),"COMENZAR", 48)
 {
 	std::string backgroundPath = "../textures/MainMenuBackground.png";
@@ -29,12 +30,10 @@ MainMenu::MainMenu(sf::RenderWindow& window, ResourceManager& resources)
 	buttonText->setOrigin(buttonText->getLocalBounds().getCenter());
 	buttonText->setPosition(startButton->getPosition());
 
-	/*
-	std::string musicPath = "../res/audio/MainMenuMusic.ogg";
-	music.openFromFile(musicPath);
-	music.setLooping(true);
-	music.setVolume(50.f);
-	music.play();*/
+	
+	
+	std::string musicPath = "../audios/mainmenuMusic.ogg";
+	audioManager.PlayMusic(musicPath);
 }
 MainMenu::~MainMenu()
 {
@@ -50,11 +49,6 @@ void MainMenu::Update(float deltaTime)
 	if (wantsChange)
 	{
 		return;
-	}
-
-	if (music.getStatus() != sf::SoundSource::Status::Stopped)
-	{		
-		music.play();
 	}
 }
 void MainMenu::Draw()
@@ -76,8 +70,6 @@ void MainMenu::HandleEvents(const sf::Event& event)
 			{
 				wantsChange = true;
 				nextSceneID = SceneID::Gameplay;
-
-				//music.stop();
 			}
 		}
 	}

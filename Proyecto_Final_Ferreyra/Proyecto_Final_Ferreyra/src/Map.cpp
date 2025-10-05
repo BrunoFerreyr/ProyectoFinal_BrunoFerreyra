@@ -1,8 +1,7 @@
 #include "Map.h"
 
-Map::Map(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog)
-{
-	this->dialog = &dialog;
+Map::Map(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog, AudioManager& AudioManager) :dialog(&dialog), audioManager(&AudioManager)
+{	
 }
 Map::~Map()
 {	
@@ -105,6 +104,8 @@ void Map::SetNextMap(MapID& map)
 sf::Vector2f Map::GetPlayerInitPosition()
 {
 	return playerInitPosition;
+}
+void Map::PlayBackgroundMusic() {
 }
 void Map::SetPlayerInitPosition(const sf::Vector2f pos)
 {

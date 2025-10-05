@@ -1,12 +1,13 @@
 #include "Gameplay.h"
-Gameplay::Gameplay(sf::RenderWindow& window, ResourceManager& resources, Player* player, Dialog* dialog)
+Gameplay::Gameplay(sf::RenderWindow& window, ResourceManager& resources, Player* player, Dialog* dialog, Pause& pauseManager, AudioManager& audioManager)
 	: Scene(window),
 	player(player),
-	dialog(dialog)
+	dialog(dialog),
+	pauseManager(pauseManager)
 {
-	levelCave = new LevelCave("../textures/caveFloor.png", resources, *dialog);
-	level01 = new Level01("../textures/floor.png", resources, *dialog);
-	level02 = new Level02("../textures/woodsFloor.png", resources, *dialog);
+	levelCave = new LevelCave("../textures/caveFloor.png", resources, *dialog,audioManager);
+	level01 = new Level01("../textures/floor.png", resources, *dialog,audioManager);
+	level02 = new Level02("../textures/woodsFloor.png", resources, *dialog,audioManager);
 
 	maps.emplace(MapID::Cave, levelCave);
 	maps.emplace(MapID::OldWomanHouse,level01);
@@ -15,6 +16,7 @@ Gameplay::Gameplay(sf::RenderWindow& window, ResourceManager& resources, Player*
 	//maps.emplace(MapID::OldWomanHouse, level01);
 	//maps.emplace(MapID::Woods01, level02);
 	//currentMap = maps[MapID::OldWomanHouse];
+
 	currentMap = level01;
 	player->SetCurrentMap(currentMap, { 400.0f, 400.0f });
 }
@@ -28,19 +30,33 @@ Gameplay::~Gameplay()
 }
 void Gameplay::Input()
 {
+	pauseManager.Input();
+	if (pauseManager.GetGamePaused()) return;
+
 	player->Input();
 }
 void Gameplay::Update(float deltaTime)
 {
 	currentMap->Update(deltaTime);
-	if (currentMap->wantsChange) //DO pasar logica de cambio al mapa, asi podemos acceder al evento
+
+	if (gameStarted == false)
+	{
+		currentMap->PlayBackgroundMusic();
+		gameStarted = true;
+	}
+
+	if (currentMap->wantsChange)
 	{
 		currentMap->wantsChange = false;
 		Map* map = maps.find(currentMap->GetNextMap())->second;
 		currentMap = map;
+		currentMap->PlayBackgroundMusic();
 		player->SetCurrentMap(currentMap, currentMap->GetPlayerInitPosition());
 		return;
 	}
+
+	if (pauseManager.GetGamePaused()) return;
+
 	player->Update(deltaTime);
 }
 void Gameplay::Draw()
@@ -50,26 +66,14 @@ void Gameplay::Draw()
 	//map->Draw(window);
 	player->Draw(window);
 	dialog->Draw(window);
+	pauseManager.Draw();
 }
 void Gameplay::HandleEvents(const sf::Event& event)
 {
-	player->HandleEvents(event);
-	if (const auto keyEvent = event.getIf<sf::Event::KeyPressed>())
-	{
-		if (keyEvent->code == sf::Keyboard::Key::P)
-		{
-			//currentMap = maps[MapID::Woods01];
-			//player->SetCurrentMap(currentMap);
-		}		
-	}
-	if (const auto keyEvent = event.getIf<sf::Event::KeyPressed>())
-	{
-		if (keyEvent->code == sf::Keyboard::Key::H)
-		{
-			//currentMap = maps[MapID::OldWomanHouse];
-			//player->SetCurrentMap(currentMap);
-		}
-	}
+	pauseManager.HandleEvents(event);
+	if (pauseManager.GetGamePaused()) return;
+
+	player->HandleEvents(event);	
 }
 Map* Gameplay::GetCurrentMap() const
 {

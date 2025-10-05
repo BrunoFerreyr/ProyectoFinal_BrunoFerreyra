@@ -21,9 +21,10 @@ void Game::Initialize()
 	GetFont();
 	//CreateMap();
 	CreatePlayer();
+	mainMenu = new MainMenu(*window, resourceManager, audioManager);
+	pauseManager = new Pause(resourceManager, *window, *&currentScene, *&mainMenu);//DO  ver signos
+	gameplay = new Gameplay(*window, resourceManager, player, dialog, *pauseManager, audioManager);
 
-	mainMenu = new MainMenu(*window, resourceManager);
-	gameplay = new Gameplay(*window, resourceManager, player, dialog);
 	scenes.emplace(SceneID::MainMenu, mainMenu);
 	scenes.emplace(SceneID::Gameplay, gameplay);
 

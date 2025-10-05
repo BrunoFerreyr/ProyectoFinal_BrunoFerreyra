@@ -1,7 +1,7 @@
 #include "LevelCave.h"
 
-LevelCave::LevelCave(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog)
-	: Map(filePath, resourceManager, dialog)
+LevelCave::LevelCave(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog, AudioManager& audioManager)
+	: Map(filePath, resourceManager, dialog, audioManager)
 {
 	textureFloor.loadFromFile(filePath);
 	floor = new sf::Sprite(textureFloor);

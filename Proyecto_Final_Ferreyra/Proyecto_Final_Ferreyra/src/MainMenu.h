@@ -1,10 +1,11 @@
 #pragma once
 #include "Scene.h"
 #include "ResourceManager.h"
+#include "AudioManager.h"
 class MainMenu : public Scene
 {
 private:
-	sf::Music music;
+	AudioManager& audioManager;
 	sf::Text* buttonText;
 	sf::Text text;
 
@@ -13,7 +14,7 @@ private:
 	sf::Sprite* startButton;
 
 public:
-	MainMenu(sf::RenderWindow& window, ResourceManager& resources);
+	MainMenu(sf::RenderWindow& window, ResourceManager& resources, AudioManager& audioManager);
 	~MainMenu() override;
 
 	void Input() override;

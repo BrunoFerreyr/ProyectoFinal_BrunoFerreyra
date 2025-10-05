@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Asset.cpp" />
+    <ClCompile Include="src\AudioManager.cpp" />
     <ClCompile Include="src\Dialog.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Gameplay.cpp" />
@@ -31,6 +32,7 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\MainMenu.cpp" />
     <ClCompile Include="src\Map.cpp" />
+    <ClCompile Include="src\Pause.cpp" />
     <ClCompile Include="src\PlayerAnimations.cpp" />
     <ClCompile Include="src\TriggerAsset.cpp" />
     <ClCompile Include="src\NPC.cpp" />
@@ -41,6 +43,7 @@
   <ItemGroup>
     <ClInclude Include="src\Asset.h" />
     <ClInclude Include="src\AssetType.h" />
+    <ClInclude Include="src\AudioManager.h" />
     <ClInclude Include="src\Dialog.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\Gameplay.h" />
@@ -52,6 +55,7 @@
     <ClInclude Include="src\MainMenu.h" />
     <ClInclude Include="src\Map.h" />
     <ClInclude Include="src\MapID.h" />
+    <ClInclude Include="src\Pause.h" />
     <ClInclude Include="src\PlayerAnimations.h" />
     <ClInclude Include="src\PlayerState.h" />
     <ClInclude Include="src\TriggerAsset.h" />

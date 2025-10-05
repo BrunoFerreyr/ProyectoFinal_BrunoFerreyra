@@ -1,6 +1,6 @@
 #include "Level02.h"
 
-Level02::Level02(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog) : Map(filePath, resourceManager, dialog)
+Level02::Level02(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog, AudioManager& audioManager) : Map(filePath, resourceManager, dialog, audioManager)
 {
 	textureFloor.loadFromFile(filePath);
 	floor = new sf::Sprite(textureFloor);
@@ -17,7 +17,6 @@ Level02::Level02(const std::string& filePath, ResourceManager& resourceManager, 
 	nextMapsIDs.push_back(MapID::OldWomanHouse);
 	nextMapsIDs.push_back(MapID::Cave);
 	nextMapsIDs.push_back(MapID::Woods01);
-
 
 	for (auto asset : assetsObjects)
 	{
