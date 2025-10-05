@@ -2,6 +2,7 @@
 
 Map::Map(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog)
 {
+	this->dialog = &dialog;
 }
 Map::~Map()
 {	
@@ -19,9 +20,9 @@ void Map::Update(float deltaTime)
 	if (assetsObjects.empty()) return;
 	for (auto asset : assetsObjects)
 	{
-		if (asset->GetType() == AssetType::Trigger)
+		if (asset->GetType() == AssetType::Interactable)
 		{
-			dynamic_cast<TriggerAsset*>(asset)->IdleAnimation(deltaTime);
+			dynamic_cast<InteractableAsset*>(asset)->IdleAnimation(deltaTime);
 		}
 	}
 }
@@ -39,75 +40,57 @@ void Map::Draw(sf::RenderWindow& window)
 	{
 		window.draw(*asset);
 	}
-	if(npc != nullptr)//DO solucionar esto y agregar siguientes mapas, luego gameplay de gameloop
-	window.draw(*npc->sprite);
 }
 bool Map::CheckCollision(const sf::FloatRect& playerBounds, bool isInteractable)
 {
 	//std::cout << "Checking interaction..." << this << std::endl;
-	
-	if (!isInteractable) 
-	{		
-		/*if (assets.empty()) return false;
-
-		for (auto asset : assets)
-		{
-			if (asset->getGlobalBounds().findIntersection(playerBounds))
-			{
-				return true;
-			}
-		}*/
-		for (auto asset : assetsObjects)
-		{
-			switch (asset->GetType()) {
-			case AssetType::Static:
-				
-				if (asset->GetSprite()->getGlobalBounds().findIntersection(playerBounds))
-				{
-					std::cout << "!!!!!!!!!!";
-					asset->GetSprite()->setColor(sf::Color::Red);
-					std::cout << asset->GetSprite()->getTextureRect().size.x;
-					return true;
-				}
-				break;
-			case AssetType::Trigger:
-				
-				if (asset->GetSprite()->getGlobalBounds().findIntersection(playerBounds))
-				{
-					//dynamic_cast<TriggerAsset*>(asset)->OnTriggerEnter();
-
-					if (!asset->GetIsInteractable())
-					{
-						dynamic_cast<TriggerAsset*>(asset)->OnTriggerEnter();
-					}
-					else 
-					{
-						asset->Interact();
-					}
-				}			
-				//std::cout << "Trigger asset..." << std::endl;			
-				break;
-			default:				
-
-				break;
-			}
-
-		}
-	}
-	else 
+	for (auto asset : assetsObjects)
 	{
-		std::cout << "Checking interaction..." << std::endl;
-		if (interactables.empty()) return false;
-		for (auto interactable : interactables)
-		{
-			if (interactable->sprite->getGlobalBounds().findIntersection(playerBounds))
+		switch (asset->GetType()) {
+		case AssetType::Static:
+
+			if (asset->GetSprite()->getGlobalBounds().findIntersection(playerBounds))
 			{
-				interactable->Interact();
+				std::cout << "!!!!!!!!!!";
+				asset->GetSprite()->setColor(sf::Color::Red);
+				std::cout << asset->GetSprite()->getTextureRect().size.x;
 				return true;
 			}
+			break;
+		case AssetType::Trigger:
+
+			if (asset->GetSprite()->getGlobalBounds().findIntersection(playerBounds))
+			{
+				dynamic_cast<TriggerAsset*>(asset)->OnTriggerEnter();
+
+				/*if (!asset->GetIsInteractable())
+				{
+					dynamic_cast<TriggerAsset*>(asset)->OnTriggerEnter();
+				}
+				else
+				{
+					asset->Interact();
+				}*/
+			}
+			//std::cout << "Trigger asset..." << std::endl;			
+			break;
+		case AssetType::Interactable:
+			if (asset->GetSprite()->getGlobalBounds().findIntersection(playerBounds))
+			{
+				if (isInteractable) 
+				{
+					dynamic_cast<InteractableAsset*>(asset)->Interact();
+				}
+				//std::cout << "Interactable asset..." << std::endl;
+				//dynamic_cast<InteractableAsset*>(asset)->Interact();
+				//return true;
+			}
+		default:
+
+			break;
 		}
+
 	}
-	
 	return false;
 }
 
@@ -122,4 +105,8 @@ void Map::SetNextMap(MapID& map)
 sf::Vector2f Map::GetPlayerInitPosition()
 {
 	return playerInitPosition;
+}
+void Map::SetPlayerInitPosition(const sf::Vector2f pos)
+{
+	playerInitPosition = pos;
 }

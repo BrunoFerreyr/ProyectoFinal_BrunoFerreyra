@@ -3,5 +3,5 @@ enum class AssetType
 {
 	Static,
 	Trigger,
-	NPC
+	Interactable
 };

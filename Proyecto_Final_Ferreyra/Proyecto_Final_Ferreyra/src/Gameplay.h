@@ -4,6 +4,7 @@
 #include "Map.h"
 #include "Dialog.h"
 #include "ResourceManager.h"
+#include "LevelCave.h"
 #include "Level01.h"
 #include "Level02.h"
 
@@ -26,6 +27,7 @@ private:
 	//std::vector<Map*> maps;
 	std::map<MapID,Map*> maps;
 	Map* currentMap;
+	LevelCave* levelCave;
 	Level01* level01;
 	Level02* level02;
 };

@@ -4,9 +4,11 @@ Gameplay::Gameplay(sf::RenderWindow& window, ResourceManager& resources, Player*
 	player(player),
 	dialog(dialog)
 {
+	levelCave = new LevelCave("../textures/caveFloor.png", resources, *dialog);
 	level01 = new Level01("../textures/floor.png", resources, *dialog);
 	level02 = new Level02("../textures/woodsFloor.png", resources, *dialog);
 
+	maps.emplace(MapID::Cave, levelCave);
 	maps.emplace(MapID::OldWomanHouse,level01);
 	maps.emplace(MapID::Camp,level02);
 

@@ -11,5 +11,6 @@ public:
 	Map* nextMap;
 private: 
 	void LoadNextMap();
+	void StartDialog();
 };
 

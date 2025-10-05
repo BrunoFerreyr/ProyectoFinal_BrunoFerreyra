@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Asset.h"
 #include "TriggerAsset.h" 
+#include "InteractableAsset.h"
 #include "ResourceManager.h"
 #include "NPC.h"
 #include "Dialog.h"
@@ -17,13 +18,13 @@ public:
 	bool CheckCollision(const sf::FloatRect& playerBounds, bool isInteractable);
 	sf::FloatRect GetBounds();
 
-	std::vector<Interactable*> interactables;
 	bool wantsChange = false;
 	MapID& GetNextMap();
 	void SetNextMap(MapID& map);
 	sf::Vector2f GetPlayerInitPosition();
 protected:	
-
+	
+	void SetPlayerInitPosition(const sf::Vector2f pos);
 	std::vector<sf::Sprite*> assets;
 	std::vector<Asset*> assetsObjects;
 	//Map* nextMap;
@@ -35,6 +36,6 @@ protected:
 
 	sf::Sprite* floor;
 	sf::Texture	textureFloor;
-	NPC* npc;
+	Dialog* dialog;
 };
 

@@ -1,6 +1,7 @@
 #include "Game.h"
 //IF NOT EXIST "$(TargetDir)res\" MKDIR "$(TargetDir)res\"
 //XCOPY "$(ProjectDir)res\" "$(TargetDir)res\" /e /h /y /s
+//https://alkakrab.itch.io/free-12-tracks-pixel-rpg-game-music-pack
 Game::Game()
 {
 

@@ -24,8 +24,10 @@
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Gameplay.cpp" />
     <ClCompile Include="src\Interactable.cpp" />
+    <ClCompile Include="src\InteractableAsset.cpp" />
     <ClCompile Include="src\Level01.cpp" />
     <ClCompile Include="src\Level02.cpp" />
+    <ClCompile Include="src\LevelCave.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\MainMenu.cpp" />
     <ClCompile Include="src\Map.cpp" />
@@ -43,8 +45,10 @@
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\Gameplay.h" />
     <ClInclude Include="src\Interactable.h" />
+    <ClInclude Include="src\InteractableAsset.h" />
     <ClInclude Include="src\Level01.h" />
     <ClInclude Include="src\Level02.h" />
+    <ClInclude Include="src\LevelCave.h" />
     <ClInclude Include="src\MainMenu.h" />
     <ClInclude Include="src\Map.h" />
     <ClInclude Include="src\MapID.h" />

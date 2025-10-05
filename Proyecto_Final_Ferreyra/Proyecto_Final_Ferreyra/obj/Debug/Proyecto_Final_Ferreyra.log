@@ -1,26 +1,69 @@
-﻿  Map.cpp
-D:\Curso c++\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,47): warning C4275: se ha utilizado una interfaz no de DLL class 'std::runtime_error' como base para la interfaz DLL class 'sf::Exception'
+﻿  Game.cpp
+C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,47): warning C4275: se ha utilizado una interfaz no de DLL class 'std::runtime_error' como base para la interfaz DLL class 'sf::Exception'
+  (compilando archivo de origen "src/Game.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stdexcept(100,30):
+      vea la declaración de 'std::runtime_error'
+      C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,23):
+      vea la declaración de 'sf::Exception'
+  
+  Gameplay.cpp
+C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,47): warning C4275: se ha utilizado una interfaz no de DLL class 'std::runtime_error' como base para la interfaz DLL class 'sf::Exception'
+  (compilando archivo de origen "src/Gameplay.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stdexcept(100,30):
+      vea la declaración de 'std::runtime_error'
+      C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,23):
+      vea la declaración de 'sf::Exception'
+  
+  Level01.cpp
+C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,47): warning C4275: se ha utilizado una interfaz no de DLL class 'std::runtime_error' como base para la interfaz DLL class 'sf::Exception'
+  (compilando archivo de origen "src/Level01.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stdexcept(100,30):
+      vea la declaración de 'std::runtime_error'
+      C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,23):
+      vea la declaración de 'sf::Exception'
+  
+C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\src\Level01.cpp(7,27): warning C4834: Descartar el valor de retorno de la función con el atributo [[nodiscard]]
+  Level02.cpp
+C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,47): warning C4275: se ha utilizado una interfaz no de DLL class 'std::runtime_error' como base para la interfaz DLL class 'sf::Exception'
+  (compilando archivo de origen "src/Level02.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stdexcept(100,30):
+      vea la declaración de 'std::runtime_error'
+      C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,23):
+      vea la declaración de 'sf::Exception'
+  
+C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\src\Level02.cpp(5,27): warning C4834: Descartar el valor de retorno de la función con el atributo [[nodiscard]]
+  LevelCave.cpp
+C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,47): warning C4275: se ha utilizado una interfaz no de DLL class 'std::runtime_error' como base para la interfaz DLL class 'sf::Exception'
+  (compilando archivo de origen "src/LevelCave.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stdexcept(100,30):
+      vea la declaración de 'std::runtime_error'
+      C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,23):
+      vea la declaración de 'sf::Exception'
+  
+C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\src\LevelCave.cpp(6,27): warning C4834: Descartar el valor de retorno de la función con el atributo [[nodiscard]]
+  Main.cpp
+C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,47): warning C4275: se ha utilizado una interfaz no de DLL class 'std::runtime_error' como base para la interfaz DLL class 'sf::Exception'
+  (compilando archivo de origen "src/Main.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stdexcept(100,30):
+      vea la declaración de 'std::runtime_error'
+      C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,23):
+      vea la declaración de 'sf::Exception'
+  
+  Map.cpp
+C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,47): warning C4275: se ha utilizado una interfaz no de DLL class 'std::runtime_error' como base para la interfaz DLL class 'sf::Exception'
   (compilando archivo de origen "src/Map.cpp")
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stdexcept(100,30):
       vea la declaración de 'std::runtime_error'
-      D:\Curso c++\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,23):
+      C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,23):
       vea la declaración de 'sf::Exception'
   
-  TriggerAsset.cpp
-D:\Curso c++\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,47): warning C4275: se ha utilizado una interfaz no de DLL class 'std::runtime_error' como base para la interfaz DLL class 'sf::Exception'
-  (compilando archivo de origen "src/TriggerAsset.cpp")
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
+  Player.cpp
+C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,47): warning C4275: se ha utilizado una interfaz no de DLL class 'std::runtime_error' como base para la interfaz DLL class 'sf::Exception'
+  (compilando archivo de origen "src/Player.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stdexcept(100,30):
       vea la declaración de 'std::runtime_error'
-      D:\Curso c++\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,23):
-      vea la declaración de 'sf::Exception'
-  
-  NPC.cpp
-D:\Curso c++\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,47): warning C4275: se ha utilizado una interfaz no de DLL class 'std::runtime_error' como base para la interfaz DLL class 'sf::Exception'
-  (compilando archivo de origen "src/NPC.cpp")
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
-      vea la declaración de 'std::runtime_error'
-      D:\Curso c++\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,23):
+      C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,23):
       vea la declaración de 'sf::Exception'
   
   Generando código...
-  Proyecto_Final_Ferreyra.vcxproj -> D:\Curso c++\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\bin\Debug\Proyecto_Final_Ferreyra.exe
+  Proyecto_Final_Ferreyra.vcxproj -> C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\bin\Debug\Proyecto_Final_Ferreyra.exe
