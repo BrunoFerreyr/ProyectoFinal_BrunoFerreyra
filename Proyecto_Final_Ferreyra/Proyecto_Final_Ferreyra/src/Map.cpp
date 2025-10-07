@@ -1,6 +1,6 @@
 #include "Map.h"
 
-Map::Map(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog, AudioManager& AudioManager) :dialog(&dialog), audioManager(&AudioManager)
+Map::Map(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog, AudioManager& AudioManager) :dialog(&dialog), audioManager(&AudioManager), resourceManager(resourceManager)
 {	
 }
 Map::~Map()
@@ -16,6 +16,11 @@ Map::~Map()
 void Map::Update(float deltaTime)
 {
 	//std::cout << "update..." << this << std::endl;
+	if (GetIsInBattle())
+	{
+		battle->Update(deltaTime);
+		return;
+	}
 	if (assetsObjects.empty()) return;
 	for (auto asset : assetsObjects)
 	{
@@ -28,6 +33,11 @@ void Map::Update(float deltaTime)
 void Map::Draw(sf::RenderWindow& window)
 {
 	//std::cout << "draw..." << this << std::endl;
+	if (GetIsInBattle())
+	{
+		battle->Draw(window);
+		return;
+	}
 
 	if (floor)
 	{
@@ -38,6 +48,14 @@ void Map::Draw(sf::RenderWindow& window)
 	for (auto asset : assets)
 	{
 		window.draw(*asset);
+	}
+}
+void Map::HandleEvents(const sf::Event& event)
+{
+	if (GetIsInBattle())
+	{
+		battle->HandleEvents(event);
+		return;
 	}
 }
 bool Map::CheckCollision(const sf::FloatRect& playerBounds, bool isInteractable)
@@ -110,4 +128,22 @@ void Map::PlayBackgroundMusic() {
 void Map::SetPlayerInitPosition(const sf::Vector2f pos)
 {
 	playerInitPosition = pos;
+}
+bool Map::GetIsInBattle() const
+{
+	return isInBattle;
+}
+void Map::EndBattle(bool playerWin)
+{
+	isInBattle = false;
+	delete battle;
+	battle = nullptr;	
+	if (playerWin)
+	{
+		std::cout << "You won the battle!" << std::endl;
+	}
+	else
+	{
+		std::cout << "You lose the battle!" << std::endl;
+	}
 }

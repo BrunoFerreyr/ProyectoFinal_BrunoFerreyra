@@ -13,9 +13,11 @@ public:
 	void OnTriggerEnter();
 	
 	void SetOnTriggerEnter(std::function<void()> func);
-	
+	int enemyLife;
 
 private:
 	std::function<void()> onTriggerEnterFunc;
+	std::function<void(int&, Asset*)> onBattleFunc;
+	
 };
 

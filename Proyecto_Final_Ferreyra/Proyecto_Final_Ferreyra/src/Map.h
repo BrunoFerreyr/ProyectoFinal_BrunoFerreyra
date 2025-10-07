@@ -9,6 +9,7 @@
 #include "NPC.h"
 #include "Dialog.h"
 #include "MapID.h"
+#include "Battle.h"
 
 class Map
 {
@@ -17,6 +18,8 @@ public:
 	virtual ~Map() = 0;
 	void Update(float deltaTime);
 	void Draw(sf::RenderWindow& window);
+	void HandleEvents(const sf::Event& event);
+
 	bool CheckCollision(const sf::FloatRect& playerBounds, bool isInteractable);
 	sf::FloatRect GetBounds();
 
@@ -25,6 +28,8 @@ public:
 	void SetNextMap(MapID& map);
 	sf::Vector2f GetPlayerInitPosition();
 	virtual void PlayBackgroundMusic();
+	bool GetIsInBattle() const;
+	void EndBattle(bool playerWin);
 protected:	
 	
 	void SetPlayerInitPosition(const sf::Vector2f pos);
@@ -41,5 +46,9 @@ protected:
 	sf::Texture	textureFloor;
 	Dialog* dialog;
 	AudioManager* audioManager;
+	Battle* battle;
+	ResourceManager& resourceManager;
+
+	bool isInBattle = false;
 };
 

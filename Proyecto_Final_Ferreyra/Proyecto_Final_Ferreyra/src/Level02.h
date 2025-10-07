@@ -8,10 +8,12 @@ public:
 	Asset* goToHouse;
 	Asset* goToCave;
 	Asset* goToWoods01;
+	Asset* enemyBat;
 	
 private:
 	void LoadHouse();
 	void LoadCave();
 	void LoadWoods01();
+	void LoadBattle(int enemyLife, Asset* enemy);
 };
 

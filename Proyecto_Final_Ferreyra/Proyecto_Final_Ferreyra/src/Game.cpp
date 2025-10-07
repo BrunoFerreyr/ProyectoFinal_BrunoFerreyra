@@ -17,6 +17,8 @@ void Game::Play()
 }
 void Game::Initialize()
 {
+	srand(time(nullptr));
+
 	CreateWindow();
 	GetFont();
 	//CreateMap();

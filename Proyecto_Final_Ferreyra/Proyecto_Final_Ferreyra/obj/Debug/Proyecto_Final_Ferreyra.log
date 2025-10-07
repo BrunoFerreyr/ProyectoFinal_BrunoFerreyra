@@ -1,26 +1,9 @@
-﻿  Game.cpp
+﻿  Battle.cpp
 D:\Curso c++\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,47): warning C4275: se ha utilizado una interfaz no de DLL class 'std::runtime_error' como base para la interfaz DLL class 'sf::Exception'
-  (compilando archivo de origen "src/Game.cpp")
+  (compilando archivo de origen "src/Battle.cpp")
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
       vea la declaración de 'std::runtime_error'
       D:\Curso c++\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,23):
       vea la declaración de 'sf::Exception'
   
-  Gameplay.cpp
-D:\Curso c++\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,47): warning C4275: se ha utilizado una interfaz no de DLL class 'std::runtime_error' como base para la interfaz DLL class 'sf::Exception'
-  (compilando archivo de origen "src/Gameplay.cpp")
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
-      vea la declaración de 'std::runtime_error'
-      D:\Curso c++\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,23):
-      vea la declaración de 'sf::Exception'
-  
-  Main.cpp
-D:\Curso c++\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,47): warning C4275: se ha utilizado una interfaz no de DLL class 'std::runtime_error' como base para la interfaz DLL class 'sf::Exception'
-  (compilando archivo de origen "src/Main.cpp")
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
-      vea la declaración de 'std::runtime_error'
-      D:\Curso c++\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,23):
-      vea la declaración de 'sf::Exception'
-  
-  Generando código...
   Proyecto_Final_Ferreyra.vcxproj -> D:\Curso c++\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\bin\Debug\Proyecto_Final_Ferreyra.exe

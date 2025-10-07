@@ -31,7 +31,10 @@ Gameplay::~Gameplay()
 void Gameplay::Input()
 {
 	pauseManager.Input();
-	if (pauseManager.GetGamePaused()) return;
+	if (pauseManager.GetGamePaused() || currentMap->GetIsInBattle())
+	{
+		return;
+	}
 
 	player->Input();
 }
@@ -55,13 +58,20 @@ void Gameplay::Update(float deltaTime)
 		return;
 	}
 
-	if (pauseManager.GetGamePaused()) return;
+	if (pauseManager.GetGamePaused() || currentMap->GetIsInBattle())
+	{
+		return;
+	}
 
 	player->Update(deltaTime);
 }
 void Gameplay::Draw()
 {
 	currentMap->Draw(window);
+	if(currentMap->GetIsInBattle())
+	{
+		return;
+	}
 	//std::cout << currentMap << std::endl;
 	//map->Draw(window);
 	player->Draw(window);
@@ -71,8 +81,11 @@ void Gameplay::Draw()
 void Gameplay::HandleEvents(const sf::Event& event)
 {
 	pauseManager.HandleEvents(event);
-	if (pauseManager.GetGamePaused()) return;
-
+	currentMap->HandleEvents(event);
+	if (pauseManager.GetGamePaused() || currentMap->GetIsInBattle())
+	{ 
+		return;
+	}
 	player->HandleEvents(event);	
 }
 Map* Gameplay::GetCurrentMap() const
