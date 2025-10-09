@@ -5,7 +5,8 @@ class LevelCave : public Map
 public:
 	LevelCave(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog, AudioManager& audioManager);
 	~LevelCave() override;
+	void PlayBackgroundMusic() override;
 
-	Asset* goToCamp;
 	void LoadCamp();
+	Asset* goToCamp;
 };

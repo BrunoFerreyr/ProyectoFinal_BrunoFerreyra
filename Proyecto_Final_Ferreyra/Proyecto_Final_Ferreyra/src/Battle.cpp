@@ -1,6 +1,6 @@
 #include "Battle.h"
 
-Battle::Battle(ResourceManager& resourceManager, int playerLife, int enemyLife, Asset* enemySprite, std::function<void(bool)> callback) : playerHealth(playerLife), enemyHealth(enemyLife), callback(callback)
+Battle::Battle(ResourceManager& resourceManager, int playerLife, int enemyLife, Asset* enemySprite, std::function<void(bool,Asset*)> callback) : playerHealth(playerLife), enemyHealth(enemyLife), callback(callback)
 {
 	playerSprite = new Asset(&resourceManager.GetTexture("../textures/PlayerIdle.png", false, sf::IntRect()), sf::Vector2f({150.0f,400.0f }), sf::IntRect({0,0}, {63,96}), false);
 	this->enemySprite = enemySprite;
@@ -93,15 +93,14 @@ void Battle::Draw(sf::RenderWindow& window)
 	window.draw(*enemySprite->GetSprite());
 	//window.draw(*playerLifeSprite->GetSprite());
 	//window.draw(*enemyLifeSprite->GetSprite());
-	window.draw(*pointsText);
 	window.draw(*playerText);
 	window.draw(*enemyText);
-	window.draw(*roundText);
 	if (!shouldTap) 
 	{
+		window.draw(*pointsText);
 		return;
 	}
-
+	window.draw(*roundText);
 	window.draw(*keysText);
 	/*for (auto keySprite : keysSprites)
 	{
@@ -180,13 +179,13 @@ void Battle::HandleEvents(const sf::Event& event)
 		}
 		else
 		{			
-			totalPoints = isAttacking? totalPoints - keyPointValue/2 : totalPoints + keyPointValue*2;
+			totalPoints = isAttacking? totalPoints + keyPointValue : totalPoints - keyPointValue/2;
 			counter = limitCounter;
 		}
 		
 	}
 }
-sf::Keyboard::Key Battle::GetCorrectKey()
+sf::Keyboard::Key Battle::GetCorrectKey() const
 {
 	return correctKeys[inputIndex];
 }
@@ -218,18 +217,18 @@ void Battle::UpdateStats()
 void Battle::PlayerWin()
 {
 	playerWins = true;
-	callback(playerWins);
+	callback(playerWins,enemySprite);
 }
 void Battle::PlayerLose()
 {
 	playerWins = false;
-	callback(playerWins);
+	callback(playerWins, enemySprite);
 }
-bool Battle::IsBattleActive()
+bool Battle::IsBattleActive() const
 {
 	return battleActive;
 }
-bool Battle::HavePlayerWon()
+bool Battle::HavePlayerWon() const
 {
 	return playerWins;
 }

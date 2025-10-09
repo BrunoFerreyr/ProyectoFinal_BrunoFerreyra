@@ -101,7 +101,7 @@ void Player::Movement(float deltaTime)
 void Player::Animation(float deltaTime) 
 {
 	animations->Update(deltaTime, moveDirection);
-	sprite->setTextureRect(animations->GetSprite());
+	sprite->setTextureRect(animations->GetArea());
 }
 void Player::Interact() 
 {

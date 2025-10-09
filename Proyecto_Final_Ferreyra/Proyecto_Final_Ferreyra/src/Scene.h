@@ -1,11 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "SceneID.h"
 
-enum class SceneID
-{
-	MainMenu,
-	Gameplay,
-};
 class Scene
 {
 public:

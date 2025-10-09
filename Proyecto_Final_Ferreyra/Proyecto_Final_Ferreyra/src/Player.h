@@ -8,6 +8,21 @@
 #include "PlayerState.h"
 class Player
 {
+public:
+	Player(const std::string& path, const sf::Vector2i& spriteSheetSize, ResourceManager& resourceManager, Dialog* dialog);
+	~Player();
+
+	void Input();
+	void Update(float deltaTime);
+	void MovementInput();
+	void Movement(float deltaTime);
+	void Animation(float deltaTime);
+	void Interact();
+	void Draw(sf::RenderWindow& window);
+	sf::FloatRect GetBounds();
+	void SetCurrentMap(Map* map, sf::Vector2f position);
+	void HandleEvents(const sf::Event& event);
+
 private:
 	sf::Sprite* sprite;
 	Map* currentMap;
@@ -18,20 +33,5 @@ private:
 	bool isInteracting;
 	Dialog* dialog;
 	PlayerAnimations* animations;
-public:
-	Player(const std::string& path, const sf::Vector2i& spriteSheetSize, ResourceManager& resourceManager, Dialog* dialog);
-	~Player();
-
-	void Input();
-	void Update(float deltaTime);
-	void MovementInput();
-	void Movement(float deltaTime);
-	void Animation(float deltaTime); 
-	void Interact();
-	void Draw(sf::RenderWindow& window);
-	sf::FloatRect GetBounds();
-	void SetCurrentMap(Map* map, sf::Vector2f position);
-
-	void HandleEvents(const sf::Event& event);
 };
 

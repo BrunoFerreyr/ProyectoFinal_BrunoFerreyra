@@ -5,9 +5,9 @@
 class Asset
 {
 public:
-	//Asset(std::string filePath, const sf::Vector2f pos, sf::IntRect size, bool collision);
 	Asset(sf::Texture* texture, const sf::Vector2f pos, sf::IntRect size, bool collision);
 	virtual ~Asset();
+
 	bool setUpSprite(const std::string&);
 	void deleteSprite();
 	sf::Sprite* GetSprite() const;

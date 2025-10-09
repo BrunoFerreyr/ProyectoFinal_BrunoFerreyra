@@ -4,6 +4,17 @@
 #include "PlayerState.h"
 class PlayerAnimations
 {
+public:
+	PlayerAnimations(sf::Texture& texture);
+	~PlayerAnimations();
+
+	void Update(float deltaTime, sf::Vector2f& direction);
+	void SetState(PlayerState newState);
+	sf::IntRect GetClip(int yAnim, int xLimit);
+	sf::Texture* texture;
+	sf::IntRect area;
+	sf::IntRect& GetArea();
+
 private:
 	int currentXValue;
 	int spriteWidth = 63;
@@ -13,16 +24,5 @@ private:
 	PlayerState currentState = PlayerState::Walking;
 	void IdleAnimation(float deltaTime, sf::Vector2f& direction);
 	void WalkingAnimation(float deltaTime, sf::Vector2f& direction);
-
-public:
-	PlayerAnimations(sf::Texture& texture);
-	~PlayerAnimations();
-	void Update(float deltaTime, sf::Vector2f& direction);
-	void SetState(PlayerState newState);
-	sf::IntRect GetClip(int yAnim, int xLimit);
-
-	sf::Texture* texture;
-	sf::IntRect area;
-	sf::IntRect& GetSprite();
 };
 

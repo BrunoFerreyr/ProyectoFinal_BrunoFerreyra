@@ -13,12 +13,18 @@
 
 class Game
 {
+public:
+	Game();
+	~Game();
+
+	void Play();
+
 private:
 	void Initialize();
 	void GameLoop();
 	void DeInitialize();
 	void CreateWindow();
-	void GetFont();
+	void CreateDialog();
 	void CreatePlayer();
 	//void CreateMap();
 	void Input();
@@ -27,7 +33,6 @@ private:
 	void Draw();
 	void DestroyWindow();
 	void DestroyPlayer();
-	void DestroyMaps();
 
 	sf::RenderWindow* window;
 	Player* player;
@@ -44,11 +49,5 @@ private:
 	MainMenu* mainMenu;
 	Gameplay* gameplay;
 	Pause* pauseManager;
-	//PauseManager* pauseManager;
-
-public:
-	Game();
-	~Game();
-	void Play();
 };
 

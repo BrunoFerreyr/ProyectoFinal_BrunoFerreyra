@@ -33,12 +33,6 @@
     <ClCompile Include="src\ResourceManager.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="src\NPC.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Interactable.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="src\Dialog.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -95,12 +89,6 @@
     <ClInclude Include="src\ResourceManager.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\NPC.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Interactable.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="src\Dialog.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -147,6 +135,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="src\Battle.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SceneID.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

@@ -20,8 +20,7 @@ void Game::Initialize()
 	srand(time(nullptr));
 
 	CreateWindow();
-	GetFont();
-	//CreateMap();
+	CreateDialog();
 	CreatePlayer();
 	mainMenu = new MainMenu(*window, resourceManager, audioManager);
 	pauseManager = new Pause(resourceManager, *window, *&currentScene, *&mainMenu);//DO  ver signos
@@ -50,13 +49,12 @@ void Game::CreateWindow()
 {
 	unsigned int windowsWidth = 1280;
 	unsigned int windowsHeight = 720;
-	//window.create(sf::VideoMode({ 800, 600 }), "Mi primer juego");
 	window = new sf::RenderWindow(sf::VideoMode({ windowsWidth, windowsHeight }), "Mi primer juego");
 	window->setFramerateLimit(60);
 	/*sf::View view;
 	view.move({ -200,-200});*/
 }
-void Game::GetFont()
+void Game::CreateDialog()
 {
 	dialog = new Dialog(resourceManager);	
 }
@@ -66,12 +64,6 @@ void Game::CreatePlayer()
 	sf::Vector2i spriteSheetSize = { 378, 768 };
 	player = new Player(path, spriteSheetSize, resourceManager, dialog);
 }
-/*void Game::CreateMap()
-{
-	//map llevarlo a gameplay, y ahi ver de hacer logica para cambiar a otro mapa
-	Level01* map = new Level01("../textures/floor.png", resourceManager, *dialog);
-	maps.push_back(map);	
-}*/
 void Game::Input()
 {
 	HandleEvents();
@@ -120,8 +112,4 @@ void Game::DestroyPlayer()
 {
 	delete player;
 	delete dialog;
-}
-void Game::DestroyMaps()
-{
-	
 }

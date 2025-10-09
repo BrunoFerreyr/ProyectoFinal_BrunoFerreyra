@@ -5,6 +5,8 @@ class Level02 : public Map
 public:
 	Level02(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog, AudioManager& audioManager);
 	~Level02() override;
+
+	void PlayBackgroundMusic() override;
 	Asset* goToHouse;
 	Asset* goToCave;
 	Asset* goToWoods01;

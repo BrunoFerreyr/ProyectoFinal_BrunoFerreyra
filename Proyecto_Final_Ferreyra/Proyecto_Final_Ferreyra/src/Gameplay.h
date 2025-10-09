@@ -13,12 +13,14 @@ class Gameplay : public Scene
 public:
 	Gameplay(sf::RenderWindow& window, ResourceManager& resources, Player* player, Dialog* dialog, Pause& pauseManager, AudioManager& audioManager);
 	~Gameplay() override;
+
 	void Input() override;
 	void Update(float deltaTime) override;
 	void Draw() override;
 	void HandleEvents(const sf::Event& event) override;
 
 	Map* GetCurrentMap() const;
+
 private:
 	Player* player;
 	//Map* map;

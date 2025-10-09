@@ -25,7 +25,6 @@
     <ClCompile Include="src\Dialog.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Gameplay.cpp" />
-    <ClCompile Include="src\Interactable.cpp" />
     <ClCompile Include="src\InteractableAsset.cpp" />
     <ClCompile Include="src\Level01.cpp" />
     <ClCompile Include="src\Level02.cpp" />
@@ -36,7 +35,6 @@
     <ClCompile Include="src\Pause.cpp" />
     <ClCompile Include="src\PlayerAnimations.cpp" />
     <ClCompile Include="src\TriggerAsset.cpp" />
-    <ClCompile Include="src\NPC.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\Scene.cpp" />
@@ -49,7 +47,6 @@
     <ClInclude Include="src\Dialog.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\Gameplay.h" />
-    <ClInclude Include="src\Interactable.h" />
     <ClInclude Include="src\InteractableAsset.h" />
     <ClInclude Include="src\Level01.h" />
     <ClInclude Include="src\Level02.h" />
@@ -60,8 +57,8 @@
     <ClInclude Include="src\Pause.h" />
     <ClInclude Include="src\PlayerAnimations.h" />
     <ClInclude Include="src\PlayerState.h" />
+    <ClInclude Include="src\SceneID.h" />
     <ClInclude Include="src\TriggerAsset.h" />
-    <ClInclude Include="src\NPC.h" />
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\ResourceManager.h" />
     <ClInclude Include="src\Scene.h" />

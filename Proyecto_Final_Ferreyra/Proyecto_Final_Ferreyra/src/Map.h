@@ -6,7 +6,6 @@
 #include "InteractableAsset.h"
 #include "ResourceManager.h"
 #include "AudioManager.h"
-#include "NPC.h"
 #include "Dialog.h"
 #include "MapID.h"
 #include "Battle.h"
@@ -16,20 +15,20 @@ class Map
 public:
 	Map(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog, AudioManager& audioManager);
 	virtual ~Map() = 0;
+
 	void Update(float deltaTime);
 	void Draw(sf::RenderWindow& window);
 	void HandleEvents(const sf::Event& event);
-
 	bool CheckCollision(const sf::FloatRect& playerBounds, bool isInteractable);
 	sf::FloatRect GetBounds();
-
 	bool wantsChange = false;
 	MapID& GetNextMap();
 	void SetNextMap(MapID& map);
 	sf::Vector2f GetPlayerInitPosition();
 	virtual void PlayBackgroundMusic();
 	bool GetIsInBattle() const;
-	void EndBattle(bool playerWin);
+	void EndBattle(bool playerWin, Asset*);
+
 protected:	
 	
 	void SetPlayerInitPosition(const sf::Vector2f pos);

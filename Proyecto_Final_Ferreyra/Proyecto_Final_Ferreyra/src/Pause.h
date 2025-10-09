@@ -13,13 +13,11 @@ public:
 
 	void Input();
 	void Draw();
-
 	void HandleEvents(const sf::Event& event);
-
 	bool GetGamePaused();
-
 	void PauseGame();
 	void UnpauseGame();
+
 private:
 
 	Scene*& currentScene;

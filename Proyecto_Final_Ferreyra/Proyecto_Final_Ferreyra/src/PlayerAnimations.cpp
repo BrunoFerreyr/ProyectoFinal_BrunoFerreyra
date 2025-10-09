@@ -80,7 +80,7 @@ void PlayerAnimations::SetState(PlayerState newState)
 {
 	currentState = newState;
 }
-sf::IntRect& PlayerAnimations::GetSprite()
+sf::IntRect& PlayerAnimations::GetArea()
 {		 
 	std::cout << "position " << area.position.x << " and y is = " << area.position.y << std::endl;
 	std::cout << "scale " << area.size.x << " and y is = " << area.size.y << std::endl;	

@@ -17,7 +17,7 @@ Gameplay::Gameplay(sf::RenderWindow& window, ResourceManager& resources, Player*
 	//maps.emplace(MapID::Woods01, level02);
 	//currentMap = maps[MapID::OldWomanHouse];
 
-	currentMap = level01;
+	currentMap = levelCave;
 	player->SetCurrentMap(currentMap, { 400.0f, 400.0f });
 }
 Gameplay::~Gameplay()
