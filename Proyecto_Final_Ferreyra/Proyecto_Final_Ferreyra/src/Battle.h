@@ -4,17 +4,16 @@
 #include <iostream>
 #include "ResourceManager.h"
 #include "Asset.h"
+#include "Bar.h"
 class Battle
 {
 public:
-	Battle(ResourceManager& resourceManager,int playerLife, int enemyLife, Asset* enemySprite, std::function<void(bool,Asset*)> callback);
+	Battle(ResourceManager& resourceManager,int playerLife, int enemyLife, Asset* enemySprite, std::function<void(bool&,Asset*)> callback);
 	~Battle();
 
 	void Update(float deltaTime);
 	void Draw(sf::RenderWindow& window);
 	void HandleEvents(const sf::Event& event);
-	bool IsBattleActive() const;
-	bool HavePlayerWon() const;
 
 private:
 	void StartBattle();
@@ -29,12 +28,13 @@ private:
 	void PlayerWin();
 	void PlayerLose();
 
+	bool battleEnded = false;
 	bool playerWins = false;
 	bool battleActive = false;
 	bool shouldTap = false;
 	bool isAttacking = false;
 	float counter = 0.0f;
-	float limitCounter = 1.0f;
+	float limitCounter = 3.0f;
 	float waitCounter = 0.0f;
 	float waitLimit = 1.0f;
 	Asset* playerSprite;
@@ -42,7 +42,10 @@ private:
 	Asset* playerLifeSprite;
 	Asset* enemyLifeSprite;
 	std::vector<sf::Keyboard::Key> correctKeys;
-	//std::vector<sf::Sprite> keysSprites;
+	std::vector<Asset*> keysAssets;
+	std::vector<sf::Sprite*> keysSprites;
+	//capaz crear un enum con Normal, Correct y Failed
+
 	std::vector<char> keysChar;
 	std::vector<char> allKeysChar;
 	std::vector<sf::Keyboard::Key> allKeys;
@@ -57,9 +60,9 @@ private:
 	sf::Text* pointsText;
 	sf::Text* playerText;
 	sf::Text* enemyText;
-	sf::Text* keysText;
+	sf::Text* keysText;//DO Vector.
 	sf::Text* roundText;
-
-	std::function<void(bool,Asset*)> callback;
+	Bar* timeBar;
+	std::function<void(bool&,Asset*)> callback;
 };
 

@@ -19,6 +19,6 @@ private:
 
 	sf::Music currentMusic;
 	sf::Sound* currentSfx;
-
+	std::string actualMusicPath;
 };
 

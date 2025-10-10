@@ -3,19 +3,19 @@ TriggerAsset::TriggerAsset(sf::Texture* texture, const sf::Vector2f pos, sf::Int
 	: Asset(texture, pos, size, collision)
 {
 	SetOnTriggerEnter(std::move(func));
-	this->assetType = AssetType::Trigger;
+	this->data.assetType = AssetType::Trigger;
 }
 TriggerAsset::~TriggerAsset()
 {
 }
 bool TriggerAsset::SetCollision(bool collision)
 {
-	haveCollision = collision;
-	return haveCollision;
+	data.haveCollision = collision;
+	return data.haveCollision;
 }
 bool TriggerAsset::GetCollision() const
 {
-	return haveCollision;
+	return data.haveCollision;
 }
 void TriggerAsset::SetOnTriggerEnter(std::function<void()> func)
 {
@@ -24,7 +24,7 @@ void TriggerAsset::SetOnTriggerEnter(std::function<void()> func)
 }
 void TriggerAsset::OnTriggerEnter()
 {
-	if (onTriggerEnterFunc && haveCollision) {
+	if (onTriggerEnterFunc && data.haveCollision) {
 		onTriggerEnterFunc();
 		//haveCollision = false; 
 	}

@@ -14,6 +14,7 @@ public:
 	Gameplay(sf::RenderWindow& window, ResourceManager& resources, Player* player, Dialog* dialog, Pause& pauseManager, AudioManager& audioManager);
 	~Gameplay() override;
 
+	void Initialize() override;
 	void Input() override;
 	void Update(float deltaTime) override;
 	void Draw() override;

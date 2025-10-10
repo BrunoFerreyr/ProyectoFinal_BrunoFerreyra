@@ -1,57 +1,49 @@
 #include "Asset.h"
 
-/*Asset::Asset(std::string filePath, sf::Vector2f pos, sf::IntRect size, bool collision)
-{	
-	haveCollision = collision;
-	this->size = size;
-	position = pos;
-	setUpSprite(filePath);
-	sprite->setPosition(position);
-}*/
 Asset::Asset(sf::Texture* texture, const sf::Vector2f pos, sf::IntRect size, bool collision)
 {
-	haveCollision = collision;
-	this->size = size;
-	position = pos;
+	data.haveCollision = collision;
+	data.size = size;
+	data.position = pos;
 
 	//pasar dos lineas a funcion.
-	sprite = new sf::Sprite(*texture);
-	sprite->setTextureRect(size);
+	data.sprite = new sf::Sprite(*texture);
+	data.sprite->setTextureRect(size);
 
-	sprite->setPosition(position);
+	data.sprite->setPosition(data.position);
 }
 Asset::~Asset()
 {	
-	if (sprite != nullptr)
+	if (data.sprite != nullptr)
 	{
-		delete sprite;
-		sprite = nullptr;
+		delete data.sprite;
+		data.sprite = nullptr;
 	}
 }
 bool Asset::setUpSprite(const std::string& filePath)
 {
-	if (texture == nullptr) {
-		texture = new sf::Texture();
+	if (data.texture == nullptr) {
+		data.texture = new sf::Texture();
 		isTextureCreator = true;
 	}
-	if (!texture->loadFromFile(filePath))
+	if (!data.texture->loadFromFile(filePath))
 	{
 		return false;
 	}
 	//texture.setSmooth(true);
-	sprite = new sf::Sprite(*texture);
-	sprite->setTextureRect(size);
+	data.sprite = new sf::Sprite(*data.texture);
+	data.sprite->setTextureRect(data.size);
 	return true;
 }
 sf::Sprite* Asset::GetSprite() const
 {
-	return sprite;
+	return data.sprite;
 }
 AssetType Asset::GetType() const
 {
-	return assetType;
+	return data.assetType;
 }
 void Asset::deleteSprite()
 {
-	delete sprite;
+	delete data.sprite;
 }

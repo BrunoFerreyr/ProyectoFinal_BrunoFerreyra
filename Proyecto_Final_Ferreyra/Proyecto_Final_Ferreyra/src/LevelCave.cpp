@@ -19,6 +19,11 @@ LevelCave::LevelCave(const std::string& filePath, ResourceManager& resourceManag
 LevelCave::~LevelCave()
 {
 }
+
+void LevelCave::Initialize()
+{
+	PlayBackgroundMusic();
+}
 void LevelCave::LoadCamp()
 {
 	nextMapID = MapID::Camp;

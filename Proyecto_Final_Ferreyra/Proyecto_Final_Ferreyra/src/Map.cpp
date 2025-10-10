@@ -13,6 +13,10 @@ Map::~Map()
 	assets.clear();
 	delete floor;
 }
+
+void Map::Initialize()
+{
+}
 void Map::Update(float deltaTime)
 {
 	//std::cout << "update..." << this << std::endl;
@@ -152,4 +156,8 @@ void Map::EndBattle(bool playerWin,Asset* enemy)
 		nextMapID = MapID::OldWomanHouse;
 		wantsChange = true;
 	}
+}
+void Map::AddSpriteToRender(sf::Sprite* sprite)
+{
+	assets.push_back(sprite);
 }

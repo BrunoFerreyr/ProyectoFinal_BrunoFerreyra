@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "AssetType.h"
+#include "AssetData.h"
 
 class Asset
 {
@@ -14,11 +14,6 @@ public:
 	virtual AssetType GetType() const;
 
 protected:
-	bool haveCollision;
-	sf::Sprite* sprite;
-	sf::Vector2f position;
-	sf::IntRect size;
-	sf::Texture* texture;	
-	AssetType assetType = AssetType::Static;
+	AssetData data;
 	bool isTextureCreator = false;
 };

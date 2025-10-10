@@ -28,6 +28,10 @@ Gameplay::~Gameplay()
 	}
 	maps.clear();
 }
+void Gameplay::Initialize()
+{
+	currentMap->Initialize();
+}
 void Gameplay::Input()
 {
 	pauseManager.Input();
@@ -42,18 +46,12 @@ void Gameplay::Update(float deltaTime)
 {
 	currentMap->Update(deltaTime);
 
-	if (gameStarted == false)
-	{
-		currentMap->PlayBackgroundMusic();
-		gameStarted = true;
-	}
-
 	if (currentMap->wantsChange)
 	{
 		currentMap->wantsChange = false;
 		Map* map = maps.find(currentMap->GetNextMap())->second;
 		currentMap = map;
-		currentMap->PlayBackgroundMusic();
+		currentMap->Initialize();
 		player->SetCurrentMap(currentMap, currentMap->GetPlayerInitPosition());
 		return;
 	}

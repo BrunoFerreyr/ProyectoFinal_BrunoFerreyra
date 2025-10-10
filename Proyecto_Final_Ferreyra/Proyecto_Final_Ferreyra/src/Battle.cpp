@@ -1,6 +1,6 @@
 #include "Battle.h"
 
-Battle::Battle(ResourceManager& resourceManager, int playerLife, int enemyLife, Asset* enemySprite, std::function<void(bool,Asset*)> callback) : playerHealth(playerLife), enemyHealth(enemyLife), callback(callback)
+Battle::Battle(ResourceManager& resourceManager, int playerLife, int enemyLife, Asset* enemySprite, std::function<void(bool&,Asset*)> callback) : playerHealth(playerLife), enemyHealth(enemyLife), callback(callback)
 {
 	playerSprite = new Asset(&resourceManager.GetTexture("../textures/PlayerIdle.png", false, sf::IntRect()), sf::Vector2f({150.0f,400.0f }), sf::IntRect({0,0}, {63,96}), false);
 	this->enemySprite = enemySprite;
@@ -16,6 +16,14 @@ Battle::Battle(ResourceManager& resourceManager, int playerLife, int enemyLife, 
 	roundText->setCharacterSize(40);
 	roundText->setPosition({ 500.0f, 170.0f });
 
+	timeBar = new Bar(&resourceManager.GetTexture("../textures/battle/barTimer.png", false, sf::IntRect()), sf::IntRect({ 0,0 }, { 194,44 }), 194);
+	timeBar->GetBar()->GetSprite()->setPosition({ 540.0f, 100.0f });
+
+	for (int i = 0; i < 3; i++)
+	{
+		Asset* keyAsset = new Asset(&resourceManager.GetTexture("../textures/battle/keyButton.png", false, sf::IntRect()), sf::Vector2f({ 400.0f + (200 * i),300.0f}), sf::IntRect({0,0}, {64,64}), false);
+		keysAssets.push_back(keyAsset);
+	}
 	allKeysChar = { 'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z' };
 	allKeys = { sf::Keyboard::Key::A, sf::Keyboard::Key::B, sf::Keyboard::Key::C, sf::Keyboard::Key::D, sf::Keyboard::Key::E,
 				sf::Keyboard::Key::F, sf::Keyboard::Key::G, sf::Keyboard::Key::H, sf::Keyboard::Key::I, sf::Keyboard::Key::J,
@@ -38,6 +46,11 @@ Battle::~Battle()
 	delete enemyText;
 	delete keysText;
 	delete roundText;
+	delete timeBar;
+	for (auto keyAsset : keysAssets)
+	{
+		delete keyAsset;
+	}
 }
 
 void Battle::StartBattle()
@@ -45,10 +58,21 @@ void Battle::StartBattle()
 }
 void Battle::EndBattle()
 {
-
+	battleActive = false;
+	callback(playerWins, enemySprite);
 }
 void Battle::Update(float deltaTime)
 {
+	if (battleEnded)
+	{
+		waitCounter += deltaTime;
+		if (waitCounter >= waitLimit)
+		{
+			EndBattle();
+		}
+		return;
+	}
+
 	if (!battleActive)
 	{
 		return;
@@ -61,6 +85,7 @@ void Battle::Update(float deltaTime)
 			ShowKeys();
 		}
 		counter += deltaTime;
+		timeBar->SetPercentage(100 - (counter * 100) / limitCounter);
 		//HandleEvents(sf::Event());
 		if (counter >= limitCounter)
 		{
@@ -73,7 +98,7 @@ void Battle::Update(float deltaTime)
 	{		
 		waitCounter += deltaTime;
 		if (waitCounter >= waitLimit)
-		{
+		{			
 			shouldTap = true;
 			waitCounter = 0;
 			inputIndex = 0;
@@ -100,12 +125,13 @@ void Battle::Draw(sf::RenderWindow& window)
 		window.draw(*pointsText);
 		return;
 	}
+	for (auto keyAsset : keysAssets)
+	{
+		window.draw(*keyAsset->GetSprite());
+	}
 	window.draw(*roundText);
 	window.draw(*keysText);
-	/*for (auto keySprite : keysSprites)
-	{
-		window.draw(keySprite);
-	}*/
+	window.draw(*timeBar->GetBar()->GetSprite());
 }
 
 void Battle::ShowKeys()
@@ -137,26 +163,23 @@ void Battle::DoAction()
 	if (isAttacking)
 	{
 		enemyHealth -= totalPoints;
-		UpdateStats();
 		//calcular barra enemigo
 		if (enemyHealth <= 0)
 		{
 			enemyHealth = 0;
 			PlayerWin();
-			battleActive = false;
 		}
 	}
 	else
 	{
 		playerHealth -= (enemyDamage - totalPoints);
-		UpdateStats();
 		if (playerHealth <= 0)
 		{
 			playerHealth = 0;
 			PlayerLose();
-			battleActive = false;
 		}
 	}
+	UpdateStats();
 	shouldTap = false;
 }
 void Battle::HandleEvents(const sf::Event& event)
@@ -216,19 +239,13 @@ void Battle::UpdateStats()
 
 void Battle::PlayerWin()
 {
+	battleEnded = true;
+	pointsText->setString("You Win!");
 	playerWins = true;
-	callback(playerWins,enemySprite);
 }
 void Battle::PlayerLose()
 {
+	battleEnded = true;
 	playerWins = false;
-	callback(playerWins, enemySprite);
-}
-bool Battle::IsBattleActive() const
-{
-	return battleActive;
-}
-bool Battle::HavePlayerWon() const
-{
-	return playerWins;
+	pointsText->setString("You Lose!");
 }

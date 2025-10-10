@@ -3,7 +3,7 @@ InteractableAsset::InteractableAsset(sf::Texture* texture, const sf::Vector2f po
 	: Asset(texture, pos, size, collision)
 {
 	SetOnTriggerInteract(std::move(func));
-	this->assetType = AssetType::Interactable;
+	this->data.assetType = AssetType::Interactable;
 }
 InteractableAsset::~InteractableAsset()
 {

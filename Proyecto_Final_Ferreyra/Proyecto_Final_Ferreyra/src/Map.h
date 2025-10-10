@@ -16,6 +16,7 @@ public:
 	Map(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog, AudioManager& audioManager);
 	virtual ~Map() = 0;
 
+	virtual void Initialize() = 0;
 	void Update(float deltaTime);
 	void Draw(sf::RenderWindow& window);
 	void HandleEvents(const sf::Event& event);
@@ -32,6 +33,7 @@ public:
 protected:	
 	
 	void SetPlayerInitPosition(const sf::Vector2f pos);
+	void AddSpriteToRender(sf::Sprite* sprite);
 	std::vector<sf::Sprite*> assets;
 	std::vector<Asset*> assetsObjects;
 	//Map* nextMap;

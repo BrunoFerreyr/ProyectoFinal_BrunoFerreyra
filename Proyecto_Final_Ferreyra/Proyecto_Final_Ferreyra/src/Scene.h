@@ -8,6 +8,7 @@ public:
 	Scene(sf::RenderWindow& window);
 	virtual ~Scene();
 
+	virtual void Initialize();
 	virtual void Draw() = 0;
 	virtual void Update(float deltaTime) = 0;
 	virtual void Input() = 0;

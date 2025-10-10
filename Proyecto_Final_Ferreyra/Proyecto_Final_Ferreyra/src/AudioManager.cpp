@@ -1,8 +1,9 @@
 #include "AudioManager.h"
 
-AudioManager::AudioManager()	
+AudioManager::AudioManager()
 {
 	// Inicializar volúmenes predeterminados
+	actualMusicPath = "";
 	musicVolume = 50.f;
 	sfxVolume = 50.f;
 }
@@ -19,6 +20,12 @@ void AudioManager::PlayMusic(std::string& path) {
 	/*if (currentMusic != nullptr && currentMusic->getStatus() == sf::Music::Status::Playing) {
 		currentMusic->stop();
 	}*/
+	if (actualMusicPath == path && currentMusic.getStatus() == sf::Music::Status::Playing)
+	{
+		return;
+	}
+
+	actualMusicPath = path;
 	if (currentMusic.getStatus() == sf::Music::Status::Playing)
 	{
 		currentMusic.stop();

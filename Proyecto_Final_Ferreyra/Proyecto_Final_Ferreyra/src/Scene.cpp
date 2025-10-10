@@ -7,6 +7,9 @@ Scene::Scene(sf::RenderWindow& window) : window(window)
 Scene::~Scene()
 {
 }
+void Scene::Initialize()
+{
+}
 SceneID Scene::GetNextSceneID() const
 {
 	return nextSceneID;

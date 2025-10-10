@@ -91,8 +91,9 @@ void Game::Update()
 	{
 		currentScene->SetWantsChange(false);
 		//std::cout << (int)currentScene->GetNextSceneID();
-
+		
 		currentScene = scenes.find(currentScene->GetNextSceneID())->second;
+		currentScene->Initialize();
 	}
 }
 void Game::Draw() 
