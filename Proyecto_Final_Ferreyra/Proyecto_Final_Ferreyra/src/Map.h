@@ -28,7 +28,7 @@ public:
 	sf::Vector2f GetPlayerInitPosition();
 	virtual void PlayBackgroundMusic();
 	bool GetIsInBattle() const;
-	void EndBattle(bool playerWin, Asset*);
+	void EndBattle(bool playerWin, int enemyID);
 
 protected:	
 	
@@ -42,7 +42,7 @@ protected:
 
 	sf::Vector2f playerInitPosition;
 	std::vector<Asset*> changeMapCollisions;
-
+	std::map<int, Asset*> enemyAssets;
 	sf::Sprite* floor;
 	sf::Texture	textureFloor;
 	Dialog* dialog;

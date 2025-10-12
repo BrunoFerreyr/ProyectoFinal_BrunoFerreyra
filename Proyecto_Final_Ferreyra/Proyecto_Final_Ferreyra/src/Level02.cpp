@@ -22,6 +22,7 @@ Level02::Level02(const std::string& filePath, ResourceManager& resourceManager, 
 	{
 		AddSpriteToRender(asset->GetSprite());
 	}
+	enemyAssets[1] = nullptr; // Enemy ID 1
 }
 
 Level02::~Level02()
@@ -30,12 +31,17 @@ Level02::~Level02()
 void Level02::Initialize()
 {
 	PlayBackgroundMusic();
-	if (enemyBat == nullptr) 
+	for (auto& pair : enemyAssets)
 	{
-		enemyBat = new TriggerAsset(&resourceManager.GetTexture("../textures/Enemy.png", false, sf::IntRect()), sf::Vector2f{ 900.0f, 400.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(120, 130)), true, [this]() { this->LoadBattle(20, enemyBat); });
-		assetsObjects.push_back(enemyBat);
-		AddSpriteToRender(enemyBat->GetSprite());
+		if (pair.second == nullptr)
+		{			
+			int enemyID = pair.first;
+			pair.second = new TriggerAsset(&resourceManager.GetTexture("../textures/Enemy.png", false, sf::IntRect()), sf::Vector2f{ 900.0f, 400.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(120, 130)), true, [this, enemyID]() { this->LoadBattle(20, enemyID); });
+			assetsObjects.push_back(pair.second);
+			AddSpriteToRender(pair.second->GetSprite());
+		}
 	}
+	
 }
 void Level02::LoadHouse()
 {
@@ -60,9 +66,10 @@ void Level02::LoadWoods01()
 	//necesito agregar todas las escenas en map current scenes.
 	//tener un enum con los nombres, y adentro de cada coso pones current dependiendo de a donde va
 }
-void Level02::LoadBattle(int enemyLife, Asset* enemy)
+void Level02::LoadBattle(int enemyLife, int enemyID)
 {
-	battle = new Battle(resourceManager, 20, enemyLife, enemy, [this](bool& playerWin, Asset* enemy) {this->EndBattle(playerWin, enemy); });
+	Asset* enemy = enemyAssets[enemyID];
+	battle = new Battle(resourceManager, 20, enemyLife, enemy, [this, enemyID](bool& playerWin, Asset* enemy) {this->EndBattle(playerWin, enemyID); });
 	std::string musicPath = "../audios/battleMusic.ogg";
 	audioManager->PlayMusic(musicPath);
 	//dynamic_cast<TriggerAsset*>(enemyBat)->SetCollision(false);

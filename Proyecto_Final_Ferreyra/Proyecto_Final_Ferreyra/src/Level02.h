@@ -17,6 +17,6 @@ private:
 	void LoadHouse();
 	void LoadCave();
 	void LoadWoods01();
-	void LoadBattle(int enemyLife, Asset* enemy);
+	void LoadBattle(int enemyLife, int enemyID);
 };
 

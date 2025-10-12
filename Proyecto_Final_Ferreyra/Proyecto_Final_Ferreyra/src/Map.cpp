@@ -137,7 +137,7 @@ bool Map::GetIsInBattle() const
 {
 	return isInBattle;
 }
-void Map::EndBattle(bool playerWin,Asset* enemy)
+void Map::EndBattle(bool playerWin,int enemyID)
 {
 	isInBattle = false;
 	delete battle;
@@ -145,9 +145,11 @@ void Map::EndBattle(bool playerWin,Asset* enemy)
 	if (playerWin)
 	{
 		std::cout << "You won the battle!" << std::endl;
-		assetsObjects.erase(std::remove(assetsObjects.begin(), assetsObjects.end(), enemy), assetsObjects.end());
-		assets.erase(std::remove(assets.begin(), assets.end(), enemy->GetSprite()), assets.end());
-		delete enemy;
+		
+		assetsObjects.erase(std::remove(assetsObjects.begin(), assetsObjects.end(), enemyAssets[enemyID]), assetsObjects.end());
+		assets.erase(std::remove(assets.begin(), assets.end(), enemyAssets[enemyID]->GetSprite()), assets.end());
+		delete enemyAssets[enemyID];
+		enemyAssets[enemyID] = nullptr;
 		PlayBackgroundMusic();
 	}
 	else
