@@ -43,6 +43,7 @@ protected:
 	sf::Vector2f playerInitPosition;
 	std::vector<Asset*> changeMapCollisions;
 	std::map<int, Asset*> enemyAssets;
+	std::map<int, sf::Vector2f> enemyPositions;
 	sf::Sprite* floor;
 	sf::Texture	textureFloor;
 	Dialog* dialog;

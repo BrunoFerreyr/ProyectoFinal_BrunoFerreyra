@@ -5,10 +5,11 @@
 #include "ResourceManager.h"
 #include "Asset.h"
 #include "Bar.h"
+#include "BattleData.h"
 class Battle
 {
 public:
-	Battle(ResourceManager& resourceManager,int playerLife, int enemyLife, Asset* enemySprite, std::function<void(bool&,Asset*)> callback);
+	Battle(ResourceManager& resourceManager,int playerLife, const BattleData& data, std::function<void(bool&,int)> callback);
 	~Battle();
 
 	void Update(float deltaTime);
@@ -34,11 +35,9 @@ private:
 	bool shouldTap = false;
 	bool isAttacking = false;
 	float counter = 0.0f;
-	float limitCounter = 3.0f;
 	float waitCounter = 0.0f;
 	float waitLimit = 1.0f;
 	Asset* playerSprite;
-	Asset* enemySprite;
 	Asset* playerLifeSprite;
 	Asset* enemyLifeSprite;
 	std::vector<sf::Keyboard::Key> correctKeys;
@@ -51,11 +50,10 @@ private:
 	std::vector<sf::Keyboard::Key> allKeys;
 	int totalPoints = 0;
 	int keyPointValue = 4;
-	int enemyDamage = 14;
 	int inputIndex = 0;
-	int totalInputs = 3;
 	int playerHealth = 100;
-	int enemyHealth = 100;
+	int enemyHealth = 0;
+	BattleData battleData;
 	sf::Font font;
 	sf::Text* pointsText;
 	sf::Text* playerText;
@@ -63,6 +61,6 @@ private:
 	sf::Text* keysText;//DO Vector.
 	sf::Text* roundText;
 	Bar* timeBar;
-	std::function<void(bool&,Asset*)> callback;
+	std::function<void(bool&,int)> callback;
 };
 

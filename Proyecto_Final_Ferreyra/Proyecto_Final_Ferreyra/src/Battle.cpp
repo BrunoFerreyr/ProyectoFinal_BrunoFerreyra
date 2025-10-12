@@ -1,11 +1,11 @@
 #include "Battle.h"
 
-Battle::Battle(ResourceManager& resourceManager, int playerLife, int enemyLife, Asset* enemySprite, std::function<void(bool&,Asset*)> callback) : playerHealth(playerLife), enemyHealth(enemyLife), callback(callback)
+Battle::Battle(ResourceManager& resourceManager, int playerLife, const BattleData& data, std::function<void(bool&,int)> callback) : playerHealth(playerLife), battleData(data), callback(callback)
 {
 	playerSprite = new Asset(&resourceManager.GetTexture("../textures/PlayerIdle.png", false, sf::IntRect()), sf::Vector2f({150.0f,400.0f }), sf::IntRect({0,0}, {63,96}), false);
-	this->enemySprite = enemySprite;
 	//playerLifeSprite = new Asset(&resourceManager.GetTexture("../textures/PlayerIdle.png", false, sf::IntRect()), sf::Vector2f({ 0.0f,0.0f }), sf::IntRect({ 0,0 }, { 378,768 }), false);
 	//enemyLifeSprite = new Asset(&resourceManager.GetTexture("../textures/PlayerIdle.png", false, sf::IntRect()), sf::Vector2f({ 0.0f,0.0f }), sf::IntRect({ 0,0 }, { 378,768 }), false);
+	enemyHealth = battleData.enemyHealth;
 
 	font = resourceManager.GetFont("../fonts/dogicapixel.ttf");	
 	pointsText = new sf::Text(font);
@@ -59,7 +59,7 @@ void Battle::StartBattle()
 void Battle::EndBattle()
 {
 	battleActive = false;
-	callback(playerWins, enemySprite);
+	callback(playerWins,battleData.enemyID);
 }
 void Battle::Update(float deltaTime)
 {
@@ -85,9 +85,9 @@ void Battle::Update(float deltaTime)
 			ShowKeys();
 		}
 		counter += deltaTime;
-		timeBar->SetPercentage(100 - (counter * 100) / limitCounter);
+		timeBar->SetPercentage(100 - (counter * 100) / battleData.limitCounter);
 		//HandleEvents(sf::Event());
-		if (counter >= limitCounter)
+		if (counter >= battleData.limitCounter)
 		{
 			shouldTap = false;
 			counter = 0;
@@ -115,7 +115,7 @@ void Battle::Draw(sf::RenderWindow& window)
 	}
 
 	window.draw(*playerSprite->GetSprite());
-	window.draw(*enemySprite->GetSprite());
+	window.draw(*battleData.enemySprite);
 	//window.draw(*playerLifeSprite->GetSprite());
 	//window.draw(*enemyLifeSprite->GetSprite());
 	window.draw(*playerText);
@@ -146,7 +146,7 @@ void Battle::ShowKeys()
 
 	roundText->setString(isAttacking ? "Defending" : "Attacking");
 	//keysSprites.clear();
-	for (int i = 0; i < totalInputs; i++)
+	for (int i = 0; i < battleData.totalInputs; i++)
 	{
 		int randomIndex = rand() % allKeys.size();
 		keysChar.push_back(allKeysChar[randomIndex]);
@@ -172,7 +172,7 @@ void Battle::DoAction()
 	}
 	else
 	{
-		playerHealth -= (enemyDamage - totalPoints);
+		playerHealth -= (battleData.enemyDamage - totalPoints);
 		if (playerHealth <= 0)
 		{
 			playerHealth = 0;
@@ -194,16 +194,16 @@ void Battle::HandleEvents(const sf::Event& event)
 		{
 			totalPoints += keyPointValue;
 			inputIndex++;
-			if (inputIndex >= totalInputs)
+			if (inputIndex >= battleData.totalInputs)
 			{
-				counter = limitCounter;
+				counter = battleData.limitCounter;
 				inputIndex = 0;
 			}
 		}
 		else
 		{			
 			totalPoints = isAttacking? totalPoints + keyPointValue : totalPoints - keyPointValue/2;
-			counter = limitCounter;
+			counter = battleData.limitCounter;
 		}
 		
 	}
@@ -225,7 +225,7 @@ void Battle::UpdateStats()
 	{
 		pointsText->setFillColor(sf::Color::Green);
 		pointsText->setPosition({ 450.0f, 50.0f });
-		pointsText->setString("Damage receibed: " + std::to_string(enemyDamage - totalPoints));
+		pointsText->setString("Damage receibed: " + std::to_string(battleData.enemyDamage - totalPoints));
 	}
 
 	playerText->setCharacterSize(24);

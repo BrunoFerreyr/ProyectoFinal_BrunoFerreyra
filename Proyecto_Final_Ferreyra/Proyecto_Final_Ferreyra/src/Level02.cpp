@@ -23,6 +23,9 @@ Level02::Level02(const std::string& filePath, ResourceManager& resourceManager, 
 		AddSpriteToRender(asset->GetSprite());
 	}
 	enemyAssets[1] = nullptr; // Enemy ID 1
+	enemyPositions[1] = { 900.0f, 400.0f };
+	enemyAssets[2] = nullptr; // Enemy ID 2
+	enemyPositions[2] = { 600.0f, 300.0f };
 }
 
 Level02::~Level02()
@@ -36,9 +39,10 @@ void Level02::Initialize()
 		if (pair.second == nullptr)
 		{			
 			int enemyID = pair.first;
-			pair.second = new TriggerAsset(&resourceManager.GetTexture("../textures/Enemy.png", false, sf::IntRect()), sf::Vector2f{ 900.0f, 400.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(120, 130)), true, [this, enemyID]() { this->LoadBattle(20, enemyID); });
+			pair.second = new TriggerAsset(&resourceManager.GetTexture("../textures/Enemy.png", false, sf::IntRect()), enemyPositions[enemyID], sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(120, 130)), true, [this, enemyID]() { this->LoadBattle(20, enemyID); });
 			assetsObjects.push_back(pair.second);
 			AddSpriteToRender(pair.second->GetSprite());
+			//DO ver de sacar pausa durante pelea, testear con debug.
 		}
 	}
 	
@@ -69,7 +73,8 @@ void Level02::LoadWoods01()
 void Level02::LoadBattle(int enemyLife, int enemyID)
 {
 	Asset* enemy = enemyAssets[enemyID];
-	battle = new Battle(resourceManager, 20, enemyLife, enemy, [this, enemyID](bool& playerWin, Asset* enemy) {this->EndBattle(playerWin, enemyID); });
+	BattleData data = { enemy->GetSprite(), 3, 20, enemyLife, 3, enemyID };
+	battle = new Battle(resourceManager, 20, data, [this, enemyID](bool& playerWin, int enemyID) {this->EndBattle(playerWin, enemyID); });
 	std::string musicPath = "../audios/battleMusic.ogg";
 	audioManager->PlayMusic(musicPath);
 	//dynamic_cast<TriggerAsset*>(enemyBat)->SetCollision(false);

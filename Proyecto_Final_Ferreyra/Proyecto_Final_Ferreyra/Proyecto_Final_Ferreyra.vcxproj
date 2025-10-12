@@ -47,6 +47,7 @@
     <ClInclude Include="src\AudioManager.h" />
     <ClInclude Include="src\Bar.h" />
     <ClInclude Include="src\Battle.h" />
+    <ClInclude Include="src\BattleData.h" />
     <ClInclude Include="src\Dialog.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\Gameplay.h" />
