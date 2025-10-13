@@ -38,6 +38,10 @@ void Pause::Draw()
 
 void Pause::HandleEvents(const sf::Event& event)
 {
+	if (isOnBattle) 
+	{
+		return;
+	}
 	if (const auto* key = event.getIf<sf::Event::KeyPressed>()) 
 	{
 		if (key->scancode == sf::Keyboard::Scancode::P) 
@@ -92,4 +96,8 @@ void Pause::PauseGame()
 void Pause::UnpauseGame()
 {
 	gamePaused = false;
+}
+void Pause::SetIsOnBattle(bool onBattle)
+{
+	isOnBattle = onBattle;
 }

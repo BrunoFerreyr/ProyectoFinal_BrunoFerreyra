@@ -17,7 +17,7 @@ public:
 	bool GetGamePaused();
 	void PauseGame();
 	void UnpauseGame();
-
+	void SetIsOnBattle(bool onBattle);
 private:
 
 	Scene*& currentScene;
@@ -29,5 +29,6 @@ private:
 	sf::Sprite* mainMenuButton;
 
 	bool gamePaused;
+	bool isOnBattle = false;
 };
 

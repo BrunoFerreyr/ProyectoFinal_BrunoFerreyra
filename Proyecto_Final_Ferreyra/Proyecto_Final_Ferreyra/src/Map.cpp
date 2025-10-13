@@ -155,6 +155,7 @@ void Map::EndBattle(bool playerWin,int enemyID)
 	else
 	{
 		std::cout << "You lose the battle!" << std::endl;
+		SetPlayerInitPosition({ 950.0f, 100.0f });
 		nextMapID = MapID::OldWomanHouse;
 		wantsChange = true;
 	}

@@ -80,7 +80,16 @@ void Gameplay::HandleEvents(const sf::Event& event)
 {
 	pauseManager.HandleEvents(event);
 	currentMap->HandleEvents(event);
-	if (pauseManager.GetGamePaused() || currentMap->GetIsInBattle())
+	if (currentMap->GetIsInBattle())
+	{
+		pauseManager.SetIsOnBattle(true);
+		return;
+	}
+	else
+	{
+		pauseManager.SetIsOnBattle(false);//DO
+	}
+	if (pauseManager.GetGamePaused())
 	{ 
 		return;
 	}
