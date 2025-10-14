@@ -11,7 +11,6 @@ Battle::Battle(ResourceManager& resourceManager, int playerLife, const BattleDat
 	pointsText = new sf::Text(font);
 	playerText = new sf::Text(font);
 	enemyText = new sf::Text(font);
-	keysText = new sf::Text(font);
 	roundText = new sf::Text(font);
 	roundText->setCharacterSize(40);
 	roundText->setPosition({ 500.0f, 170.0f });
@@ -19,9 +18,23 @@ Battle::Battle(ResourceManager& resourceManager, int playerLife, const BattleDat
 	timeBar = new Bar(&resourceManager.GetTexture("../textures/battle/barTimer.png", false, sf::IntRect()), sf::IntRect({ 0,0 }, { 194,44 }), 194);
 	timeBar->GetBar()->GetSprite()->setPosition({ 540.0f, 100.0f });
 
-	for (int i = 0; i < 3; i++)
+	float buttonWidth = 64.0f;
+	float spacing = 200.0f; // Espacio entre botones
+	int numButtons = battleData.totalInputs; // O el valor que corresponda
+
+	// Calcula el centro de la pantalla (ajusta según tu resolución)
+	float centerX = 640.0f; // Por ejemplo, para una pantalla de 1280x720
+	float startX = centerX - ((numButtons - 1) * spacing) / 2.0f;
+	for (int i = 0; i < battleData.totalInputs; i++)
 	{
-		Asset* keyAsset = new Asset(&resourceManager.GetTexture("../textures/battle/keyButton.png", false, sf::IntRect()), sf::Vector2f({ 400.0f + (200 * i),300.0f}), sf::IntRect({0,0}, {64,64}), false);
+		float x = startX + i * spacing;
+		Asset* keyAsset = new Asset(&resourceManager.GetTexture("../textures/battle/keyButton.png", false, sf::IntRect()), sf::Vector2f({ x,300.0f}), sf::IntRect({0,0}, {64,64}), false);
+		sf::Text* keyText = new sf::Text(font);
+		keyText->setCharacterSize(40);
+		keyText->setFillColor(sf::Color::Black);
+		keyText->setPosition({ x + 16.0f, 310.0f });
+
+		keysText.push_back(keyText);
 		keysAssets.push_back(keyAsset);
 	}
 	allKeysChar = { 'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z' };
@@ -44,17 +57,21 @@ Battle::~Battle()
 	delete pointsText;
 	delete playerText;
 	delete enemyText;
-	delete keysText;
 	delete roundText;
 	delete timeBar;
 	for (auto keyAsset : keysAssets)
 	{
 		delete keyAsset;
 	}
+	for (auto keyText : keysText)
+	{
+		delete keyText;
+	}
 }
 
 void Battle::StartBattle()
 {
+	//crear contador para el comienzo.
 }
 void Battle::EndBattle()
 {
@@ -130,7 +147,10 @@ void Battle::Draw(sf::RenderWindow& window)
 		window.draw(*keyAsset->GetSprite());
 	}
 	window.draw(*roundText);
-	window.draw(*keysText);
+	for (auto keyText : keysText)
+	{
+		window.draw(*keyText);
+	}
 	window.draw(*timeBar->GetBar()->GetSprite());
 }
 
@@ -138,11 +158,6 @@ void Battle::ShowKeys()
 {
 	keysChar.clear();
 	correctKeys.clear();
-
-	keysText->setString("");
-	keysText->setCharacterSize(60);
-	keysText->setFillColor(sf::Color::Cyan);
-	keysText->setPosition({ 470.0f, 300.0f });
 
 	roundText->setString(isAttacking ? "Defending" : "Attacking");
 	//keysSprites.clear();
@@ -152,7 +167,7 @@ void Battle::ShowKeys()
 		keysChar.push_back(allKeysChar[randomIndex]);
 		correctKeys.push_back(allKeys[randomIndex]);
 		std::cout << allKeysChar[randomIndex] << std::endl;
-		keysText->setString(keysText->getString() + allKeysChar[randomIndex] + "   ");
+		keysText[i]->setString(allKeysChar[randomIndex]);
 	}
 }
 
@@ -167,7 +182,9 @@ void Battle::DoAction()
 		if (enemyHealth <= 0)
 		{
 			enemyHealth = 0;
-			PlayerWin();
+			playerWins = true;
+			battleEnded = true;
+			//PlayerWin();
 		}
 	}
 	else
@@ -176,10 +193,11 @@ void Battle::DoAction()
 		if (playerHealth <= 0)
 		{
 			playerHealth = 0;
-			PlayerLose();
+			battleEnded = true;
+			//PlayerLose();
 		}
 	}
-	UpdateStats();
+	UpdateStats();	
 	shouldTap = false;
 }
 void Battle::HandleEvents(const sf::Event& event)
@@ -235,17 +253,18 @@ void Battle::UpdateStats()
 	enemyText->setCharacterSize(24);
 	enemyText->setString("Enemy: " + std::to_string(enemyHealth));
 	enemyText->setPosition({ 1000.0f, 50.0f });
-}
 
-void Battle::PlayerWin()
-{
-	battleEnded = true;
-	pointsText->setString("You Win!");
-	playerWins = true;
-}
-void Battle::PlayerLose()
-{
-	battleEnded = true;
-	playerWins = false;
-	pointsText->setString("You Lose!");
+	if (battleEnded) 
+	{
+		if (playerWins) 
+		{
+			pointsText->setFillColor(sf::Color::Green);
+			pointsText->setString("You Win!");
+		}
+		else 
+		{
+			pointsText->setFillColor(sf::Color::Red);
+			pointsText->setString("You Lose!");
+		}
+	}
 }

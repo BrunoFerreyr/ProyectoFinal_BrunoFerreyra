@@ -146,10 +146,10 @@ void Map::EndBattle(bool playerWin,int enemyID)
 	{
 		std::cout << "You won the battle!" << std::endl;
 		
-		assetsObjects.erase(std::remove(assetsObjects.begin(), assetsObjects.end(), enemyAssets[enemyID]), assetsObjects.end());
-		assets.erase(std::remove(assets.begin(), assets.end(), enemyAssets[enemyID]->GetSprite()), assets.end());
-		delete enemyAssets[enemyID];
-		enemyAssets[enemyID] = nullptr;
+		assetsObjects.erase(std::remove(assetsObjects.begin(), assetsObjects.end(), enemiesAsset[enemyID]), assetsObjects.end());
+		assets.erase(std::remove(assets.begin(), assets.end(), enemiesAsset[enemyID]->GetSprite()), assets.end());
+		delete enemiesAsset[enemyID];
+		enemiesAsset[enemyID] = nullptr;
 		PlayBackgroundMusic();
 	}
 	else

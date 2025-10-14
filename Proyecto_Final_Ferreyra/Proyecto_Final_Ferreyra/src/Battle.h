@@ -26,8 +26,7 @@ private:
 	//sf::Keyboard::Key charToKey(char keyChar) const;
 	sf::Keyboard::Key GetCorrectKey() const;
 	void UpdateStats();
-	void PlayerWin();
-	void PlayerLose();
+
 
 	bool battleEnded = false;
 	bool playerWins = false;
@@ -36,7 +35,7 @@ private:
 	bool isAttacking = false;
 	float counter = 0.0f;
 	float waitCounter = 0.0f;
-	float waitLimit = 1.0f;
+	float waitLimit = 3.0f;
 	Asset* playerSprite;
 	Asset* playerLifeSprite;
 	Asset* enemyLifeSprite;
@@ -58,7 +57,7 @@ private:
 	sf::Text* pointsText;
 	sf::Text* playerText;
 	sf::Text* enemyText;
-	sf::Text* keysText;//DO Vector.
+	std::vector<sf::Text*> keysText;
 	sf::Text* roundText;
 	Bar* timeBar;
 	std::function<void(bool&,int)> callback;

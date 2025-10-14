@@ -24,6 +24,7 @@
     <ClCompile Include="src\Bar.cpp" />
     <ClCompile Include="src\Battle.cpp" />
     <ClCompile Include="src\Dialog.cpp" />
+    <ClCompile Include="src\EnemyAsset.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Gameplay.cpp" />
     <ClCompile Include="src\InteractableAsset.cpp" />
@@ -49,6 +50,7 @@
     <ClInclude Include="src\Battle.h" />
     <ClInclude Include="src\BattleData.h" />
     <ClInclude Include="src\Dialog.h" />
+    <ClInclude Include="src\EnemyAsset.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\Gameplay.h" />
     <ClInclude Include="src\InteractableAsset.h" />

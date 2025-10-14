@@ -4,6 +4,7 @@
 #include "Asset.h"
 #include "TriggerAsset.h" 
 #include "InteractableAsset.h"
+#include "EnemyAsset.h"
 #include "ResourceManager.h"
 #include "AudioManager.h"
 #include "Dialog.h"
@@ -42,8 +43,9 @@ protected:
 
 	sf::Vector2f playerInitPosition;
 	std::vector<Asset*> changeMapCollisions;
-	std::map<int, Asset*> enemyAssets;
-	std::map<int, sf::Vector2f> enemyPositions;
+	std::map<int, EnemyAsset*> enemiesAsset;
+	std::map<int, sf::Vector2f> enemiesPosition;
+	std::map<int, BattleData> enemiesData;
 	sf::Sprite* floor;
 	sf::Texture	textureFloor;
 	Dialog* dialog;

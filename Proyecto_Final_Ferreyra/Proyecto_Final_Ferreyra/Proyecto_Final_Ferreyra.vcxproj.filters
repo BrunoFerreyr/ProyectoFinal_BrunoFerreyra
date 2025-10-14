@@ -75,6 +75,9 @@
     <ClCompile Include="src\Bar.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="src\EnemyAsset.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game.h">
@@ -150,6 +153,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="src\BattleData.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EnemyAsset.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
