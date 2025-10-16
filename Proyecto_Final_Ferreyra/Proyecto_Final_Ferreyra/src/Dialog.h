@@ -21,4 +21,5 @@ private:
 	int currentDialogIndex;
 	int finishDialogIndex;
 	sf::Font font;
+	std::function<void()> callback;
 };

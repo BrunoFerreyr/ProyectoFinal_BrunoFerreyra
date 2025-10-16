@@ -1,6 +1,6 @@
 #include "Map.h"
 
-Map::Map(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog, AudioManager& AudioManager) :dialog(&dialog), audioManager(&AudioManager), resourceManager(resourceManager)
+Map::Map(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog, AudioManager& AudioManager, MissionsManager& missionsManager) :dialog(&dialog), audioManager(&AudioManager), resourceManager(resourceManager), missionsManager(&missionsManager)
 {	
 }
 Map::~Map()

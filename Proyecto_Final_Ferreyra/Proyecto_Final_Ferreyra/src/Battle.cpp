@@ -14,7 +14,7 @@ Battle::Battle(ResourceManager& resourceManager, int playerLife, const BattleDat
 	roundText = new sf::Text(font);
 	roundText->setCharacterSize(40);
 	roundText->setPosition({ 500.0f, 170.0f });
-
+	battleData.enemySprite->setPosition({ 900.0f, 350.0f });
 	timeBar = new Bar(&resourceManager.GetTexture("../textures/battle/barTimer.png", false, sf::IntRect()), sf::IntRect({ 0,0 }, { 194,44 }), 194);
 	timeBar->GetBar()->GetSprite()->setPosition({ 540.0f, 100.0f });
 
@@ -80,6 +80,23 @@ void Battle::EndBattle()
 }
 void Battle::Update(float deltaTime)
 {
+	if (!battleStarted)
+	{
+		if (waitCounter == 0) 
+		{
+			pointsText->setString("Battle is starting");
+		}
+
+		waitCounter += deltaTime;
+		if (waitCounter >= timeToStart)
+		{
+			waitCounter = 0;
+			battleStarted = true;
+			shouldTap = true;
+		}
+		return;
+	}
+
 	if (battleEnded)
 	{
 		waitCounter += deltaTime;
@@ -177,6 +194,10 @@ void Battle::DoAction()
 	isAttacking = !isAttacking;
 	if (isAttacking)
 	{
+		if (totalPoints < 0)
+		{ 
+			totalPoints = 0;
+		}
 		enemyHealth -= totalPoints;
 		//calcular barra enemigo
 		if (enemyHealth <= 0)
@@ -189,6 +210,11 @@ void Battle::DoAction()
 	}
 	else
 	{
+		if (totalPoints > battleData.enemyDamage) 
+		{
+			totalPoints = battleData.enemyDamage - 2;
+		}
+
 		playerHealth -= (battleData.enemyDamage - totalPoints);
 		if (playerHealth <= 0)
 		{
@@ -211,17 +237,27 @@ void Battle::HandleEvents(const sf::Event& event)
 		if (keyEvent->code == GetCorrectKey())
 		{
 			totalPoints += keyPointValue;
+			keysText[inputIndex]->setString("");
+			keysAssets[inputIndex]->GetSprite()->setColor(sf::Color::Green);
 			inputIndex++;
 			if (inputIndex >= battleData.totalInputs)
 			{
 				counter = battleData.limitCounter;
 				inputIndex = 0;
+				for (auto keyAsset : keysAssets)
+				{
+					keyAsset->GetSprite()->setColor(sf::Color::White);
+				}
 			}
 		}
 		else
 		{			
 			totalPoints = isAttacking? totalPoints + keyPointValue : totalPoints - keyPointValue/2;
 			counter = battleData.limitCounter;
+			for (auto keyAsset : keysAssets)
+			{
+				keyAsset->GetSprite()->setColor(sf::Color::White);
+			}
 		}
 		
 	}

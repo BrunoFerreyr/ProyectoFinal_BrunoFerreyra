@@ -23,6 +23,7 @@
     <ClCompile Include="src\AudioManager.cpp" />
     <ClCompile Include="src\Bar.cpp" />
     <ClCompile Include="src\Battle.cpp" />
+    <ClCompile Include="src\CollectablesUI.cpp" />
     <ClCompile Include="src\Dialog.cpp" />
     <ClCompile Include="src\EnemyAsset.cpp" />
     <ClCompile Include="src\Game.cpp" />
@@ -34,6 +35,7 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\MainMenu.cpp" />
     <ClCompile Include="src\Map.cpp" />
+    <ClCompile Include="src\MissionsManager.cpp" />
     <ClCompile Include="src\Pause.cpp" />
     <ClCompile Include="src\PlayerAnimations.cpp" />
     <ClCompile Include="src\TriggerAsset.cpp" />
@@ -49,6 +51,7 @@
     <ClInclude Include="src\Bar.h" />
     <ClInclude Include="src\Battle.h" />
     <ClInclude Include="src\BattleData.h" />
+    <ClInclude Include="src\CollectablesUI.h" />
     <ClInclude Include="src\Dialog.h" />
     <ClInclude Include="src\EnemyAsset.h" />
     <ClInclude Include="src\Game.h" />
@@ -58,8 +61,10 @@
     <ClInclude Include="src\Level02.h" />
     <ClInclude Include="src\LevelCave.h" />
     <ClInclude Include="src\MainMenu.h" />
+    <ClInclude Include="src\ManagersData.h" />
     <ClInclude Include="src\Map.h" />
     <ClInclude Include="src\MapID.h" />
+    <ClInclude Include="src\MissionsManager.h" />
     <ClInclude Include="src\Pause.h" />
     <ClInclude Include="src\PlayerAnimations.h" />
     <ClInclude Include="src\PlayerState.h" />

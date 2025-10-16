@@ -44,7 +44,6 @@ void Level02::Initialize()
 			pair.second = new EnemyAsset(&resourceManager.GetTexture("../textures/Enemy.png", false, sf::IntRect()), enemiesPosition[enemyID], sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(120, 130)), true, enemiesData[enemyID], [this, enemyID]() { this->LoadBattle(20, enemyID); });
 			assetsObjects.push_back(pair.second);
 			AddSpriteToRender(pair.second->GetSprite());
-			//DO ver de sacar pausa durante pelea, testear con debug.
 		}
 	}
 	

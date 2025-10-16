@@ -27,7 +27,7 @@ private:
 	sf::Keyboard::Key GetCorrectKey() const;
 	void UpdateStats();
 
-
+	bool battleStarted = false;
 	bool battleEnded = false;
 	bool playerWins = false;
 	bool battleActive = false;
@@ -36,6 +36,7 @@ private:
 	float counter = 0.0f;
 	float waitCounter = 0.0f;
 	float waitLimit = 3.0f;
+	float timeToStart = 3.0f;
 	Asset* playerSprite;
 	Asset* playerLifeSprite;
 	Asset* enemyLifeSprite;

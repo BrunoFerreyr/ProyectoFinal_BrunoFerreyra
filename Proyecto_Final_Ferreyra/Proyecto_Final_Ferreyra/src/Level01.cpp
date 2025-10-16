@@ -28,7 +28,6 @@ Level01::Level01(const std::string& filePath, ResourceManager& resourceManager, 
 	nextMapsIDs.push_back(MapID::Camp);
 	SetNextMap(nextMapsIDs[0]);
 
-	//DO Seguir Init, ver de que si esta reproduciendo esa musica, no se vuelva aponer la misma. guardar path por pointer, y si es igual, no reproduce. o pasas solo el nombre e igualas string
 	//audioManager.PlayMusic(musicPath);
 }
 Level01::~Level01()
@@ -45,7 +44,7 @@ void Level01::LoadNextMap()
 }
 void Level01::StartDialog()
 {
-	dialog->Start(0,3);
+	dialog->Start(0,5);
 }
 void Level01::PlayBackgroundMusic()
 {
