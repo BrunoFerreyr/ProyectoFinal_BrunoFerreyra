@@ -3,7 +3,7 @@
 class Level01 : public Map
 {
 public:
-	Level01(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog, AudioManager& audioManager);
+	Level01(const std::string& filePath, ManagersData& managersData);
 	~Level01() override;
 
 	void Initialize() override;

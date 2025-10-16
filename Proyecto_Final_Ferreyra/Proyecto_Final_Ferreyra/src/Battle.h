@@ -38,6 +38,7 @@ private:
 	float waitLimit = 3.0f;
 	float timeToStart = 3.0f;
 	Asset* playerSprite;
+	sf::Sprite enemySprite;
 	Asset* playerLifeSprite;
 	Asset* enemyLifeSprite;
 	std::vector<sf::Keyboard::Key> correctKeys;

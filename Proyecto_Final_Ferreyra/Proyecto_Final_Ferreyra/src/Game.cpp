@@ -2,6 +2,8 @@
 //IF NOT EXIST "$(TargetDir)res\" MKDIR "$(TargetDir)res\"
 //XCOPY "$(ProjectDir)res\" "$(TargetDir)res\" /e /h /y /s
 //https://alkakrab.itch.io/free-12-tracks-pixel-rpg-game-music-pack
+//https://karsiori.itch.io/pixel-art-key-pack-animated
+//https://craftpix.net/freebies/free-mining-pixel-32x32-icons/?srsltid=AfmBOooNsua5TJ0V6sMYV_OfdhMAg0-ecYfJi1iaSNOii4fPzB8LuLWm
 Game::Game()
 {
 
@@ -20,15 +22,9 @@ void Game::Initialize()
 	srand(time(nullptr));
 
 	CreateWindow();
-	CreateDialog();
+	CreateManagers();
 	CreatePlayer();
-	mainMenu = new MainMenu(*window, resourceManager, audioManager);
-	pauseManager = new Pause(resourceManager, *window, *&currentScene, *&mainMenu);//DO  ver signos
-	gameplay = new Gameplay(*window, resourceManager, player, dialog, *pauseManager, audioManager);
-
-	scenes.emplace(SceneID::MainMenu, mainMenu);
-	scenes.emplace(SceneID::Gameplay, gameplay);
-
+	CreateScenes();
 }
 void Game::GameLoop()
 {
@@ -54,9 +50,11 @@ void Game::CreateWindow()
 	/*sf::View view;
 	view.move({ -200,-200});*/
 }
-void Game::CreateDialog()
+void Game::CreateManagers()
 {
-	dialog = new Dialog(resourceManager);	
+	dialog = new Dialog(resourceManager);
+	collectablesUI = new CollectablesUI(resourceManager, missionsManager);
+	managersData = new ManagersData{ resourceManager, audioManager, missionsManager, dialog, collectablesUI };
 }
 void Game::CreatePlayer()
 {
@@ -64,6 +62,17 @@ void Game::CreatePlayer()
 	sf::Vector2i spriteSheetSize = { 378, 768 };
 	player = new Player(path, spriteSheetSize, resourceManager, dialog);
 }
+void Game::CreateScenes()
+{
+	mainMenu = new MainMenu(*window, resourceManager, audioManager);
+	pauseManager = new Pause(resourceManager, *window, *&currentScene, *&mainMenu);//DO  ver signos
+
+	gameplay = new Gameplay(*window, player, *pauseManager, *managersData);
+
+	scenes.emplace(SceneID::MainMenu, mainMenu);
+	scenes.emplace(SceneID::Gameplay, gameplay);
+}
+
 void Game::Input()
 {
 	HandleEvents();
@@ -113,4 +122,5 @@ void Game::DestroyPlayer()
 {
 	delete player;
 	delete dialog;
+	delete managersData;
 }

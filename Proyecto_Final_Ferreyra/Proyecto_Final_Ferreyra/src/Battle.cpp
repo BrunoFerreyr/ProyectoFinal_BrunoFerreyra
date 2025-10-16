@@ -1,6 +1,6 @@
 #include "Battle.h"
 
-Battle::Battle(ResourceManager& resourceManager, int playerLife, const BattleData& data, std::function<void(bool&,int)> callback) : playerHealth(playerLife), battleData(data), callback(callback)
+Battle::Battle(ResourceManager& resourceManager, int playerLife, const BattleData& data, std::function<void(bool&,int)> callback) : playerHealth(playerLife), battleData(data),enemySprite(*data.enemySprite), callback(callback)
 {
 	playerSprite = new Asset(&resourceManager.GetTexture("../textures/PlayerIdle.png", false, sf::IntRect()), sf::Vector2f({150.0f,400.0f }), sf::IntRect({0,0}, {63,96}), false);
 	//playerLifeSprite = new Asset(&resourceManager.GetTexture("../textures/PlayerIdle.png", false, sf::IntRect()), sf::Vector2f({ 0.0f,0.0f }), sf::IntRect({ 0,0 }, { 378,768 }), false);
@@ -14,7 +14,7 @@ Battle::Battle(ResourceManager& resourceManager, int playerLife, const BattleDat
 	roundText = new sf::Text(font);
 	roundText->setCharacterSize(40);
 	roundText->setPosition({ 500.0f, 170.0f });
-	battleData.enemySprite->setPosition({ 900.0f, 350.0f });
+	enemySprite.setPosition({ 900.0f, 350.0f });
 	timeBar = new Bar(&resourceManager.GetTexture("../textures/battle/barTimer.png", false, sf::IntRect()), sf::IntRect({ 0,0 }, { 194,44 }), 194);
 	timeBar->GetBar()->GetSprite()->setPosition({ 540.0f, 100.0f });
 
@@ -149,7 +149,7 @@ void Battle::Draw(sf::RenderWindow& window)
 	}
 
 	window.draw(*playerSprite->GetSprite());
-	window.draw(*battleData.enemySprite);
+	window.draw(enemySprite);
 	//window.draw(*playerLifeSprite->GetSprite());
 	//window.draw(*enemyLifeSprite->GetSprite());
 	window.draw(*playerText);

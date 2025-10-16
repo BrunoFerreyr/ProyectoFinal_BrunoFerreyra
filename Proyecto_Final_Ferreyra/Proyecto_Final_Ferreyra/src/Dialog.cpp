@@ -36,12 +36,16 @@ Dialog::Dialog(ResourceManager& resourceManager)
 Dialog::~Dialog()
 {
 }
-void Dialog::Start(const int startIndex,const int finishIndex)
+void Dialog::Start(const int startIndex,const int finishIndex, std::function<void()> callback)
 {
 	active = true;
 	//player->SetInDialog(true);
 	currentDialogIndex = startIndex;
 	finishDialogIndex = finishIndex;
+	if (callback != nullptr)
+	{
+		this->callback = callback;
+	}	
 }
 void Dialog::NextDialog()
 {

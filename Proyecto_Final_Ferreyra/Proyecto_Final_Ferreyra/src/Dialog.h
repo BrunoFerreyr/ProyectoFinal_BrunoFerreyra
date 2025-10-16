@@ -10,7 +10,7 @@ public:
 	Dialog(ResourceManager& resourceManager);
 	~Dialog();
 
-	void Start(const int startIndex, const int finishIndex);
+	void Start(const int startIndex, const int finishIndex, std::function<void()> callback);
 	void NextDialog();
 	void Draw(sf::RenderWindow& window);
 	bool IsActive() const;

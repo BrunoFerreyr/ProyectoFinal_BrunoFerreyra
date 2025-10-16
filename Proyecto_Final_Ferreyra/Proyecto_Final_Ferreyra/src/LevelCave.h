@@ -3,7 +3,7 @@
 class LevelCave : public Map
 {
 public:
-	LevelCave(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog, AudioManager& audioManager);
+	LevelCave(const std::string& filePath, ManagersData& managersData);
 	~LevelCave() override;
 
 	void Initialize() override;

@@ -9,7 +9,7 @@
 #include "MainMenu.h"
 #include "Gameplay.h"
 #include "Pause.h"
-#include "AudioManager.h"
+#include "ManagersData.h"
 
 class Game
 {
@@ -24,7 +24,8 @@ private:
 	void GameLoop();
 	void DeInitialize();
 	void CreateWindow();
-	void CreateDialog();
+	void CreateManagers();
+	void CreateScenes();
 	void CreatePlayer();
 	//void CreateMap();
 	void Input();
@@ -41,6 +42,10 @@ private:
 	AudioManager audioManager;
 
 	Dialog* dialog;
+	MissionsManager missionsManager;
+	CollectablesUI* collectablesUI;
+	ManagersData* managersData;
+
 	sf::Font font;
 
 	std::map<SceneID, Scene*> scenes;

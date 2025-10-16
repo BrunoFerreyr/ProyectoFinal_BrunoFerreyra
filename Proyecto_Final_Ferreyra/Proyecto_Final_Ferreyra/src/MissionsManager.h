@@ -13,6 +13,9 @@ public:
 	bool HasWoodsKey() const;
 	bool HasCastleEntranceKey() const;
 	bool HasCastleKey() const;
+	void SetWoodsKey(bool status);
+	void SetCastleEntranceKey(bool status);
+	void SetCastleKey(bool status);
 
 private:
 	bool metalsMission = false;
@@ -21,4 +24,3 @@ private:
 	bool hasCastleEntranceKey = false;
 	bool hasCastleKey = false;
 };
-

@@ -5,17 +5,14 @@
 #include "TriggerAsset.h" 
 #include "InteractableAsset.h"
 #include "EnemyAsset.h"
-#include "ResourceManager.h"
-#include "AudioManager.h"
-#include "MissionsManager.h"
-#include "Dialog.h"
+#include "ManagersData.h"
 #include "MapID.h"
 #include "Battle.h"
 
 class Map
 {
 public:
-	Map(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog, AudioManager& audioManager, MissionsManager& missionsManager);
+	Map(const std::string& filePath, ManagersData& managersData);
 	virtual ~Map() = 0;
 
 	virtual void Initialize() = 0;
@@ -53,7 +50,9 @@ protected:
 	AudioManager* audioManager;
 	Battle* battle;
 	ResourceManager& resourceManager;
-	MissionsManager* missionsManager;
+	MissionsManager& missionsManager;
+	CollectablesUI* collectablesUI;
+	ManagersData* managersData;
 
 	bool isInBattle = false;
 };

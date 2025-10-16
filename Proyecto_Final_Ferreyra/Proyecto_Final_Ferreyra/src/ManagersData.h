@@ -10,6 +10,6 @@ struct ManagersData
 	ResourceManager& resourceManager;
 	AudioManager& audioManager;
 	MissionsManager& missionsManager;
-	Dialog& dialog;
-	CollectablesUI& collectablesUI;
+	Dialog* dialog;
+	CollectablesUI* collectablesUI;
 };

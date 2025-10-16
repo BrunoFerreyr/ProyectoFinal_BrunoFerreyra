@@ -11,7 +11,7 @@
 class Gameplay : public Scene
 {
 public:
-	Gameplay(sf::RenderWindow& window, ResourceManager& resources, Player* player, Dialog* dialog, Pause& pauseManager, AudioManager& audioManager);
+	Gameplay(sf::RenderWindow& window, Player* player, Pause& pauseManager, ManagersData& managers);
 	~Gameplay() override;
 
 	void Initialize() override;
@@ -25,7 +25,6 @@ public:
 private:
 	Player* player;
 	//Map* map;
-	Dialog* dialog;		
 
 	//std::vector<Map*> maps;
 	std::map<MapID,Map*> maps;
@@ -34,5 +33,6 @@ private:
 	Level01* level01;
 	Level02* level02;
 	Pause& pauseManager;
+	ManagersData& managersData;
 	bool gameStarted = false;
 };

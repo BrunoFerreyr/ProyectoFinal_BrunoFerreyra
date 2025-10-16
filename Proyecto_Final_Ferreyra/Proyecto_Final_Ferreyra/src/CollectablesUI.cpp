@@ -1,17 +1,18 @@
 #include "CollectablesUI.h"
 
-CollectablesUI::CollectablesUI(ResourceManager& resourceManager, MissionsManager* missions)
+CollectablesUI::CollectablesUI(ResourceManager& resourceManager, MissionsManager& missions) : missionManager(missions)
 {
-	metalsIcon = new Asset(&resourceManager.GetTexture("../textures/ui/metalsIcon.png", false, sf::IntRect()), sf::Vector2f({ 50.0f,50.0f }), sf::IntRect({ 0,0 }, { 32,32 }), false);
-	woodsKeyIcon = new Asset(&resourceManager.GetTexture("../textures/ui/metalsIcon.png", false, sf::IntRect()), sf::Vector2f({ 50.0f,50.0f }), sf::IntRect({ 0,0 }, { 32,32 }), false);
-	castleEntranceKeyIcon = new Asset(&resourceManager.GetTexture("../textures/ui/metalsIcon.png", false, sf::IntRect()), sf::Vector2f({ 50.0f,50.0f }), sf::IntRect({ 0,0 }, { 32,32 }), false);
-	castleKeyIcon = new Asset(&resourceManager.GetTexture("../textures/ui/metalsIcon.png", false, sf::IntRect()), sf::Vector2f({ 50.0f,50.0f }), sf::IntRect({ 0,0 }, { 32,32 }), false);
+	metalsIcon = new Asset(&resourceManager.GetTexture("../textures/ui/metals.png", false, sf::IntRect()), sf::Vector2f({ 100.0f,50.0f }), sf::IntRect({ 0,0 }, { 32,32 }), false);
+	woodsKeyIcon = new Asset(&resourceManager.GetTexture("../textures/ui/woodsKey.png", false, sf::IntRect()), sf::Vector2f({ 300.0f,50.0f }), sf::IntRect({ 0,0 }, { 10,28 }), false);
+	castleEntranceKeyIcon = new Asset(&resourceManager.GetTexture("../textures/ui/castleEntranceKey.png", false, sf::IntRect()), sf::Vector2f({ 400.0f,50.0f }), sf::IntRect({ 0,0 }, { 14,27 }), false);
+	castleKeyIcon = new Asset(&resourceManager.GetTexture("../textures/ui/castleKey.png", false, sf::IntRect()), sf::Vector2f({ 500.0f,50.0f }), sf::IntRect({ 0,0 }, { 10,28 }), false);
 	
 	font = resourceManager.GetFont("../fonts/dogicapixel.ttf");
 	metalsText = new sf::Text(font);
-	metalsText->setCharacterSize(24);
+	metalsText->setString(" 0");	
+	metalsText->setCharacterSize(20);
 	metalsText->setFillColor(sf::Color::White);
-	metalsText->setPosition({ 90.0f,  50.0f });
+	metalsText->setPosition({ 130.0f,  55.0f });
 }
 CollectablesUI::~CollectablesUI()
 {
@@ -24,14 +25,27 @@ CollectablesUI::~CollectablesUI()
 void CollectablesUI::Draw(sf::RenderWindow& window)
 {
 	window.draw(*metalsIcon->GetSprite());
-	window.draw(*woodsKeyIcon->GetSprite());
-	window.draw(*castleEntranceKeyIcon->GetSprite());
-	window.draw(*castleKeyIcon->GetSprite());
+	if (missionManager.HasWoodsKey()) 
+	{
+		window.draw(*woodsKeyIcon->GetSprite());
+	}
+	if (missionManager.HasCastleEntranceKey())
+	{
+		window.draw(*castleEntranceKeyIcon->GetSprite());
+	}
+	if (missionManager.HasCastleKey())
+	{
+		window.draw(*castleKeyIcon->GetSprite());
+	}
 	window.draw(*metalsText);
 }
 void CollectablesUI::SetMetalAmount(int incrementAmount)
 {
 	metalsAmount += incrementAmount;
 
-	metalsText->setString("x " + std::to_string(metalsAmount));
+	metalsText->setString(" " + std::to_string(metalsAmount));
+}
+int CollectablesUI::GetMetalAmount() const
+{
+	return metalsAmount;
 }

@@ -51,4 +51,16 @@ bool MissionsManager::HasCastleKey() const
 {
 	return hasCastleKey;
 }
+void MissionsManager::SetWoodsKey(bool status)
+{
+	hasWoodsKey = status;
+}
+void MissionsManager::SetCastleEntranceKey(bool status)
+{
+	hasCastleEntranceKey = status;
+}
+void MissionsManager::SetCastleKey(bool status)
+{
+	hasCastleKey = status;
+}
 

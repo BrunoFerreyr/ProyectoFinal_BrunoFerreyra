@@ -20,6 +20,7 @@ sf::Texture& ResourceManager::GetTexture(const std::string& path, bool useMipmap
 
 		if (!texture->loadFromFile(path, useMipmap,area)) 
 		{
+			std::cout << "No se pudo cargar: " << path << std::endl;
 			delete texture;
 			throw std::runtime_error("Failed to load texture: " + path);
 		}

@@ -1,13 +1,13 @@
 #include "Gameplay.h"
-Gameplay::Gameplay(sf::RenderWindow& window, ResourceManager& resources, Player* player, Dialog* dialog, Pause& pauseManager, AudioManager& audioManager)
+Gameplay::Gameplay(sf::RenderWindow& window, Player* player, Pause& pauseManager, ManagersData& managers)
 	: Scene(window),
 	player(player),
-	dialog(dialog),
-	pauseManager(pauseManager)
+	pauseManager(pauseManager),
+	managersData(managers)
 {
-	levelCave = new LevelCave("../textures/caveFloor.png", resources, *dialog,audioManager);
-	level01 = new Level01("../textures/floor.png", resources, *dialog,audioManager);
-	level02 = new Level02("../textures/woodsFloor.png", resources, *dialog,audioManager);
+	levelCave = new LevelCave("../textures/caveFloor.png", managers);
+	level01 = new Level01("../textures/floor.png", managers);
+	level02 = new Level02("../textures/woodsFloor.png", managers);
 
 	maps.emplace(MapID::Cave, levelCave);
 	maps.emplace(MapID::OldWomanHouse,level01);
@@ -72,8 +72,8 @@ void Gameplay::Draw()
 	}
 	//std::cout << currentMap << std::endl;
 	//map->Draw(window);
+	managersData.collectablesUI->Draw(window);
 	player->Draw(window);
-	dialog->Draw(window);
 	pauseManager.Draw();
 }
 void Gameplay::HandleEvents(const sf::Event& event)

@@ -1,6 +1,6 @@
 #include "Level02.h"
 
-Level02::Level02(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog, AudioManager& audioManager) : Map(filePath, resourceManager, dialog, audioManager)
+Level02::Level02(const std::string& filePath, ManagersData& managersData) : Map(filePath, managersData)
 {
 	textureFloor.loadFromFile(filePath);
 	floor = new sf::Sprite(textureFloor);
@@ -22,6 +22,7 @@ Level02::Level02(const std::string& filePath, ResourceManager& resourceManager, 
 	{
 		AddSpriteToRender(asset->GetSprite());
 	}
+	
 	enemiesAsset[1] = nullptr; // Enemy ID 1
 	enemiesData[1] = { nullptr, 3, 10, 30, 3, 1 }; // Enemy ID 1
 	enemiesPosition[1] = { 900.0f, 400.0f };

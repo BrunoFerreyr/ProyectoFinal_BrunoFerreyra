@@ -6,20 +6,21 @@
 class CollectablesUI
 {
 public:
-	CollectablesUI(ResourceManager& resourceManager, MissionsManager* missions);
+	CollectablesUI(ResourceManager& resourceManager, MissionsManager& missions);
 	~CollectablesUI();
 
 	void Draw(sf::RenderWindow& window);
 	void SetMetalAmount(int incrementAmount);
-	void GetMetalAmount() const;
+	int GetMetalAmount() const;
 
 private:
 	Asset* castleKeyIcon;
 	Asset* castleEntranceKeyIcon;
 	Asset* woodsKeyIcon;
 	Asset* metalsIcon;
+	MissionsManager& missionManager;
 	sf::Text* metalsText;
 	sf::Font font;
-	int metalsAmount;
+	int metalsAmount = 0;
 };
 

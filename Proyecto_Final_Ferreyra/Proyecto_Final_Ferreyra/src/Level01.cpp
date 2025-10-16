@@ -1,6 +1,6 @@
 #include "Level01.h"
 
-Level01::Level01(const std::string& filePath, ResourceManager& resourceManager, Dialog& dialog, AudioManager& audioManager) : Map(filePath, resourceManager, dialog, audioManager)
+Level01::Level01(const std::string& filePath, ManagersData& managersData) : Map(filePath,managersData)
 {
 	//floor = nullptr;
 
@@ -44,7 +44,23 @@ void Level01::LoadNextMap()
 }
 void Level01::StartDialog()
 {
-	dialog->Start(0,5);
+	if (!missionsManager.HasWoodsKey()) 
+	{
+		dialog->Start(0, 5, [this]() { missionsManager.SetWoodsKey(true); });
+		return;
+	}
+	if (!missionsManager.GetMetalsMissionStatus())
+	{
+		dialog->Start(6, 6, nullptr);
+		return;
+	}
+	
+	if (!missionsManager.HasCastleEntranceKey())
+	{
+		dialog->Start(7, 15, [this]() { missionsManager.SetCastleEntranceKey(true); });
+		return;
+	}
+	dialog->Start(16, 16, nullptr);	
 }
 void Level01::PlayBackgroundMusic()
 {
