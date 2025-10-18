@@ -1,7 +1,7 @@
 #include "Map.h"
 
 Map::Map(const std::string& filePath, ManagersData& managersData) :dialog(managersData.dialog), audioManager(&managersData.audioManager), resourceManager(managersData.resourceManager), missionsManager(managersData.missionsManager), collectablesUI(managersData.collectablesUI)
-{	
+{		
 }
 Map::~Map()
 {	
@@ -14,6 +14,16 @@ Map::~Map()
 	delete floor;
 }
 
+void Map::CreateAssets()
+{
+	for (auto asset : assetsObjects)
+	{
+		if (asset->GetShouldDrawSprite())
+		{
+			AddSpriteToRender(asset->GetSprite());
+		}
+	}
+}
 void Map::Initialize()
 {
 }
@@ -167,3 +177,23 @@ void Map::AddSpriteToRender(sf::Sprite* sprite)
 {
 	assets.push_back(sprite);
 }
+
+void Map::LoadLevel(MapID mapID, sf::Vector2f playerPos)
+{
+	nextMapID = mapID;
+	playerInitPosition = playerPos;
+	wantsChange = true;
+}
+void Map::LoadBattle(int enemyLife, int enemyID)
+{
+	//{ enemy->GetSprite(), 3, 20, enemyLife, 3, enemyID };
+	EnemyAsset* enemy = enemiesAsset[enemyID];
+	BattleData data = enemy->enemyBattleData;
+	battle = new Battle(resourceManager, 20, data, [this, enemyID](bool& playerWin, int enemyID) {this->EndBattle(playerWin, enemyID); });
+	std::string musicPath = "../audios/battleMusic.ogg";
+	audioManager->PlayMusic(musicPath);
+	//dynamic_cast<TriggerAsset*>(enemyBat)->SetCollision(false);
+	isInBattle = true;
+}
+
+

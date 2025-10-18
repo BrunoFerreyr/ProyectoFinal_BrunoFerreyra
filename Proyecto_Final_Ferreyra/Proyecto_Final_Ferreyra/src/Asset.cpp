@@ -47,3 +47,7 @@ void Asset::deleteSprite()
 {
 	delete data.sprite;
 }
+bool Asset::GetShouldDrawSprite() const
+{
+	return shouldDrawSprite;
+}

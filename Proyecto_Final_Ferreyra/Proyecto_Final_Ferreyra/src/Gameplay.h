@@ -7,6 +7,9 @@
 #include "LevelCave.h"
 #include "Level01.h"
 #include "Level02.h"
+#include "Woods01.h"
+#include "Woods02.h"
+#include "Woods03.h"
 #include "Pause.h"
 class Gameplay : public Scene
 {
@@ -32,6 +35,10 @@ private:
 	LevelCave* levelCave;
 	Level01* level01;
 	Level02* level02;
+	Woods01* woods01;
+	Woods02* woods02;
+	Woods03* woods03;
+
 	Pause& pauseManager;
 	ManagersData& managersData;
 	bool gameStarted = false;

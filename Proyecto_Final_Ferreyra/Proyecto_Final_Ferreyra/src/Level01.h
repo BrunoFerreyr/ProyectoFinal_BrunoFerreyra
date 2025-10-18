@@ -10,7 +10,6 @@ public:
 	bool CheckCollision(const sf::FloatRect& playerBounds, bool isInteractable);
 	void PlayBackgroundMusic() override;
 	Asset* goToWoods;
-	Map* nextMap;
 
 private: 
 	void LoadNextMap();

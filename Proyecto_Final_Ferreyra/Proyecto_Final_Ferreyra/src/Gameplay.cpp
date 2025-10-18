@@ -8,11 +8,16 @@ Gameplay::Gameplay(sf::RenderWindow& window, Player* player, Pause& pauseManager
 	levelCave = new LevelCave("../textures/caveFloor.png", managers);
 	level01 = new Level01("../textures/floor.png", managers);
 	level02 = new Level02("../textures/woodsFloor.png", managers);
+	woods01 = new Woods01("../textures/woods/woods01Floor.png", managers);
+	woods02 = new Woods02("../textures/woods/woods02Floor.png", managers);
+	woods03 = new Woods03("../textures/woods/woods03Floor.png", managers);
 
 	maps.emplace(MapID::Cave, levelCave);
 	maps.emplace(MapID::OldWomanHouse,level01);
 	maps.emplace(MapID::Camp,level02);
-
+	maps.emplace(MapID::Woods01, woods01);
+	maps.emplace(MapID::Woods02, woods02);
+	maps.emplace(MapID::Woods03, woods03);
 	//maps.emplace(MapID::OldWomanHouse, level01);
 	//maps.emplace(MapID::Woods01, level02);
 	//currentMap = maps[MapID::OldWomanHouse];

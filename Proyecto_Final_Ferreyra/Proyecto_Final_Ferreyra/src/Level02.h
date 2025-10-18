@@ -11,12 +11,9 @@ public:
 	Asset* goToHouse;
 	Asset* goToCave;
 	Asset* goToWoods01;
-	Asset* enemyBat = nullptr;
-	
+	Asset* woodsDoor;
+
 private:
-	void LoadHouse();
-	void LoadCave();
-	void LoadWoods01();
-	void LoadBattle(int enemyLife, int enemyID);
+	void WoodsDoorInteraction();
 };
 

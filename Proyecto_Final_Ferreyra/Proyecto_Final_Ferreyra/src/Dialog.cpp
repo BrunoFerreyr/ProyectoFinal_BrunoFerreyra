@@ -32,6 +32,8 @@ Dialog::Dialog(ResourceManager& resourceManager)
 	dialogs.push_back("Martial: Thanks for all.");
 
 	dialogs.push_back("Old lady: Take care of yourself, good luck on your journey");
+
+	dialogs.push_back("You need the woods key to pass!");
 }
 Dialog::~Dialog()
 {

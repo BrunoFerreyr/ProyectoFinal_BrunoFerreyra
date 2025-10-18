@@ -5,6 +5,7 @@
 struct AssetData 
 {
 	bool haveCollision;
+	bool shouldDrawSprite;
 	sf::Sprite* sprite;
 	sf::Vector2f position;
 	sf::IntRect size;

@@ -42,6 +42,9 @@
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\Scene.cpp" />
+    <ClCompile Include="src\Woods01.cpp" />
+    <ClCompile Include="src\Woods02.cpp" />
+    <ClCompile Include="src\Woods03.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Asset.h" />
@@ -73,6 +76,9 @@
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\ResourceManager.h" />
     <ClInclude Include="src\Scene.h" />
+    <ClInclude Include="src\Woods01.h" />
+    <ClInclude Include="src\Woods02.h" />
+    <ClInclude Include="src\Woods03.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

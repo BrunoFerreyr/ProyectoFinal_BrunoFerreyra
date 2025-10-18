@@ -12,8 +12,9 @@ public:
 	void deleteSprite();
 	sf::Sprite* GetSprite() const;
 	virtual AssetType GetType() const;
-
+	bool GetShouldDrawSprite() const;
 protected:
 	AssetData data;
 	bool isTextureCreator = false;
+	bool shouldDrawSprite = true;
 };

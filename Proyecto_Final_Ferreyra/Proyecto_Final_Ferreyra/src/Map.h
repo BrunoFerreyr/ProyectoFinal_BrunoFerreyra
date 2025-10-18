@@ -20,19 +20,22 @@ public:
 	void Draw(sf::RenderWindow& window);
 	void HandleEvents(const sf::Event& event);
 	bool CheckCollision(const sf::FloatRect& playerBounds, bool isInteractable);
-	sf::FloatRect GetBounds();
 	bool wantsChange = false;
 	MapID& GetNextMap();
 	void SetNextMap(MapID& map);
 	sf::Vector2f GetPlayerInitPosition();
 	virtual void PlayBackgroundMusic();
 	bool GetIsInBattle() const;
+	
 	void EndBattle(bool playerWin, int enemyID);
 
 protected:	
 	
 	void SetPlayerInitPosition(const sf::Vector2f pos);
 	void AddSpriteToRender(sf::Sprite* sprite);
+	void LoadLevel(MapID, sf::Vector2f);
+	void LoadBattle(int enemyLife, int enemyID);
+	void CreateAssets();
 	std::vector<sf::Sprite*> assets;
 	std::vector<Asset*> assetsObjects;
 	//Map* nextMap;
