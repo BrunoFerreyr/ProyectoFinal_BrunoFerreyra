@@ -1,6 +1,6 @@
 #include "TriggerAsset.h"
-TriggerAsset::TriggerAsset(sf::Texture* texture, const sf::Vector2f pos, sf::IntRect size, bool collision, std::function<void()> func)
-	: Asset(texture, pos, size, collision)
+TriggerAsset::TriggerAsset(AssetData assetData, std::function<void()> func)
+	: Asset(assetData)
 {
 	SetOnTriggerEnter(std::move(func));
 	this->data.assetType = AssetType::Trigger;

@@ -73,7 +73,7 @@ void Player::MovementInput()
 
 void Player::Movement(float deltaTime)
 {
-	if (dialog->IsActive() && currentMap == nullptr) return;
+	if (dialog->IsActive() || currentMap == nullptr) return;
 
 	sf::Vector2f movement = direction * speed * deltaTime;
 	sf::Vector2f newPosition = sprite->getPosition();
@@ -100,6 +100,8 @@ void Player::Movement(float deltaTime)
 }
 void Player::Animation(float deltaTime) 
 {
+	if (dialog->IsActive() || currentMap == nullptr) return;
+
 	animations->Update(deltaTime, moveDirection);
 	sprite->setTextureRect(animations->GetArea());
 }

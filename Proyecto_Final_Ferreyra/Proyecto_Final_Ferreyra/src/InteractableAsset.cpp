@@ -1,6 +1,6 @@
 #include "InteractableAsset.h"
-InteractableAsset::InteractableAsset(sf::Texture* texture, const sf::Vector2f pos, sf::IntRect size, bool collision, std::function<void()> func)
-	: Asset(texture, pos, size, collision)
+InteractableAsset::InteractableAsset(AssetData assetData, std::function<void()> func)
+	: Asset(assetData)
 {
 	SetOnTriggerInteract(std::move(func));
 	this->data.assetType = AssetType::Interactable;

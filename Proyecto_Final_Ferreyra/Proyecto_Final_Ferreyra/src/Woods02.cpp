@@ -3,8 +3,8 @@ Woods02::Woods02(const std::string& filePath, ManagersData& managersData) : Map(
 {
 	textureFloor.loadFromFile(filePath);
 	floor = new sf::Sprite(textureFloor);
-	goToWoods01 = new TriggerAsset(&resourceManager.GetTexture("../textures/changeMapCollision.png", false, sf::IntRect()), sf::Vector2f{ 1050.0f, 715.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(126, 126)), true, [this]() { this->LoadLevel(MapID::Woods01, { 1080.0f, 620.0f }); });
-	goToWoods03 = new TriggerAsset(&resourceManager.GetTexture("../textures/changeMapCollision.png", false, sf::IntRect()), sf::Vector2f{ -100.0f, 170.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(126, 126)), true, [this]() { this->LoadLevel(MapID::Woods03, { 50.0f, 180.0f }); });
+	goToWoods01 = new TriggerAsset({ &resourceManager.GetTexture("../textures/changeMapCollision.png", false, sf::IntRect()), sf::Vector2f{1050.0f, 715.0f}, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(126, 126)), true, true, nullptr }, [this]() { this->LoadLevel(MapID::Woods01, {1080.0f, 620.0f}); });
+	goToWoods03 = new TriggerAsset({ &resourceManager.GetTexture("../textures/changeMapCollision.png", false, sf::IntRect()), sf::Vector2f{ -100.0f, 170.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(126, 126)), true, true, nullptr }, [this]() { this->LoadLevel(MapID::Woods03, { 50.0f, 180.0f }); });
 	assetsObjects.push_back(goToWoods01);
 	assetsObjects.push_back(goToWoods03);
 	playerInitPosition = { 1080.0f, 620.0f };
@@ -14,11 +14,13 @@ Woods02::Woods02(const std::string& filePath, ManagersData& managersData) : Map(
 
 	
 	enemiesAsset[1] = nullptr; // Enemy ID 3
-	enemiesData[1] = { nullptr, 4, 20, 40, 5, 3 }; // Enemy ID 3
+	enemiesData[1] = { nullptr, 4, 20, 40, 5, 1 }; // Enemy ID 3
 	enemiesPosition[1] = { 800.0f, 400.0f };
 	enemiesAsset[2] = nullptr; // Enemy ID 4
-	enemiesData[2] = { nullptr, 4, 25, 45, 6, 4 }; // Enemy ID 4
+	enemiesData[2] = { nullptr, 4, 25, 45, 6, 2 }; // Enemy ID 4
 	enemiesPosition[2] = { 500.0f, 300.0f };
+
+	this->CreateAssets();
 }
 
 Woods02::~Woods02()
@@ -33,7 +35,7 @@ void Woods02::Initialize()
 		if (pair.second == nullptr)
 		{
 			int enemyID = pair.first;
-			pair.second = new EnemyAsset(&resourceManager.GetTexture("../textures/Enemy.png", false, sf::IntRect()), enemiesPosition[enemyID], sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(120, 130)), true, enemiesData[enemyID], [this, enemyID]() { this->LoadBattle(30, enemyID); });
+			pair.second = new EnemyAsset({ &resourceManager.GetTexture("../textures/Enemy.png", false, sf::IntRect()), enemiesPosition[enemyID], sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(120, 130)), true ,true, nullptr }, enemiesData[enemyID], [this, enemyID]() { this->LoadBattle(30, enemyID); });
 			assetsObjects.push_back(pair.second);
 			AddSpriteToRender(pair.second->GetSprite());
 		}

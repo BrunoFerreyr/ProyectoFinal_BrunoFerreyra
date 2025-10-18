@@ -5,14 +5,14 @@
 class Asset
 {
 public:
-	Asset(sf::Texture* texture, const sf::Vector2f pos, sf::IntRect size, bool collision);
+	Asset(AssetData assetData);
 	virtual ~Asset();
 
 	bool setUpSprite(const std::string&);
 	void deleteSprite();
 	sf::Sprite* GetSprite() const;
 	virtual AssetType GetType() const;
-	bool GetShouldDrawSprite() const;
+	const AssetData& GetData() const;
 protected:
 	AssetData data;
 	bool isTextureCreator = false;

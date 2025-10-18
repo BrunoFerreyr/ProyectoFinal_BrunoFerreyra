@@ -4,7 +4,7 @@
 class EnemyAsset : public TriggerAsset
 {
 public:
-	EnemyAsset(sf::Texture* texture, const sf::Vector2f pos, sf::IntRect size, bool collision, BattleData data, std::function<void()> func);
+	EnemyAsset(AssetData assetData, BattleData data, std::function<void()> func);
 	~EnemyAsset() override;
 
 	int enemyLife;

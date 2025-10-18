@@ -4,11 +4,11 @@
 
 struct AssetData 
 {
+	sf::Texture* texture;
+	sf::Vector2f position;
+	sf::IntRect size;
 	bool haveCollision;
 	bool shouldDrawSprite;
 	sf::Sprite* sprite;
-	sf::Vector2f position;
-	sf::IntRect size;
-	sf::Texture* texture;
 	AssetType assetType = AssetType::Static;
 };

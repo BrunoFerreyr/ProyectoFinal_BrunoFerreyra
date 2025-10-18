@@ -1,14 +1,15 @@
 #include "Asset.h"
 
-Asset::Asset(sf::Texture* texture, const sf::Vector2f pos, sf::IntRect size, bool collision)
+Asset::Asset(AssetData assetData)
 {
-	data.haveCollision = collision;
-	data.size = size;
-	data.position = pos;
+	data.haveCollision = assetData.haveCollision;
+	data.size = assetData.size;
+	data.position = assetData.position;
 
 	//pasar dos lineas a funcion.
-	data.sprite = new sf::Sprite(*texture);
-	data.sprite->setTextureRect(size);
+	data.shouldDrawSprite = assetData.shouldDrawSprite;
+	data.sprite = new sf::Sprite(*assetData.texture);
+	data.sprite->setTextureRect(assetData.size);
 
 	data.sprite->setPosition(data.position);
 }
@@ -47,7 +48,7 @@ void Asset::deleteSprite()
 {
 	delete data.sprite;
 }
-bool Asset::GetShouldDrawSprite() const
+const AssetData& Asset::GetData() const
 {
-	return shouldDrawSprite;
+	return data;
 }

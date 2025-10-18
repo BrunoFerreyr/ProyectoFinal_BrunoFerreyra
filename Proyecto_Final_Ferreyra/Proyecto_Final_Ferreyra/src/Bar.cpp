@@ -1,7 +1,7 @@
 #include "Bar.h"
 Bar::Bar(sf::Texture* texture, sf::IntRect area, int width) : width(width)
 {
-	bar = new Asset(texture, { 0.0f,0.0f }, area, false);
+	bar = new Asset({ texture, { 0.0f,0.0f }, area, false, true, nullptr });
 }
 Bar::~Bar()
 {

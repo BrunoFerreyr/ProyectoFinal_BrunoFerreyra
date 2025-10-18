@@ -18,7 +18,7 @@ void Map::CreateAssets()
 {
 	for (auto asset : assetsObjects)
 	{
-		if (asset->GetShouldDrawSprite())
+		if (asset->GetData().shouldDrawSprite)
 		{
 			AddSpriteToRender(asset->GetSprite());
 		}

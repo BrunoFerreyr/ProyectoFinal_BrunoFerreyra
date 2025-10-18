@@ -2,7 +2,7 @@
 
 Battle::Battle(ResourceManager& resourceManager, int playerLife, const BattleData& data, std::function<void(bool&,int)> callback) : playerHealth(playerLife), battleData(data),enemySprite(*data.enemySprite), callback(callback)
 {
-	playerSprite = new Asset(&resourceManager.GetTexture("../textures/PlayerIdle.png", false, sf::IntRect()), sf::Vector2f({150.0f,400.0f }), sf::IntRect({0,0}, {63,96}), false);
+	playerSprite = new Asset({&resourceManager.GetTexture("../textures/PlayerIdle.png", false, sf::IntRect()), sf::Vector2f({150.0f,400.0f}), sf::IntRect({0,0}, {63,96}), false ,true,nullptr});
 	//playerLifeSprite = new Asset(&resourceManager.GetTexture("../textures/PlayerIdle.png", false, sf::IntRect()), sf::Vector2f({ 0.0f,0.0f }), sf::IntRect({ 0,0 }, { 378,768 }), false);
 	//enemyLifeSprite = new Asset(&resourceManager.GetTexture("../textures/PlayerIdle.png", false, sf::IntRect()), sf::Vector2f({ 0.0f,0.0f }), sf::IntRect({ 0,0 }, { 378,768 }), false);
 	enemyHealth = battleData.enemyHealth;
@@ -28,7 +28,7 @@ Battle::Battle(ResourceManager& resourceManager, int playerLife, const BattleDat
 	for (int i = 0; i < battleData.totalInputs; i++)
 	{
 		float x = startX + i * spacing;
-		Asset* keyAsset = new Asset(&resourceManager.GetTexture("../textures/battle/keyButton.png", false, sf::IntRect()), sf::Vector2f({ x,300.0f}), sf::IntRect({0,0}, {64,64}), false);
+		Asset* keyAsset = new Asset({ &resourceManager.GetTexture("../textures/battle/keyButton.png", false, sf::IntRect()), sf::Vector2f({x,300.0f}), sf::IntRect({0,0}, {64,64}), false, true, nullptr });
 		sf::Text* keyText = new sf::Text(font);
 		keyText->setCharacterSize(40);
 		keyText->setFillColor(sf::Color::Black);

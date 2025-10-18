@@ -2,10 +2,10 @@
 
 CollectablesUI::CollectablesUI(ResourceManager& resourceManager, MissionsManager& missions) : missionManager(missions)
 {
-	metalsIcon = new Asset(&resourceManager.GetTexture("../textures/ui/metals.png", false, sf::IntRect()), sf::Vector2f({ 100.0f,50.0f }), sf::IntRect({ 0,0 }, { 32,32 }), false);
-	woodsKeyIcon = new Asset(&resourceManager.GetTexture("../textures/ui/woodsKey.png", false, sf::IntRect()), sf::Vector2f({ 300.0f,50.0f }), sf::IntRect({ 0,0 }, { 10,28 }), false);
-	castleEntranceKeyIcon = new Asset(&resourceManager.GetTexture("../textures/ui/castleEntranceKey.png", false, sf::IntRect()), sf::Vector2f({ 400.0f,50.0f }), sf::IntRect({ 0,0 }, { 14,27 }), false);
-	castleKeyIcon = new Asset(&resourceManager.GetTexture("../textures/ui/castleKey.png", false, sf::IntRect()), sf::Vector2f({ 500.0f,50.0f }), sf::IntRect({ 0,0 }, { 10,28 }), false);
+	metalsIcon = new Asset({ &resourceManager.GetTexture("../textures/ui/metals.png", false, sf::IntRect()), sf::Vector2f({100.0f,50.0f}), sf::IntRect({0,0}, {32,32}), false, true, nullptr });
+	woodsKeyIcon = new Asset({ &resourceManager.GetTexture("../textures/ui/woodsKey.png", false, sf::IntRect()), sf::Vector2f({ 300.0f,50.0f }), sf::IntRect({ 0,0 }, { 10,28 }), false, true, nullptr});
+	castleEntranceKeyIcon = new Asset({ &resourceManager.GetTexture("../textures/ui/castleEntranceKey.png", false, sf::IntRect()), sf::Vector2f({ 400.0f,50.0f }), sf::IntRect({ 0,0 }, { 14,27 }), false, true, nullptr });
+	castleKeyIcon = new Asset({ &resourceManager.GetTexture("../textures/ui/castleKey.png", false, sf::IntRect()), sf::Vector2f({ 500.0f,50.0f }), sf::IntRect({ 0,0 }, { 10,28 }), false, true, nullptr });
 	
 	font = resourceManager.GetFont("../fonts/dogicapixel.ttf");
 	metalsText = new sf::Text(font);

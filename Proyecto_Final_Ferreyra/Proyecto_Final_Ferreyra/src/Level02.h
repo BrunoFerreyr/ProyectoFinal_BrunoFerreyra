@@ -12,6 +12,7 @@ public:
 	Asset* goToCave;
 	Asset* goToWoods01;
 	Asset* woodsDoor;
+	Asset* woodsDoorCollision;
 
 private:
 	void WoodsDoorInteraction();

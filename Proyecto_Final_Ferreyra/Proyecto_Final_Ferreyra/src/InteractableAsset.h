@@ -5,7 +5,7 @@
 class InteractableAsset :public Asset
 {
 public:
-	InteractableAsset(sf::Texture* texture, const sf::Vector2f pos, sf::IntRect size, bool collision, std::function<void()> func);
+	InteractableAsset(AssetData assetData, std::function<void()> func);
 	~InteractableAsset() override;
 
 	void IdleAnimation(float deltaTime);
