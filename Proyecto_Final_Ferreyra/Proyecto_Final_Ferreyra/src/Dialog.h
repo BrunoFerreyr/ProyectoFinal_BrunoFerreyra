@@ -17,7 +17,7 @@ public:
 
 private:
 	bool active;
-	std::vector<std::string> dialogs;
+	std::map<int,std::string> dialogs;
 	int currentDialogIndex;
 	int finishDialogIndex;
 	sf::Font font;

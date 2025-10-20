@@ -36,6 +36,7 @@ protected:
 	void LoadLevel(MapID, sf::Vector2f);
 	void LoadBattle(int enemyLife, int enemyID);
 	void CreateAssets();
+	void EraseAsset(Asset*& asset);
 	std::vector<sf::Sprite*> assets;
 	std::vector<Asset*> assetsObjects;
 	//Map* nextMap;

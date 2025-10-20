@@ -61,7 +61,9 @@ void Level02::WoodsDoorInteraction()
 	if (missionsManager.HasWoodsKey())
 	{
 		//DO agregar asset eraser function
-		assetsObjects.erase(std::remove(assetsObjects.begin(), assetsObjects.end(), woodsDoor), assetsObjects.end());
+		EraseAsset(woodsDoor);
+		EraseAsset(woodsDoorCollision);
+		/*assetsObjects.erase(std::remove(assetsObjects.begin(), assetsObjects.end(), woodsDoor), assetsObjects.end());
 		assets.erase(std::remove(assets.begin(), assets.end(), woodsDoor->GetSprite()), assets.end());
 		delete woodsDoor;
 		woodsDoor = nullptr;
@@ -69,10 +71,10 @@ void Level02::WoodsDoorInteraction()
 		assetsObjects.erase(std::remove(assetsObjects.begin(), assetsObjects.end(), woodsDoorCollision), assetsObjects.end());
 		assets.erase(std::remove(assets.begin(), assets.end(), woodsDoorCollision->GetSprite()), assets.end());
 		delete woodsDoorCollision;
-		woodsDoorCollision = nullptr;
+		woodsDoorCollision = nullptr;*/
 	}
 	else
 	{
-		dialog->Start(17, 17, nullptr);
+		dialog->Start(100, 100, nullptr);
 	}
 }

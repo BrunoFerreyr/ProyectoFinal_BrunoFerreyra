@@ -195,5 +195,12 @@ void Map::LoadBattle(int enemyLife, int enemyID)
 	//dynamic_cast<TriggerAsset*>(enemyBat)->SetCollision(false);
 	isInBattle = true;
 }
+void Map::EraseAsset(Asset*& asset)
+{
+	assetsObjects.erase(std::remove(assetsObjects.begin(), assetsObjects.end(), asset), assetsObjects.end());
+	assets.erase(std::remove(assets.begin(), assets.end(), asset->GetSprite()), assets.end());
+	delete asset;
+	asset = nullptr;
+}
 
 

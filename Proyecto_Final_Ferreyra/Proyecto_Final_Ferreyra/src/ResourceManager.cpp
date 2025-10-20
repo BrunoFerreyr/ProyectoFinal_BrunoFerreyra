@@ -11,7 +11,7 @@ ResourceManager::~ResourceManager() {
 		delete pair.second;
 	}
 }
-
+// pasar a varaible normal el texture de assets. ver como guardar bien esa textura una unica vez donde se crea, con una variable.temer en cuenta el asset creator. Tener un AssetResources donde guardo los que se repitan??.
 sf::Texture& ResourceManager::GetTexture(const std::string& path, bool useMipmap, sf::IntRect area) {
 	auto iterator = textures.find(path);
 	if (iterator == textures.end()) 

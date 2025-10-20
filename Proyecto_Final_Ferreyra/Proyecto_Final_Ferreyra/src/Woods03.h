@@ -10,5 +10,11 @@ public:
 	//bool CheckCollision(const sf::FloatRect& playerBounds, bool isInteractable) override;
 	void PlayBackgroundMusic() override;
 	Asset* goToWoods02;
+
+	Asset* castleEntranceDoor;
+	Asset* castleEntranceDoorCollision;
+
+private:
+	void CastleEntranceDoorInteraction();
 };
 

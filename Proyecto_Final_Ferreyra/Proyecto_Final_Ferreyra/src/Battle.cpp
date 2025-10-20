@@ -191,6 +191,11 @@ void Battle::ShowKeys()
 void Battle::DoAction()
 {
 	//totalPoints += keyPointValue;
+	for (auto keyAsset : keysAssets)
+	{
+		keyAsset->GetSprite()->setColor(sf::Color::White);
+	}
+
 	isAttacking = !isAttacking;
 	if (isAttacking)
 	{
@@ -254,10 +259,6 @@ void Battle::HandleEvents(const sf::Event& event)
 		{			
 			totalPoints = isAttacking? totalPoints + keyPointValue : totalPoints - keyPointValue/2;
 			counter = battleData.limitCounter;
-			for (auto keyAsset : keysAssets)
-			{
-				keyAsset->GetSprite()->setColor(sf::Color::White);
-			}
 		}
 		
 	}

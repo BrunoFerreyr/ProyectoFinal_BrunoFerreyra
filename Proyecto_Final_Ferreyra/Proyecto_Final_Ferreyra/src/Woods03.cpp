@@ -4,7 +4,13 @@ Woods03::Woods03(const std::string& filePath, ManagersData& managersData) : Map(
 	textureFloor.loadFromFile(filePath);
 	floor = new sf::Sprite(textureFloor);
 	goToWoods02 = new TriggerAsset({ &resourceManager.GetTexture("../textures/changeMapCollision.png", false, sf::IntRect()), sf::Vector2f{1275.0f, 320.0f}, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(126, 126)), true, true, nullptr }, [this]() { this->LoadLevel(MapID::Woods02, {1205.0f, 340.0f}); });
+	castleEntranceDoor = new InteractableAsset({ &resourceManager.GetTexture("../textures/woods/castleEntranceDoor.png", false, sf::IntRect()), sf::Vector2f{ 10.0f, 100.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(59, 195)), true, true ,nullptr }, [this]() {this->CastleEntranceDoorInteraction(); });
+	castleEntranceDoorCollision = new Asset({ &resourceManager.GetTexture("../textures/woods/castleEntranceDoor.png", false, sf::IntRect()), sf::Vector2f{ 100.0f, 155.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(40, 195)), true, false ,nullptr });
+
 	assetsObjects.push_back(goToWoods02);
+	assetsObjects.push_back(castleEntranceDoor);
+	assetsObjects.push_back(castleEntranceDoorCollision);
+
 	playerInitPosition = { 1205.0f, 340.0f };
 
 	nextMapsIDs.push_back(MapID::Woods02);
@@ -44,3 +50,18 @@ void Woods03::PlayBackgroundMusic()
 	std::string musicPath = "../audios/woodsMusic.ogg";
 	audioManager->PlayMusic(musicPath);
 }
+
+void Woods03::CastleEntranceDoorInteraction()
+{
+	if (missionsManager.HasCastleEntranceKey())
+	{
+		//DO agregar asset eraser function
+		EraseAsset(castleEntranceDoor);
+		EraseAsset(castleEntranceDoorCollision);
+	}
+	else
+	{
+		dialog->Start(101, 101, nullptr);
+	}
+}
+//DO ver duplicado de txts.
