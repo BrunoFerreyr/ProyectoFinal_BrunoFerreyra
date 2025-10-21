@@ -1,9 +1,6 @@
 #include "ResourceManager.h"
 ResourceManager::ResourceManager() {}
-ResourceManager::~ResourceManager() {
-	for (auto& pair : textures) {
-		delete pair.second;
-	}
+ResourceManager::~ResourceManager() {	
 	for (auto& pair : fonts) {
 		delete pair.second;
 	}
@@ -16,16 +13,16 @@ sf::Texture& ResourceManager::GetTexture(const std::string& path, bool useMipmap
 	auto iterator = textures.find(path);
 	if (iterator == textures.end()) 
 	{		
-		sf::Texture* texture = new sf::Texture();
-
+		std::unique_ptr<sf::Texture> texture = std::make_unique<sf::Texture>();
+		
 		if (!texture->loadFromFile(path, useMipmap,area)) 
 		{
 			std::cout << "No se pudo cargar: " << path << std::endl;
-			delete texture;
+			texture.reset();
 			throw std::runtime_error("Failed to load texture: " + path);
 		}
 
-		iterator = textures.emplace( path, texture).first;
+		iterator = textures.try_emplace( path, std::move(texture)).first;
 	}
 	
 	return *iterator->second;
