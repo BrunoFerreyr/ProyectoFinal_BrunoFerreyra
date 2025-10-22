@@ -1,0 +1,37 @@
+introduccion al quiz
+son 5 preguntas
+para ganar debe embocar 4 o 5,
+puede tener un solo error, al tener 2, pierde y pregunta si desea intentarlo de nuevo.
+
+ID: 977 0306 6099
+Contraseña: 
+
+490736
+Link directo:
+https://imagecampus-edu-ar.zoom.us/j/97703066099?pwd=wSydYGiafY3BjC2yNztPlJLDhPg2HT.1
+
+
+***********structs - AssetStruct
+ver funciones virtuals, si es necesario hacer alguna pura( = 0;) 
+sobrecarga de operadores?/ podria poner tiempo limite, y ahi verifique quien tiene mas vida. igualacion entre assets.
+template function for clamping player position
+ template <typename T>
+        T clamp(T val, T min_val, T max_val) {
+            return (val < min_val) ? min_val : ((val > max_val) ? max_val : val);
+        }
+ template <typename ComponentType>
+        ComponentType* getComponent() {
+            // Logic to find and return a component of ComponentType
+        }
+elegir algun otro patron
+
+puntos
+
+queria darte una opinion menos acotada que la que te di ayer
+por un lado entiendo que tu miedo al cambio que pueda haber en un vinculo esta vinculado con tus experiencias
+claramente ahroa estamos en la fase enamoramiento,todo hermosos pedestal, y en algun momento eso se va 
+y cambia, pero eso no quiere decir que sea algo malo, va a dar lugar a que nos conozcamos mas, y lo que 
+pase ahi depende de nosotros y de lo que construyamos, mi idea es mantener todo lo lindo que hay ahora 
+y construir algo sano y hermoso para los dos y es lo que busco, claramente de alguna u otra manera va amutar
+es lo natural, pero eso no tiene porque ser algo malo, la idea es transformarlo en algo mejor aun, soy positivo con eso y es a lo que apunto. todo se construye. y ta eso queria explayarme un poco mas ya que ayer siento que capaz me quede un poco corto jajaja, pero ta, eso y toy contento contigo, estoy viendo avances y me gusta mucho.
+
