@@ -56,5 +56,11 @@ void AudioManager::SetSFXVolume(float volume) {
 	currentSfx->setVolume(sfxVolume);
 }
 
-float AudioManager::GetMusicVolume() const { return musicVolume; }
-float AudioManager::GetSFXVolume() const { return sfxVolume; }
+float AudioManager::GetMusicVolume() const 
+{ 
+	return musicVolume; 
+}
+float AudioManager::GetSFXVolume() const 
+{
+	return sfxVolume;
+}

@@ -52,7 +52,7 @@ void Level02::Initialize()
 
 void Level02::PlayBackgroundMusic()
 {
-	std::string musicPath = "../audios/houseMusic.ogg";
+	std::string musicPath = "../audios/caveMusic.ogg";
 	audioManager->PlayMusic(musicPath);
 }
 

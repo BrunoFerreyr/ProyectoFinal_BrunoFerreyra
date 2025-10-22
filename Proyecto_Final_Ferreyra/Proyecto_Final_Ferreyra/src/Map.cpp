@@ -156,11 +156,13 @@ void Map::EndBattle(bool playerWin,int enemyID)
 	if (playerWin)
 	{
 		std::cout << "You won the battle!" << std::endl;
-		
-		assetsObjects.erase(std::remove(assetsObjects.begin(), assetsObjects.end(), enemiesAsset[enemyID]), assetsObjects.end());
+		Asset* enemy = enemiesAsset[enemyID];
+		EraseAsset(enemy);
+		enemiesAsset[enemyID] = nullptr;
+		/*assetsObjects.erase(std::remove(assetsObjects.begin(), assetsObjects.end(), enemiesAsset[enemyID]), assetsObjects.end());
 		assets.erase(std::remove(assets.begin(), assets.end(), enemiesAsset[enemyID]->GetSprite()), assets.end());
 		delete enemiesAsset[enemyID];
-		enemiesAsset[enemyID] = nullptr;
+		enemiesAsset[enemyID] = nullptr;*/
 		PlayBackgroundMusic();
 		collectablesUI->SetMetalAmount(5);
 		missionsManager.CheckGetMetalsMission(collectablesUI->GetMetalAmount());

@@ -56,7 +56,6 @@ protected:
 	ResourceManager& resourceManager;
 	MissionsManager& missionsManager;
 	CollectablesUI* collectablesUI;
-	ManagersData* managersData;
 
 	bool isInBattle = false;
 };
