@@ -2,6 +2,8 @@
 #include "Scene.h"
 #include "ResourceManager.h"
 #include "AudioManager.h"
+#include "ButtonAsset.h"
+
 class MainMenu : public Scene
 {
 public:
@@ -15,10 +17,17 @@ public:
 
 private:
 	AudioManager& audioManager;
-	sf::Text* buttonText;
 	sf::Text text;
 
 	sf::Sprite* background;
 
-	sf::Sprite* startButton;
+	ButtonAsset* startButton;
+	ButtonAsset* creditsButton;
+	ButtonAsset* exitButton;
+
+	void LoadGame();
+	void ShowCredits();
+	void ExitGame();
+
+	//sf::Sprite* startButton;
 };

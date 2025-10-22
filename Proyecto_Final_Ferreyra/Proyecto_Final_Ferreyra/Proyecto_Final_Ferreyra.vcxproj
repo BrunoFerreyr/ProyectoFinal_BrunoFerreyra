@@ -23,6 +23,7 @@
     <ClCompile Include="src\AudioManager.cpp" />
     <ClCompile Include="src\Bar.cpp" />
     <ClCompile Include="src\Battle.cpp" />
+    <ClCompile Include="src\ButtonAsset.cpp" />
     <ClCompile Include="src\CollectablesUI.cpp" />
     <ClCompile Include="src\Dialog.cpp" />
     <ClCompile Include="src\EnemyAsset.cpp" />
@@ -54,6 +55,7 @@
     <ClInclude Include="src\Bar.h" />
     <ClInclude Include="src\Battle.h" />
     <ClInclude Include="src\BattleData.h" />
+    <ClInclude Include="src\ButtonAsset.h" />
     <ClInclude Include="src\CollectablesUI.h" />
     <ClInclude Include="src\Dialog.h" />
     <ClInclude Include="src\EnemyAsset.h" />
