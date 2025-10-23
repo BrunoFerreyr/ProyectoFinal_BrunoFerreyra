@@ -83,34 +83,36 @@ void Game::HandleEvents()
 {
 	while (const auto event = window->pollEvent())
 	{
-		if (event->is<sf::Event::Closed>())
+		if (event->is<sf::Event::Closed>()) 
+		{
 			window->close();
+		}
 
-		//player->HandleEvents(*event);
 		currentScene->HandleEvents(*event);
 	}
 }
 void Game::Update()
 {
 	float deltaTime = clockk.restart().asSeconds();
-	//player->Update(deltaTime);
 	currentScene->Update(deltaTime);
 
 	if (currentScene->GetWantsChange()) 
 	{
 		currentScene->SetWantsChange(false);
-		//std::cout << (int)currentScene->GetNextSceneID();
 		
 		currentScene = scenes.find(currentScene->GetNextSceneID())->second;
 		currentScene->Initialize();
+	}
+
+	if (currentScene->GetWantsExit()) 
+	{
+		window->close();
 	}
 }
 void Game::Draw() 
 {
 	window->clear();
-	//maps[0]->Draw(*window);
 	currentScene->Draw();
-	//player->Draw(*window);
 	dialog->Draw(*window);
 	window->display();
 }

@@ -44,10 +44,6 @@ AssetType Asset::GetType() const
 {
 	return data.assetType;
 }
-void Asset::deleteSprite()
-{
-	delete data.sprite;
-}
 const AssetData& Asset::GetData() const
 {
 	return data;

@@ -25,8 +25,11 @@ private:
 	ButtonAsset* creditsButton;
 	ButtonAsset* exitButton;
 
+	sf::Sprite* creditsBackground;
+	sf::Text* creditsText;
+	bool showCredits = false;
 	void LoadGame();
-	void ShowCredits();
+	void ToggleCredits();
 	void ExitGame();
 
 	//sf::Sprite* startButton;

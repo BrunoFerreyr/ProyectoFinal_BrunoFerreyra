@@ -22,3 +22,11 @@ void Scene::SetWantsChange(bool value)
 {
 	wantsChange = value;
 }
+bool Scene::GetWantsExit() const 
+{
+	return wantsExit;
+}
+void Scene::SetWantsExit(bool value)
+{
+	wantsExit = value;
+}

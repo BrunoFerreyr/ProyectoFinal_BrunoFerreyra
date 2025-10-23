@@ -9,7 +9,6 @@ public:
 	virtual ~Asset();
 
 	bool setUpSprite(const std::string&);
-	void deleteSprite();
 	sf::Sprite* GetSprite() const;
 	virtual AssetType GetType() const;
 	const AssetData& GetData() const;

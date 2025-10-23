@@ -13,6 +13,14 @@ MainMenu::MainMenu(sf::RenderWindow& window, ResourceManager& resources, AudioMa
 	std::string fontPath = "../fonts/dogicapixel.ttf";
 	sf::Font& font = resources.GetFont(fontPath);
 
+	sf::Texture& creditsBackgroundTexture = resources.GetTexture("../textures/menu/creditsBackground.png", false,sf::IntRect({ 0, 0 }, { 600, 600 }));
+	creditsBackground = new sf::Sprite(creditsBackgroundTexture);
+	creditsBackground->setPosition({ 640.0f, 60.0f });
+
+	creditsText = new sf::Text(font);
+	creditsText->setString("Game developed by:\n\n- John Doe\n- Jane Smith\n- Alice Johnson\n- Bob Brown\n\nThank you for playing!");
+	creditsText->setCharacterSize(24);
+	creditsText->setPosition({ creditsBackground->getPosition().x + 20.0f, creditsBackground->getPosition().y + 20.0f });
 	startButton = new ButtonAsset({ &resources.GetTexture("../textures/StartButton.png", false, sf::IntRect()), sf::Vector2f{460.0f, 300.0f}, sf::IntRect({ 0, 0 }, { 361, 88 }), true , true, nullptr },font,"START",nullptr);
 	creditsButton = new ButtonAsset({ &resources.GetTexture("../textures/StartButton.png", false, sf::IntRect()), sf::Vector2f{460.0f, 400.0f}, sf::IntRect({ 0, 0 }, { 361, 88 }), true , true, nullptr }, font, "CREDITS", nullptr);
 	exitButton = new ButtonAsset({ &resources.GetTexture("../textures/StartButton.png", false, sf::IntRect()), sf::Vector2f{460.0f, 500.0f}, sf::IntRect({ 0, 0 }, { 361, 88 }), true , true, nullptr }, font, "EXIT", nullptr);
@@ -23,6 +31,8 @@ MainMenu::MainMenu(sf::RenderWindow& window, ResourceManager& resources, AudioMa
 MainMenu::~MainMenu()
 {
 	delete background;
+	delete creditsBackground;
+	delete creditsText;
 	delete startButton;
 }
 void MainMenu::Input()
@@ -44,6 +54,11 @@ void MainMenu::Draw()
 	window.draw(*creditsButton->GetText());
 	window.draw(*exitButton->GetSprite());
 	window.draw(*exitButton->GetText());
+	if (showCredits)
+	{
+		window.draw(*creditsBackground);
+		window.draw(*creditsText);
+	}
 }
 void MainMenu::HandleEvents(const sf::Event& event)
 {
@@ -60,7 +75,7 @@ void MainMenu::HandleEvents(const sf::Event& event)
 			}
 			if (creditsButton->GetSprite()->getGlobalBounds().contains(worldPos))
 			{
-				ShowCredits();
+				ToggleCredits();
 			}
 			if (exitButton->GetSprite()->getGlobalBounds().contains(worldPos))
 			{
@@ -74,14 +89,11 @@ void MainMenu::LoadGame()
 	wantsChange = true;
 	nextSceneID = SceneID::Gameplay;
 }
-void MainMenu::ShowCredits()
+void MainMenu::ToggleCredits()
 {
-	std::cout << "Showing credits..." << std::endl;
-	//wantsChange = true;
-	//nextSceneID = SceneID::Credits;
+	showCredits = !showCredits;
 }
 void MainMenu::ExitGame()
 {
-	std::cout << "Exiting game..." << std::endl;
-	//window.close();
+	SetWantsExit(true);
 }

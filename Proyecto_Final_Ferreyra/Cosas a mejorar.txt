@@ -3,7 +3,7 @@ Audio Manager
 ********hacer que pueda ver si ya se esta reproduciendo esa musica o no para poner play.
  probar sfx
 
-Generar un missions manager, en el mismo manejo cantidad de piezas, etc, dialogo etc.
+********Generar un missions manager, en el mismo manejo cantidad de piezas, etc, dialogo etc.
 
 ********Agregar callback al terminar batalla
 ********wait al terminar con resultado
@@ -26,7 +26,7 @@ ver si necesito guardar managersdata en maps, ya que uso directamente el manager
 ********pasar asset erase a una funcion en map
 ********ver bug de enemigo cuando muere player, se spawnea mal
 ojo con eliminar sprite, verificar como lo manejo en maps
-agregar wantsExit en scene.
+********agregar wantsExit en scene.
 
 Acá les dejo las directivas para apagar la consola en Release (En Debug se debe seguir viendo):
 
