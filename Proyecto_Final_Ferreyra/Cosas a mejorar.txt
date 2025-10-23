@@ -27,7 +27,19 @@ ver si necesito guardar managersdata en maps, ya que uso directamente el manager
 ********ver bug de enemigo cuando muere player, se spawnea mal
 ojo con eliminar sprite, verificar como lo manejo en maps
 ********agregar wantsExit en scene.
-
+agregar botones en modo pausa, reworkear actuales
+modificar volumen de sonido y musica
+sonidos sfx
+leer archivo
+buscar patron de disenio
+barra de wait en battle
+ajustar gdd
+itchio
+reeadme
+verificar news
+todos los assets visuales
+borrar todo lo que no se use
+ver posibles mejoras de codigo.
 Acá les dejo las directivas para apagar la consola en Release (En Debug se debe seguir viendo):
 
 Vinculador -> Sistema -> Subsistema -> Windows
