@@ -1,6 +1,6 @@
 #pragma once
 #include "ResourceManager.h"
-
+#include "ButtonAsset.h"
 #include "SFML/Graphics.hpp"
 #include "Scene.h"
 #include "MainMenu.h"
@@ -15,8 +15,9 @@ public:
 	void Draw();
 	void HandleEvents(const sf::Event& event);
 	bool GetGamePaused();
-	void PauseGame();
-	void UnpauseGame();
+	void TogglePause(bool value);
+	void ReturnToMainMenu();
+	void ExitGame();
 	void SetIsOnBattle(bool onBattle);
 private:
 
@@ -24,9 +25,10 @@ private:
 	MainMenu*& mainMenu;
 	sf::RenderWindow& window;
 
-	sf::Sprite* pauseBackground;
-	sf::Sprite* continueButton;
-	sf::Sprite* mainMenuButton;
+	//sf::Sprite* pauseBackground;
+	ButtonAsset* continueButton;
+	ButtonAsset* mainMenuButton;
+	ButtonAsset* exitButton;
 
 	bool gamePaused;
 	bool isOnBattle = false;

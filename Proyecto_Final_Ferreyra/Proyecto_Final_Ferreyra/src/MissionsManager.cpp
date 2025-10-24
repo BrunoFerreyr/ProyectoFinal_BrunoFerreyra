@@ -21,7 +21,6 @@ void MissionsManager::CheckGetMetalsMission(int metalCount)
 	if (!metalsMission && metalCount >= 5)
 	{
 		metalsMission = true;
-		hasWoodsKey = true;
 	}
 }
 void MissionsManager::HaveDefeatedKnight()

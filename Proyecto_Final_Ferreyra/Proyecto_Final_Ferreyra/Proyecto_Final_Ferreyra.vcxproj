@@ -39,6 +39,7 @@
     <ClCompile Include="src\MissionsManager.cpp" />
     <ClCompile Include="src\Pause.cpp" />
     <ClCompile Include="src\PlayerAnimations.cpp" />
+    <ClCompile Include="src\Slider.cpp" />
     <ClCompile Include="src\TriggerAsset.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
@@ -74,6 +75,7 @@
     <ClInclude Include="src\PlayerAnimations.h" />
     <ClInclude Include="src\PlayerState.h" />
     <ClInclude Include="src\SceneID.h" />
+    <ClInclude Include="src\Slider.h" />
     <ClInclude Include="src\TriggerAsset.h" />
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\ResourceManager.h" />

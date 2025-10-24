@@ -47,7 +47,7 @@ void AudioManager::PlaySFX(sf::SoundBuffer& sfx)
 
 // Ajustar volumen global
 void AudioManager::SetMusicVolume(float volume) {
-    musicVolume = volume;    
+    musicVolume = volume * 100;    
     currentMusic.setVolume(musicVolume);
 }
 

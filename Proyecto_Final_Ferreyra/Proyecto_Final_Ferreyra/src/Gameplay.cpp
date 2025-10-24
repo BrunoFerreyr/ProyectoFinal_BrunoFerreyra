@@ -24,6 +24,7 @@ Gameplay::Gameplay(sf::RenderWindow& window, Player* player, Pause& pauseManager
 
 	currentMap = levelCave;
 	player->SetCurrentMap(currentMap, { 400.0f, 400.0f });
+	nextSceneID = SceneID::MainMenu;
 }
 Gameplay::~Gameplay()
 {

@@ -3,6 +3,7 @@
 #include "ResourceManager.h"
 #include "AudioManager.h"
 #include "ButtonAsset.h"
+#include "Slider.h"
 
 class MainMenu : public Scene
 {
@@ -11,6 +12,7 @@ public:
 	~MainMenu() override;
 
 	void Input() override;
+	void Initialize() override;
 	void Update(float deltaTime) override;
 	void Draw() override;
 	void HandleEvents(const sf::Event& event) override;
@@ -24,6 +26,7 @@ private:
 	ButtonAsset* startButton;
 	ButtonAsset* creditsButton;
 	ButtonAsset* exitButton;
+	Slider* musicVolumeSlider;
 
 	sf::Sprite* creditsBackground;
 	sf::Text* creditsText;
@@ -31,6 +34,4 @@ private:
 	void LoadGame();
 	void ToggleCredits();
 	void ExitGame();
-
-	//sf::Sprite* startButton;
 };

@@ -10,8 +10,7 @@ MainMenu::MainMenu(sf::RenderWindow& window, ResourceManager& resources, AudioMa
 
 	sf::Texture& backgroundTexture = resources.GetTexture(backgroundPath,false, backgroundArea);
 	background = new sf::Sprite(backgroundTexture);
-	std::string fontPath = "../fonts/dogicapixel.ttf";
-	sf::Font& font = resources.GetFont(fontPath);
+	sf::Font& font = resources.GetFont("../fonts/dogicapixel.ttf");
 
 	sf::Texture& creditsBackgroundTexture = resources.GetTexture("../textures/menu/creditsBackground.png", false,sf::IntRect({ 0, 0 }, { 600, 600 }));
 	creditsBackground = new sf::Sprite(creditsBackgroundTexture);
@@ -24,9 +23,9 @@ MainMenu::MainMenu(sf::RenderWindow& window, ResourceManager& resources, AudioMa
 	startButton = new ButtonAsset({ &resources.GetTexture("../textures/StartButton.png", false, sf::IntRect()), sf::Vector2f{460.0f, 300.0f}, sf::IntRect({ 0, 0 }, { 361, 88 }), true , true, nullptr },font,"START",nullptr);
 	creditsButton = new ButtonAsset({ &resources.GetTexture("../textures/StartButton.png", false, sf::IntRect()), sf::Vector2f{460.0f, 400.0f}, sf::IntRect({ 0, 0 }, { 361, 88 }), true , true, nullptr }, font, "CREDITS", nullptr);
 	exitButton = new ButtonAsset({ &resources.GetTexture("../textures/StartButton.png", false, sf::IntRect()), sf::Vector2f{460.0f, 500.0f}, sf::IntRect({ 0, 0 }, { 361, 88 }), true , true, nullptr }, font, "EXIT", nullptr);
-	
-	std::string musicPath = "../audios/mainmenuMusic.ogg";
-	audioManager.PlayMusic(musicPath);
+	musicVolumeSlider = new Slider([this](float value) { this->audioManager.SetMusicVolume(value); });
+
+	Initialize();
 }
 MainMenu::~MainMenu()
 {
@@ -34,12 +33,24 @@ MainMenu::~MainMenu()
 	delete creditsBackground;
 	delete creditsText;
 	delete startButton;
+	delete creditsButton;
+	delete exitButton;
+	delete musicVolumeSlider;
+}
+void MainMenu::Initialize()
+{
+	std::string musicPath = "../audios/mainmenuMusic.ogg";
+	audioManager.PlayMusic(musicPath);
 }
 void MainMenu::Input()
 {
 }
 void MainMenu::Update(float deltaTime)
 {
+	if(musicVolumeSlider->GetIsDragging()){
+		sf::Vector2i pixelPos = sf::Mouse::getPosition(window);
+		musicVolumeSlider->Drag(pixelPos);
+	}
 	if (wantsChange)
 	{
 		return;
@@ -54,6 +65,10 @@ void MainMenu::Draw()
 	window.draw(*creditsButton->GetText());
 	window.draw(*exitButton->GetSprite());
 	window.draw(*exitButton->GetText());
+	window.draw(*musicVolumeSlider->GetSliderBackground());
+	window.draw(*musicVolumeSlider->GetSliderBar());
+	window.draw(*musicVolumeSlider->GetCircleShape());
+
 	if (showCredits)
 	{
 		window.draw(*creditsBackground);
@@ -81,6 +96,17 @@ void MainMenu::HandleEvents(const sf::Event& event)
 			{
 				ExitGame();
 			}
+			if (musicVolumeSlider->GetCircleShape()->getGlobalBounds().contains(worldPos)) 
+			{
+				musicVolumeSlider->SetIsDragging(true);
+			}
+		}
+	}
+	if (const auto* mouse = event.getIf<sf::Event::MouseButtonReleased>()) 
+	{
+		if (mouse->button == sf::Mouse::Button::Left) 
+		{
+			musicVolumeSlider->SetIsDragging(false);
 		}
 	}
 }
