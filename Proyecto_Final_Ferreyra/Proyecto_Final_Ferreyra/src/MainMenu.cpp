@@ -23,7 +23,8 @@ MainMenu::MainMenu(sf::RenderWindow& window, ResourceManager& resources, AudioMa
 	startButton = new ButtonAsset({ &resources.GetTexture("../textures/StartButton.png", false, sf::IntRect()), sf::Vector2f{460.0f, 300.0f}, sf::IntRect({ 0, 0 }, { 361, 88 }), true , true, nullptr },font,"START",nullptr);
 	creditsButton = new ButtonAsset({ &resources.GetTexture("../textures/StartButton.png", false, sf::IntRect()), sf::Vector2f{460.0f, 400.0f}, sf::IntRect({ 0, 0 }, { 361, 88 }), true , true, nullptr }, font, "CREDITS", nullptr);
 	exitButton = new ButtonAsset({ &resources.GetTexture("../textures/StartButton.png", false, sf::IntRect()), sf::Vector2f{460.0f, 500.0f}, sf::IntRect({ 0, 0 }, { 361, 88 }), true , true, nullptr }, font, "EXIT", nullptr);
-	musicVolumeSlider = new Slider([this](float value) { this->audioManager.SetMusicVolume(value); });
+	musicVolumeSlider = new Slider(resources, "../textures/menu/musicSliderBackground.png", {150,350}, [this](float value) { this->audioManager.SetMusicVolume(value); });
+	sfxVolumeSlider = new Slider(resources, "../textures/menu/sfxSliderBackground.png", { 190,350 }, [this](float value) { this->audioManager.SetSFXVolume(value); });
 
 	Initialize();
 }
@@ -36,6 +37,7 @@ MainMenu::~MainMenu()
 	delete creditsButton;
 	delete exitButton;
 	delete musicVolumeSlider;
+	delete sfxVolumeSlider;
 }
 void MainMenu::Initialize()
 {
@@ -51,6 +53,10 @@ void MainMenu::Update(float deltaTime)
 		sf::Vector2i pixelPos = sf::Mouse::getPosition(window);
 		musicVolumeSlider->Drag(pixelPos);
 	}
+	if(sfxVolumeSlider->GetIsDragging()) {
+		sf::Vector2i pixelPos = sf::Mouse::getPosition(window);
+		sfxVolumeSlider->Drag(pixelPos);
+	}
 	if (wantsChange)
 	{
 		return;
@@ -65,9 +71,14 @@ void MainMenu::Draw()
 	window.draw(*creditsButton->GetText());
 	window.draw(*exitButton->GetSprite());
 	window.draw(*exitButton->GetText());
+
 	window.draw(*musicVolumeSlider->GetSliderBackground());
 	window.draw(*musicVolumeSlider->GetSliderBar());
 	window.draw(*musicVolumeSlider->GetCircleShape());
+
+	window.draw(*sfxVolumeSlider->GetSliderBackground());
+	window.draw(*sfxVolumeSlider->GetSliderBar());
+	window.draw(*sfxVolumeSlider->GetCircleShape());
 
 	if (showCredits)
 	{
@@ -100,6 +111,10 @@ void MainMenu::HandleEvents(const sf::Event& event)
 			{
 				musicVolumeSlider->SetIsDragging(true);
 			}
+			if (sfxVolumeSlider->GetCircleShape()->getGlobalBounds().contains(worldPos))
+			{
+				sfxVolumeSlider->SetIsDragging(true);
+			}
 		}
 	}
 	if (const auto* mouse = event.getIf<sf::Event::MouseButtonReleased>()) 
@@ -107,6 +122,7 @@ void MainMenu::HandleEvents(const sf::Event& event)
 		if (mouse->button == sf::Mouse::Button::Left) 
 		{
 			musicVolumeSlider->SetIsDragging(false);
+			sfxVolumeSlider->SetIsDragging(false);
 		}
 	}
 }

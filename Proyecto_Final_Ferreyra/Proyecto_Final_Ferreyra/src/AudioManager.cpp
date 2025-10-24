@@ -53,6 +53,10 @@ void AudioManager::SetMusicVolume(float volume) {
 
 void AudioManager::SetSFXVolume(float volume) {
     sfxVolume = volume;
+	if (currentSfx == nullptr) 
+	{
+		return;
+	}
 	currentSfx->setVolume(sfxVolume);
 }
 

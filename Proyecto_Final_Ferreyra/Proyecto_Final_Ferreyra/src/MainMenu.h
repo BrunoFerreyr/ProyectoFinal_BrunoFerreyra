@@ -27,7 +27,7 @@ private:
 	ButtonAsset* creditsButton;
 	ButtonAsset* exitButton;
 	Slider* musicVolumeSlider;
-
+	Slider* sfxVolumeSlider;
 	sf::Sprite* creditsBackground;
 	sf::Text* creditsText;
 	bool showCredits = false;

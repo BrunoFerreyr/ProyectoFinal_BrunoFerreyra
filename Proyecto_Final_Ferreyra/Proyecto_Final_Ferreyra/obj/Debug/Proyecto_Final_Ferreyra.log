@@ -1,19 +1,9 @@
-﻿  Slider.cpp
+﻿  MainMenu.cpp
 C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,47): warning C4275: se ha utilizado una interfaz no de DLL class 'std::runtime_error' como base para la interfaz DLL class 'sf::Exception'
-  (compilando archivo de origen "src/Slider.cpp")
+  (compilando archivo de origen "src/MainMenu.cpp")
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stdexcept(100,30):
       vea la declaración de 'std::runtime_error'
       C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\libs\SFML\include\SFML\System\Exception.hpp(41,23):
       vea la declaración de 'sf::Exception'
   
-C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\src\Slider.cpp(20,39): warning C4244: '=': conversión de 'float' a 'T'; posible pérdida de datos
-C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\src\Slider.cpp(20,39): warning C4244:         with
-C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\src\Slider.cpp(20,39): warning C4244:         [
-C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\src\Slider.cpp(20,39): warning C4244:             T=int
-C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\src\Slider.cpp(20,39): warning C4244:         ]
-C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\src\Slider.cpp(47,54): warning C4244: '=': conversión de 'float' a 'T'; posible pérdida de datos
-C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\src\Slider.cpp(47,54): warning C4244:         with
-C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\src\Slider.cpp(47,54): warning C4244:         [
-C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\src\Slider.cpp(47,54): warning C4244:             T=int
-C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\src\Slider.cpp(47,54): warning C4244:         ]
   Proyecto_Final_Ferreyra.vcxproj -> C:\Users\Msi\Documents\GitHub\ProyectoFinal_BrunoFerreyra\Proyecto_Final_Ferreyra\Proyecto_Final_Ferreyra\bin\Debug\Proyecto_Final_Ferreyra.exe
