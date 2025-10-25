@@ -24,17 +24,21 @@ private:
 	sf::Sprite* background;
 
 	ButtonAsset* startButton;
+	ButtonAsset* controlsButton;
 	ButtonAsset* creditsButton;
 	ButtonAsset* exitButton;
 	Slider* musicVolumeSlider;
 	Slider* sfxVolumeSlider;
+	sf::Sprite* controlsBackground;
 	sf::Sprite* creditsBackground;
 	sf::Text* creditsText;
 	sf::SoundBuffer testBuffer;
 	sf::SoundBuffer testBuffer2;
 
 	bool showCredits = false;
+	bool showControls = false;
 	void LoadGame();
 	void ToggleCredits();
+	void ToggleControls();
 	void ExitGame();
 };

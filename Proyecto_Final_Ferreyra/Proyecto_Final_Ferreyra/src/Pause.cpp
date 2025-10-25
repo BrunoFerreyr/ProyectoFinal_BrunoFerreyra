@@ -5,15 +5,12 @@ Pause::Pause(ResourceManager& resources, AudioManager& audioManager, sf::RenderW
 	this->currentScene = currentScene;
 	this->mainMenu = mainMenu;
 
-	/*std::string pauseBackgroundPath = "../textures/pause/pausebackground.png";
-	sf::IntRect pauseBackgroundArea({ 0,0 }, { 1280, 720 });
-	sf::Texture& pauseBackgroundTexture = resources.GetTexture(pauseBackgroundPath, false, pauseBackgroundArea);
-	pauseBackground = new sf::Sprite(pauseBackgroundTexture);
-	pauseBackground->setPosition({ 1280 * 0.5f, 720 * 0.5f });*/
 	sf::Font& font = resources.GetFont("../fonts/dogicapixel.ttf");
-	continueButton = new ButtonAsset({ &resources.GetTexture("../textures/continueButton.png", false, sf::IntRect()), sf::Vector2f{460.0f, 300.0f}, sf::IntRect({ 0, 0 }, { 361, 88 }), true , true, nullptr }, font, "CONTINUE", nullptr);
-	mainMenuButton = new ButtonAsset({ &resources.GetTexture("../textures/mainmenuButton.png", false, sf::IntRect()), sf::Vector2f{460.0f, 400.0f}, sf::IntRect({ 0, 0 }, { 361, 88 }), true , true, nullptr }, font, "MAIN MENU", nullptr);
-	exitButton = new ButtonAsset({ &resources.GetTexture("../textures/StartButton.png", false, sf::IntRect()), sf::Vector2f{460.0f, 500.0f}, sf::IntRect({ 0, 0 }, { 361, 88 }), true , true, nullptr }, font, "EXIT", nullptr);
+	continueButton = new ButtonAsset({ &resources.GetTexture("../textures/continueButton.png", false, sf::IntRect()), sf::Vector2f{490.0f, 250.0f}, sf::IntRect({ 0, 0 }, { 300, 100 }), true , true, nullptr }, font, "CONTINUE");
+	mainMenuButton = new ButtonAsset({ &resources.GetTexture("../textures/mainmenuButton.png", false, sf::IntRect()), sf::Vector2f{490.0f, 380.0f}, sf::IntRect({ 0, 0 }, { 300, 100 }), true , true, nullptr }, font, "MAIN MENU");
+	exitButton = new ButtonAsset({ &resources.GetTexture("../textures/menu/startButton.png", false, sf::IntRect()), sf::Vector2f{532.0f, 510.0f}, sf::IntRect({ 0, 0 }, { 216, 52 }), true , true, nullptr }, font, "EXIT");
+	musicVolumeSlider = new Slider(resources, "../textures/menu/musicSliderBackground.png", { 360,330 }, [this](float value) { this->audioManager.SetMusicVolume(value); });
+	sfxVolumeSlider = new Slider(resources, "../textures/menu/sfxSliderBackground.png", { 400,330 }, [this](float value) { this->audioManager.SetSFXVolume(value); });
 
 	enterPauseBuffer.loadFromFile("../audios/sfx/sfx_enterPause.ogg");
 	exitPauseBuffer.loadFromFile("../audios/sfx/sfx_exitPause.ogg");
@@ -26,10 +23,24 @@ Pause::~Pause()
 	delete continueButton;
 	delete mainMenuButton;
 	delete exitButton;
+	delete musicVolumeSlider;
+	delete sfxVolumeSlider;
 }
 
 void Pause::Input() {}
-
+void Pause::Update(float deltaTime)
+{
+	if (musicVolumeSlider->GetIsDragging())
+	{
+		sf::Vector2i pixelPos = sf::Mouse::getPosition(window);
+		musicVolumeSlider->Drag(pixelPos);
+	}
+	if (sfxVolumeSlider->GetIsDragging())
+	{
+		sf::Vector2i pixelPos = sf::Mouse::getPosition(window);
+		sfxVolumeSlider->Drag(pixelPos);
+	}
+}
 void Pause::Draw()
 {
 	if (!gamePaused) return;
@@ -41,6 +52,14 @@ void Pause::Draw()
 	window.draw(*mainMenuButton->GetText());
 	window.draw(*exitButton->GetSprite());
 	window.draw(*exitButton->GetText());
+
+	window.draw(*musicVolumeSlider->GetSliderBackground());
+	window.draw(*musicVolumeSlider->GetSliderBar());
+	window.draw(*musicVolumeSlider->GetCircleShape());
+
+	window.draw(*sfxVolumeSlider->GetSliderBackground());
+	window.draw(*sfxVolumeSlider->GetSliderBar());
+	window.draw(*sfxVolumeSlider->GetCircleShape());
 }
 
 void Pause::HandleEvents(const sf::Event& event)
@@ -93,6 +112,22 @@ void Pause::HandleEvents(const sf::Event& event)
 			{
 				ExitGame();
 			}
+			if (musicVolumeSlider->GetCircleShape()->getGlobalBounds().contains(worldPos))
+			{
+				musicVolumeSlider->SetIsDragging(true);
+			}
+			if (sfxVolumeSlider->GetCircleShape()->getGlobalBounds().contains(worldPos))
+			{
+				sfxVolumeSlider->SetIsDragging(true);
+			}
+		}
+	}
+	if (const auto* mouse = event.getIf<sf::Event::MouseButtonReleased>())
+	{
+		if (mouse->button == sf::Mouse::Button::Left)
+		{
+			musicVolumeSlider->SetIsDragging(false);
+			sfxVolumeSlider->SetIsDragging(false);
 		}
 	}
 }

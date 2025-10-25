@@ -20,12 +20,10 @@ AudioManager::~AudioManager()
 	{
 		currentMusic.stop();
 	}
-	delete currentSfx;
 }
-void AudioManager::PlayMusic(std::string& path) {
-	/*if (currentMusic != nullptr && currentMusic->getStatus() == sf::Music::Status::Playing) {
-		currentMusic->stop();
-	}*/
+
+void AudioManager::PlayMusic(std::string& path) 
+{
 	if (actualMusicPath == path && currentMusic.getStatus() == sf::Music::Status::Playing)
 	{
 		return;
@@ -42,8 +40,6 @@ void AudioManager::PlayMusic(std::string& path) {
 	currentMusic.setLooping(true);
 	currentMusic.play();
 }
-
-// Reproducir SFX
 void AudioManager::PlaySFX(sf::SoundBuffer& sfx) 
 {		
 	for (int i = 0; i < sfxPool.size(); i++)
@@ -57,13 +53,13 @@ void AudioManager::PlaySFX(sf::SoundBuffer& sfx)
 	}	
 }
 
-// Ajustar volumen global
-void AudioManager::SetMusicVolume(float volume) {
+void AudioManager::SetMusicVolume(float volume) 
+{
     musicVolume = volume * 100;    
     currentMusic.setVolume(musicVolume);
 }
-
-void AudioManager::SetSFXVolume(float volume) {
+void AudioManager::SetSFXVolume(float volume) 
+{
     sfxVolume = volume * 100;
 	for (int i = 0; i < sfxPool.size(); i++)
 	{

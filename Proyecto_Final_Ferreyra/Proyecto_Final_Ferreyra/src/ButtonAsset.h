@@ -5,17 +5,14 @@
 class ButtonAsset : public Asset
 {
 public:
-	ButtonAsset(AssetData assetData, sf::Font& font, const std::string& buttonName, std::function<void()> func);
+	ButtonAsset(AssetData assetData, sf::Font& font, const std::string& buttonName);
 	virtual ~ButtonAsset() override;
 
-	void OnClickEvent();
 	sf::Text* GetText();
 	sf::SoundBuffer& GetBuffer();
 
 private:
-	std::function<void()> onClickEvent;
 	sf::Text* buttonText;
-
 	sf::SoundBuffer clickBuffer;
 };
 

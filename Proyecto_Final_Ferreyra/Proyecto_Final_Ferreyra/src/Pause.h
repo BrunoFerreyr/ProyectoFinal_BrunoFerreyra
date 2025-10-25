@@ -14,6 +14,7 @@ public:
 	~Pause();
 
 	void Input();
+	void Update(float deltaTime);
 	void Draw();
 	void HandleEvents(const sf::Event& event);
 	bool GetGamePaused();
@@ -28,10 +29,11 @@ private:
 	MainMenu*& mainMenu;
 	sf::RenderWindow& window;
 
-	//sf::Sprite* pauseBackground;
 	ButtonAsset* continueButton;
 	ButtonAsset* mainMenuButton;
 	ButtonAsset* exitButton;
+	Slider* musicVolumeSlider;
+	Slider* sfxVolumeSlider;
 
 	bool gamePaused;
 	bool isOnBattle = false;

@@ -7,18 +7,24 @@ Bar::~Bar()
 {
 	delete bar;
 }
+
 void Bar::SetPercentage(int percentage)
 {
-	std::cout << "SetPercentage: " << percentage << std::endl;
-	if (percentage < 0.0f) percentage = 0.0f;
-	if (percentage > 100.0f) percentage = 100.0f;
+	if (percentage < 0.0f)
+	{
+		percentage = 0.0f;
+	}
+	if (percentage > 100.0f)
+	{ 
+		percentage = 100.0f;
+	}
+
 	sf::IntRect rect = bar->GetSprite()->getTextureRect();
-	//rect.size.x = (percentage * rect.size.x) / 100;
 	rect.size.x = (percentage * width) / 100;
 	bar->GetSprite()->setTextureRect(rect);
 }
 
-Asset* Bar::GetBar() const 
+Asset* Bar::GetBarAsset() const 
 { 
 	return bar; 
 }

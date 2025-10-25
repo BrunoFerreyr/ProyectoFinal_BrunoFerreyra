@@ -67,7 +67,7 @@ void Game::CreateScenes()
 	mainMenu = new MainMenu(*window, resourceManager, audioManager);
 	pauseManager = new Pause(resourceManager,audioManager, *window, *&currentScene, *&mainMenu);//DO  ver signos
 
-	gameplay = new Gameplay(*window, player, *pauseManager, *managersData);
+	gameplay = new Gameplay(*window, player, *pauseManager, *managersData, [this]() { DeInitialize(); });
 
 	scenes.emplace(SceneID::MainMenu, mainMenu);
 	scenes.emplace(SceneID::Gameplay, gameplay);
@@ -126,5 +126,4 @@ void Game::DestroyPlayer()
 	delete dialog;
 	delete managersData;
 	delete collectablesUI;
-	delete dialog;
 }

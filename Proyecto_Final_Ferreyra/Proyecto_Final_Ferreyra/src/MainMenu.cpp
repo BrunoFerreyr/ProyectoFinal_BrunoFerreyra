@@ -16,15 +16,20 @@ MainMenu::MainMenu(sf::RenderWindow& window, ResourceManager& resources, AudioMa
 	creditsBackground = new sf::Sprite(creditsBackgroundTexture);
 	creditsBackground->setPosition({ 640.0f, 60.0f });
 
+	sf::Texture& controlsBackgroundTexture = resources.GetTexture("../textures/menu/controlsBackground.png", false, sf::IntRect({ 0, 0 }, { 518, 336 }));
+	controlsBackground = new sf::Sprite(controlsBackgroundTexture);
+	controlsBackground->setPosition({ 640.0f, 240.0f });
+
 	creditsText = new sf::Text(font);
 	creditsText->setString("Game developed by:\n\n- John Doe\n- Jane Smith\n- Alice Johnson\n- Bob Brown\n\nThank you for playing!");
 	creditsText->setCharacterSize(24);
 	creditsText->setPosition({ creditsBackground->getPosition().x + 20.0f, creditsBackground->getPosition().y + 20.0f });
-	startButton = new ButtonAsset({ &resources.GetTexture("../textures/StartButton.png", false, sf::IntRect()), sf::Vector2f{460.0f, 300.0f}, sf::IntRect({ 0, 0 }, { 361, 88 }), true , true, nullptr },font,"START",nullptr);
-	creditsButton = new ButtonAsset({ &resources.GetTexture("../textures/StartButton.png", false, sf::IntRect()), sf::Vector2f{460.0f, 400.0f}, sf::IntRect({ 0, 0 }, { 361, 88 }), true , true, nullptr }, font, "CREDITS", nullptr);
-	exitButton = new ButtonAsset({ &resources.GetTexture("../textures/StartButton.png", false, sf::IntRect()), sf::Vector2f{460.0f, 500.0f}, sf::IntRect({ 0, 0 }, { 361, 88 }), true , true, nullptr }, font, "EXIT", nullptr);
-	musicVolumeSlider = new Slider(resources, "../textures/menu/musicSliderBackground.png", {150,350}, [this](float value) { this->audioManager.SetMusicVolume(value); });
-	sfxVolumeSlider = new Slider(resources, "../textures/menu/sfxSliderBackground.png", { 190,350 }, [this](float value) { this->audioManager.SetSFXVolume(value); });
+	startButton = new ButtonAsset({ &resources.GetTexture("../textures/menu/startButton.png", false, sf::IntRect()), sf::Vector2f{532.0f, 300.0f}, sf::IntRect({ 0, 0 }, { 216, 52 }), true , true, nullptr },font,"START");
+	controlsButton = new ButtonAsset({ &resources.GetTexture("../textures/menu/startButton.png", false, sf::IntRect()), sf::Vector2f{532.0f, 360.0f}, sf::IntRect({ 0, 0 }, { 216, 52 }), true , true, nullptr }, font, "CONTROLS");
+	creditsButton = new ButtonAsset({ &resources.GetTexture("../textures/menu/startButton.png", false, sf::IntRect()), sf::Vector2f{532.0f, 420.0f}, sf::IntRect({ 0, 0 }, { 216, 52 }), true , true, nullptr }, font, "CREDITS");
+	exitButton = new ButtonAsset({ &resources.GetTexture("../textures/menu/startButton.png", false, sf::IntRect()), sf::Vector2f{532.0f, 480.0f}, sf::IntRect({ 0, 0 }, { 216, 52 }), true , true, nullptr }, font, "EXIT");
+	musicVolumeSlider = new Slider(resources, "../textures/menu/musicSliderBackground.png", {360,330}, [this](float value) { this->audioManager.SetMusicVolume(value); });
+	sfxVolumeSlider = new Slider(resources, "../textures/menu/sfxSliderBackground.png", { 400,330 }, [this](float value) { this->audioManager.SetSFXVolume(value); });
 
 	Initialize();
 }
@@ -38,6 +43,8 @@ MainMenu::~MainMenu()
 	delete exitButton;
 	delete musicVolumeSlider;
 	delete sfxVolumeSlider;
+	delete controlsButton;
+	delete controlsBackground;
 }
 void MainMenu::Initialize()
 {
@@ -49,11 +56,13 @@ void MainMenu::Input()
 }
 void MainMenu::Update(float deltaTime)
 {
-	if(musicVolumeSlider->GetIsDragging()){
+	if(musicVolumeSlider->GetIsDragging())
+	{
 		sf::Vector2i pixelPos = sf::Mouse::getPosition(window);
 		musicVolumeSlider->Drag(pixelPos);
 	}
-	if(sfxVolumeSlider->GetIsDragging()) {
+	if(sfxVolumeSlider->GetIsDragging()) 
+	{
 		sf::Vector2i pixelPos = sf::Mouse::getPosition(window);
 		sfxVolumeSlider->Drag(pixelPos);
 	}
@@ -67,10 +76,13 @@ void MainMenu::Draw()
 	window.draw(*background);
 	window.draw(*startButton->GetSprite());
 	window.draw(*startButton->GetText());
+	window.draw(*controlsButton->GetSprite());
+	window.draw(*controlsButton->GetText());
 	window.draw(*creditsButton->GetSprite());
 	window.draw(*creditsButton->GetText());
 	window.draw(*exitButton->GetSprite());
 	window.draw(*exitButton->GetText());
+
 
 	window.draw(*musicVolumeSlider->GetSliderBackground());
 	window.draw(*musicVolumeSlider->GetSliderBar());
@@ -85,24 +97,13 @@ void MainMenu::Draw()
 		window.draw(*creditsBackground);
 		window.draw(*creditsText);
 	}
+	if (showControls)
+	{
+		window.draw(*controlsBackground);
+	}
 }
 void MainMenu::HandleEvents(const sf::Event& event)
-{
-	if (const auto* mouse = event.getIf<sf::Event::KeyReleased>()) {
-		if (mouse->code == sf::Keyboard::Key::R) 
-		{
-			if (testBuffer.loadFromFile("../audios/battleMusic.ogg")) {
-				audioManager.PlaySFX(testBuffer);
-			}
-		}
-		if (mouse->code == sf::Keyboard::Key::F)
-		{
-			if (testBuffer2.loadFromFile("../audios/caveMusic.ogg")) {
-				audioManager.PlaySFX(testBuffer2);
-			}
-		}
-	}
-
+{	
 	if (const auto* mouse = event.getIf<sf::Event::MouseButtonPressed>()) 
 	{
 		if (mouse->button == sf::Mouse::Button::Left) 
@@ -113,6 +114,10 @@ void MainMenu::HandleEvents(const sf::Event& event)
 			if (startButton->GetSprite()->getGlobalBounds().contains(worldPos))
 			{
 				LoadGame();
+			}
+			if (controlsButton->GetSprite()->getGlobalBounds().contains(worldPos))
+			{
+				ToggleControls();
 			}
 			if (creditsButton->GetSprite()->getGlobalBounds().contains(worldPos))
 			{
@@ -149,7 +154,20 @@ void MainMenu::LoadGame()
 }
 void MainMenu::ToggleCredits()
 {
+	if (showControls) 
+	{
+		return;
+	}
 	showCredits = !showCredits;
+	audioManager.PlaySFX(startButton->GetBuffer());
+}
+void MainMenu::ToggleControls()
+{
+	if (showCredits)
+	{
+		return;
+	}
+	showControls = !showControls;
 	audioManager.PlaySFX(startButton->GetBuffer());
 }
 void MainMenu::ExitGame()

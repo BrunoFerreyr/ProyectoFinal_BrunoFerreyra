@@ -22,6 +22,7 @@ CollectablesUI::~CollectablesUI()
 	delete castleKeyIcon;
 	delete metalsText;
 }
+
 void CollectablesUI::Draw(sf::RenderWindow& window)
 {
 	window.draw(*metalsIcon->GetSprite());
@@ -39,12 +40,14 @@ void CollectablesUI::Draw(sf::RenderWindow& window)
 	}
 	window.draw(*metalsText);
 }
-void CollectablesUI::SetMetalAmount(int incrementAmount)
+
+void CollectablesUI::AddMetalAmount(int incrementAmount)
 {
 	metalsAmount += incrementAmount;
 
 	metalsText->setString(" " + std::to_string(metalsAmount));
 }
+
 int CollectablesUI::GetMetalAmount() const
 {
 	return metalsAmount;

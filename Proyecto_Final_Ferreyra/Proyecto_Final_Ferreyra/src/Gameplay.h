@@ -14,7 +14,7 @@
 class Gameplay : public Scene
 {
 public:
-	Gameplay(sf::RenderWindow& window, Player* player, Pause& pauseManager, ManagersData& managers);
+	Gameplay(sf::RenderWindow& window, Player* player, Pause& pauseManager, ManagersData& managers, std::function<void()> onEnd);
 	~Gameplay() override;
 
 	void Initialize() override;
@@ -26,6 +26,7 @@ public:
 	Map* GetCurrentMap() const;
 
 private:
+	void OnEndEvent();
 	Player* player;
 	//Map* map;
 
@@ -42,4 +43,5 @@ private:
 	Pause& pauseManager;
 	ManagersData& managersData;
 	bool gameStarted = false;
+	std::function<void()> onEndGame;
 };

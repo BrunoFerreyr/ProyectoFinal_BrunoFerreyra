@@ -7,10 +7,12 @@ class Bar
 public:
 	Bar(sf::Texture* texture,sf::IntRect area, int width);
 	~Bar();
-	void SetPercentage(int percentage);
 
+	void SetPercentage(int percentage);
+	Asset* GetBarAsset() const;
+
+private:
 	int width;
 	Asset* bar;
-	Asset* GetBar() const;
 };
 

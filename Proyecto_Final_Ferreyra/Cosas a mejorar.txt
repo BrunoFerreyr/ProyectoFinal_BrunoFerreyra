@@ -54,16 +54,18 @@ agregar botones en modo pausa, reworkear actuales
 buscar patron de disenio
 ********barra de wait en battle
 ********capaz poner en texto batalla +5.
-ver si poner jefe
-controles
+
+********controles
 ajustar gdd
 itchio
 reeadme
 verificar news
-todos los assets visuales
+********todos los assets visuales
 borrar todo lo que no se use
 ver posibles mejoras de codigo.
+ battle ver luego
 verificar si quiero reiniciar todo al salir
+ver si poner jefe
 
 Acá les dejo las directivas para apagar la consola en Release (En Debug se debe seguir viendo):
 

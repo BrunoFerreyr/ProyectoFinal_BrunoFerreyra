@@ -87,23 +87,23 @@ bool Map::CheckCollision(const sf::FloatRect& playerBounds, bool isInteractable)
 	//std::cout << "Checking interaction..." << this << std::endl;
 	for (auto asset : assetsObjects)
 	{
-		if (!asset->GetData().haveCollision) 
+		if (!asset->GetData().haveCollision || asset->GetData().sprite == nullptr)
 		{
 			continue;
 		}
 		switch (asset->GetData().assetType) {
 		case AssetType::Static:
 
-			if (asset->GetSprite()->getGlobalBounds().findIntersection(playerBounds))
+			if (asset->GetData().sprite->getGlobalBounds().findIntersection(playerBounds))
 			{
 				std::cout << "!!!!!!!!!!";
-				std::cout << asset->GetSprite()->getTextureRect().size.x;
+				std::cout << asset->GetData().sprite->getTextureRect().size.x;
 				return true;
 			}
 			break;
 		case AssetType::Trigger:
 
-			if (asset->GetSprite()->getGlobalBounds().findIntersection(playerBounds))
+			if (asset->GetData().sprite->getGlobalBounds().findIntersection(playerBounds))
 			{
 				dynamic_cast<TriggerAsset*>(asset)->OnTriggerEnter();
 
@@ -119,7 +119,7 @@ bool Map::CheckCollision(const sf::FloatRect& playerBounds, bool isInteractable)
 			//std::cout << "Trigger asset..." << std::endl;			
 			break;
 		case AssetType::Interactable:
-			if (asset->GetSprite()->getGlobalBounds().findIntersection(playerBounds))
+			if (asset->GetData().sprite->getGlobalBounds().findIntersection(playerBounds))
 			{
 				if (isInteractable) 
 				{
@@ -179,7 +179,7 @@ void Map::EndBattle(bool playerWin,int enemyID)
 		delete enemiesAsset[enemyID];
 		enemiesAsset[enemyID] = nullptr;*/
 		PlayBackgroundMusic();
-		collectablesUI->SetMetalAmount(increment);
+		collectablesUI->AddMetalAmount(increment);
 		audioManager.PlaySFX(earnMetalsBuffer);
 		missionsManager.CheckGetMetalsMission(collectablesUI->GetMetalAmount());
 	}

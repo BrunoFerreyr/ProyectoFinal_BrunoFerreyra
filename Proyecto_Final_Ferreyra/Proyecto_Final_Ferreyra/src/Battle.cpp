@@ -16,8 +16,8 @@ Battle::Battle(ResourceManager& resourceManager,AudioManager& audio, int playerL
 	roundText->setPosition({ 500.0f, 170.0f });
 	enemySprite.setPosition({ 900.0f, 350.0f });
 	timeBar = new Bar(&resourceManager.GetTexture("../textures/battle/barTimer.png", false, sf::IntRect()), sf::IntRect({ 0,0 }, { 194,44 }), 194);
-	timeBar->GetBar()->GetSprite()->setPosition({ 540.0f, 100.0f });
-	sf::Vector2f timeBarPosition = timeBar->GetBar()->GetSprite()->getPosition();
+	timeBar->GetBarAsset()->GetSprite()->setPosition({ 540.0f, 100.0f });
+	sf::Vector2f timeBarPosition = timeBar->GetBarAsset()->GetSprite()->getPosition();
 	timeBarBackground = new Asset({ &resourceManager.GetTexture("../textures/battle/barTimerBackground.png", false, sf::IntRect()), sf::Vector2f({ timeBarPosition.x - 3, timeBarPosition.y - 3 }), sf::IntRect({ 0,0 }, { 200,50 }), false, true, nullptr });
 	float buttonWidth = 64.0f;
 	float spacing = 200.0f; // Espacio entre botones
@@ -167,7 +167,7 @@ void Battle::Draw(sf::RenderWindow& window)
 	window.draw(*playerText);
 	window.draw(*enemyText);
 	window.draw(*timeBarBackground->GetSprite());
-	window.draw(*timeBar->GetBar()->GetSprite());
+	window.draw(*timeBar->GetBarAsset()->GetSprite());
 
 	if (!shouldTap) 
 	{

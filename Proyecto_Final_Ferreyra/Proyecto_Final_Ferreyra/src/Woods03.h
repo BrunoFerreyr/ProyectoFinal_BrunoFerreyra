@@ -3,7 +3,7 @@
 class Woods03 :	public Map
 {
 public:
-	Woods03(const std::string& filePath, ManagersData& managersData);
+	Woods03(const std::string& filePath, ManagersData& managersData, std::function<void()> onEnd);
 	~Woods03() override;
 
 	void Initialize() override;
@@ -16,5 +16,7 @@ public:
 
 private:
 	void CastleEntranceDoorInteraction();
+	void EndGame();
+	std::function<void()> onEndGame;
 };
 

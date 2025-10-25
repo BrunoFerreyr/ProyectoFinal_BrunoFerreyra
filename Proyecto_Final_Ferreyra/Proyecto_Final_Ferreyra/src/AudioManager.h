@@ -21,7 +21,6 @@ private:
 	int maxSfxPoolSize = 5;
 
 	sf::Music currentMusic;
-	sf::Sound* currentSfx;
 	sf::SoundBuffer testBuffer;
 	std::vector <sf::Sound> sfxPool;
 	std::string actualMusicPath;

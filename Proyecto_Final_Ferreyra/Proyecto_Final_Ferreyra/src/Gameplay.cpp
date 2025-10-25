@@ -1,16 +1,17 @@
 #include "Gameplay.h"
-Gameplay::Gameplay(sf::RenderWindow& window, Player* player, Pause& pauseManager, ManagersData& managers)
+Gameplay::Gameplay(sf::RenderWindow& window, Player* player, Pause& pauseManager, ManagersData& managers, std::function<void()> onEnd)
 	: Scene(window),
 	player(player),
 	pauseManager(pauseManager),
-	managersData(managers)
+	managersData(managers),
+	onEndGame(onEnd)
 {
 	levelCave = new LevelCave("../textures/caveFloor.png", managers);
 	level01 = new Level01("../textures/floor.png", managers);
 	level02 = new Level02("../textures/woodsFloor.png", managers);
 	woods01 = new Woods01("../textures/woods/woods01Floor.png", managers);
 	woods02 = new Woods02("../textures/woods/woods02Floor.png", managers);
-	woods03 = new Woods03("../textures/woods/woods03Floor.png", managers);
+	woods03 = new Woods03("../textures/woods/woods03Floor.png", managers, [this]() { this->OnEndEvent(); });
 
 	maps.emplace(MapID::Cave, levelCave);
 	maps.emplace(MapID::OldWomanHouse,level01);
@@ -62,7 +63,12 @@ void Gameplay::Update(float deltaTime)
 		return;
 	}
 
-	if (pauseManager.GetGamePaused() || currentMap->GetIsInBattle())
+	if (pauseManager.GetGamePaused())
+	{
+		pauseManager.Update(deltaTime);
+		return;
+	}
+	if (currentMap->GetIsInBattle())
 	{
 		return;
 	}
@@ -105,4 +111,8 @@ void Gameplay::HandleEvents(const sf::Event& event)
 Map* Gameplay::GetCurrentMap() const
 {
 	return currentMap;
+}
+void Gameplay::OnEndEvent() 
+{
+	SetWantsExit(true);
 }

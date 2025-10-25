@@ -10,7 +10,7 @@ public:
 	~CollectablesUI();
 
 	void Draw(sf::RenderWindow& window);
-	void SetMetalAmount(int incrementAmount);
+	void AddMetalAmount(int incrementAmount);
 	int GetMetalAmount() const;
 
 private:

@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "SceneID.h"
-
+#include <functional>
 class Scene
 {
 public:
