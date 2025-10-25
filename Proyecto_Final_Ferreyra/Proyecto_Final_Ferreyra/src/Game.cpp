@@ -125,4 +125,6 @@ void Game::DestroyPlayer()
 	delete player;
 	delete dialog;
 	delete managersData;
+	delete collectablesUI;
+	delete dialog;
 }

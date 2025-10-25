@@ -53,7 +53,7 @@ agregar botones en modo pausa, reworkear actuales
 ********leer archivo
 buscar patron de disenio
 ********barra de wait en battle
-********capaz poner en texto batalla +5. Testear tras arreglar bug
+********capaz poner en texto batalla +5.
 ver si poner jefe
 controles
 ajustar gdd

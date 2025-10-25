@@ -19,7 +19,6 @@ AudioManager::~AudioManager()
 	if (currentMusic.getStatus() == sf::Music::Status::Playing)
 	{
 		currentMusic.stop();
-		
 	}
 	delete currentSfx;
 }

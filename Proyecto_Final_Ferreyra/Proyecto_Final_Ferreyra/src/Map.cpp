@@ -47,7 +47,7 @@ void Map::Update(float deltaTime)
 	if (assetsObjects.empty()) return;
 	for (auto asset : assetsObjects)
 	{
-		if (asset->GetType() == AssetType::Interactable)
+		if (asset->GetData().assetType == AssetType::Interactable)
 		{
 			dynamic_cast<InteractableAsset*>(asset)->IdleAnimation(deltaTime);
 		}
@@ -87,18 +87,16 @@ bool Map::CheckCollision(const sf::FloatRect& playerBounds, bool isInteractable)
 	//std::cout << "Checking interaction..." << this << std::endl;
 	for (auto asset : assetsObjects)
 	{
-		if (asset == nullptr) 
+		if (!asset->GetData().haveCollision) 
 		{
-			std::cout << "Asset is null..." << std::endl;
 			continue;
 		}
-		switch (asset->GetType()) {
+		switch (asset->GetData().assetType) {
 		case AssetType::Static:
 
 			if (asset->GetSprite()->getGlobalBounds().findIntersection(playerBounds))
 			{
 				std::cout << "!!!!!!!!!!";
-				asset->GetSprite()->setColor(sf::Color::Red);
 				std::cout << asset->GetSprite()->getTextureRect().size.x;
 				return true;
 			}
@@ -173,13 +171,13 @@ void Map::EndBattle(bool playerWin,int enemyID)
 	{
 		std::cout << "You won the battle!" << std::endl;
 		Asset* enemy = enemiesAsset[enemyID];
+		int increment = static_cast<EnemyAsset*>(enemy)->enemyBattleData.metalsAmount;
 		EraseAsset(enemy);
 		enemiesAsset[enemyID] = nullptr;
 		/*assetsObjects.erase(std::remove(assetsObjects.begin(), assetsObjects.end(), enemiesAsset[enemyID]), assetsObjects.end());
 		assets.erase(std::remove(assets.begin(), assets.end(), enemiesAsset[enemyID]->GetSprite()), assets.end());
 		delete enemiesAsset[enemyID];
 		enemiesAsset[enemyID] = nullptr;*/
-		int increment = static_cast<EnemyAsset*>(enemy)->enemyBattleData.metalsAmount;
 		PlayBackgroundMusic();
 		collectablesUI->SetMetalAmount(increment);
 		audioManager.PlaySFX(earnMetalsBuffer);

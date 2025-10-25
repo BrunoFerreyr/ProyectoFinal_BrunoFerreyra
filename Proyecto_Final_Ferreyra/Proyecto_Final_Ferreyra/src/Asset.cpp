@@ -20,7 +20,7 @@ Asset::~Asset()
 		delete data.sprite;
 		data.sprite = nullptr;
 	}
-}
+}/*
 bool Asset::setUpSprite(const std::string& filePath)
 {
 	if (data.texture == nullptr) {
@@ -35,14 +35,10 @@ bool Asset::setUpSprite(const std::string& filePath)
 	data.sprite = new sf::Sprite(*data.texture);
 	data.sprite->setTextureRect(data.size);
 	return true;
-}
+}*/
 sf::Sprite* Asset::GetSprite() const
 {
 	return data.sprite;
-}
-AssetType Asset::GetType() const
-{
-	return data.assetType;
 }
 const AssetData& Asset::GetData() const
 {
