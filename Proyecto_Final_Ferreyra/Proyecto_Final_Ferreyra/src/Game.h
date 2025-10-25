@@ -27,17 +27,16 @@ private:
 	void CreateManagers();
 	void CreateScenes();
 	void CreatePlayer();
-	//void CreateMap();
 	void Input();
 	void HandleEvents();
 	void Update();
 	void Draw();
 	void DestroyWindow();
 	void DestroyPlayer();
-
+	void DestroyScenes();
 	sf::RenderWindow* window;
 	Player* player;
-	sf::Clock clockk;
+	sf::Clock clock;
 	ResourceManager resourceManager;
 	AudioManager audioManager;
 

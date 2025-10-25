@@ -6,4 +6,5 @@ EnemyAsset::EnemyAsset(AssetData assetData, BattleData data, std::function<void(
 }
 EnemyAsset::~EnemyAsset()
 {
+	enemyBattleData.enemySprite = nullptr;
 }

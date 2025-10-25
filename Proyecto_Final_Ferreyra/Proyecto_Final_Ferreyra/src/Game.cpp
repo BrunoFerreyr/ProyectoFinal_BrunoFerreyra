@@ -40,15 +40,15 @@ void Game::DeInitialize()
 {
 	DestroyWindow();
 	DestroyPlayer();
+	DestroyScenes();
 }
 void Game::CreateWindow()
 {
 	unsigned int windowsWidth = 1280;
 	unsigned int windowsHeight = 720;
 	window = new sf::RenderWindow(sf::VideoMode({ windowsWidth, windowsHeight }), "Mi primer juego");
-	window->setFramerateLimit(60);
-	/*sf::View view;
-	view.move({ -200,-200});*/
+
+	window->setFramerateLimit(60);	
 }
 void Game::CreateManagers()
 {
@@ -65,7 +65,7 @@ void Game::CreatePlayer()
 void Game::CreateScenes()
 {
 	mainMenu = new MainMenu(*window, resourceManager, audioManager);
-	pauseManager = new Pause(resourceManager,audioManager, *window, *&currentScene, *&mainMenu);//DO  ver signos
+	pauseManager = new Pause(resourceManager,audioManager, *window, *&currentScene, *&mainMenu);
 
 	gameplay = new Gameplay(*window, player, *pauseManager, *managersData, [this]() { DeInitialize(); });
 
@@ -76,7 +76,7 @@ void Game::CreateScenes()
 void Game::Input()
 {
 	HandleEvents();
-	//player->Input();
+
 	currentScene->Input();
 }
 void Game::HandleEvents() 
@@ -93,7 +93,7 @@ void Game::HandleEvents()
 }
 void Game::Update()
 {
-	float deltaTime = clockk.restart().asSeconds();
+	float deltaTime = clock.restart().asSeconds();
 	currentScene->Update(deltaTime);
 
 	if (currentScene->GetWantsChange()) 
@@ -126,4 +126,14 @@ void Game::DestroyPlayer()
 	delete dialog;
 	delete managersData;
 	delete collectablesUI;
+}
+void Game::DestroyScenes()
+{
+	currentScene = nullptr;
+	for (auto scene : scenes)
+	{
+		delete scene.second;
+	}
+	gameplay = nullptr;
+	mainMenu = nullptr;
 }

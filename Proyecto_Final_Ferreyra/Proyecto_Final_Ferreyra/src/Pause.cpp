@@ -25,6 +25,7 @@ Pause::~Pause()
 	delete exitButton;
 	delete musicVolumeSlider;
 	delete sfxVolumeSlider;
+	currentScene = nullptr;
 }
 
 void Pause::Input() {}

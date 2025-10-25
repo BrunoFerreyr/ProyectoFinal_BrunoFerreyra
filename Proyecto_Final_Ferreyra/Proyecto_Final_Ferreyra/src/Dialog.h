@@ -12,12 +12,14 @@ public:
 	~Dialog();
 
 	void Start(const int startIndex, const int finishIndex, std::function<void()> callback);
-	void NextDialog();
 	void Draw(sf::RenderWindow& window);
+	void NextDialog();
 	bool IsActive() const;
 
 private:
 	bool active;
+	sf::RectangleShape background;
+	sf::Text* text;
 	std::map<int,std::string> dialogs;
 	int currentDialogIndex;
 	int finishDialogIndex;
