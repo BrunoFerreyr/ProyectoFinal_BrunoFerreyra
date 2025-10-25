@@ -23,8 +23,7 @@ Battle::Battle(ResourceManager& resourceManager,AudioManager& audio, int playerL
 	float spacing = 200.0f; // Espacio entre botones
 	int numButtons = battleData.totalInputs; // O el valor que corresponda
 
-	// Calcula el centro de la pantalla (ajusta según tu resolución)
-	float centerX = 640.0f; // Por ejemplo, para una pantalla de 1280x720
+	float centerX = 640.0f; 
 	float startX = centerX - ((numButtons - 1) * spacing) / 2.0f;
 	for (int i = 0; i < battleData.totalInputs; i++)
 	{
@@ -61,7 +60,6 @@ Battle::Battle(ResourceManager& resourceManager,AudioManager& audio, int playerL
 Battle::~Battle()
 {
 	delete playerSprite;
-	//delete enemySprite;
 	delete playerLifeSprite;
 	delete enemyLifeSprite;
 	delete pointsText;
@@ -77,6 +75,10 @@ Battle::~Battle()
 	for (auto keyText : keysText)
 	{
 		delete keyText;
+	}
+	for (auto keySprite : keysSprites)
+	{
+		delete keySprite;
 	}
 }
 

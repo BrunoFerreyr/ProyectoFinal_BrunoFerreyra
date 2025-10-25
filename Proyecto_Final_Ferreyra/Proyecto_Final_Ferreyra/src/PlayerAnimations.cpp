@@ -9,6 +9,7 @@ PlayerAnimations::PlayerAnimations(sf::Texture& texture)
 }
 PlayerAnimations::~PlayerAnimations()
 {
+	texture = nullptr;
 }
 void PlayerAnimations::Update(float deltaTime, sf::Vector2f& direction)
 {
@@ -19,49 +20,67 @@ void PlayerAnimations::Update(float deltaTime, sf::Vector2f& direction)
 		break;
 	case PlayerState::Walking:
 		WalkingAnimation(deltaTime, direction);
-		break;
-	case PlayerState::Attacking:
-		break;
-	case PlayerState::TakingDamage:
-		break;
-	case PlayerState::Dying:
-		break;
+		break;			
 	default:
 		break;
 	}
 }
+void PlayerAnimations::SetState(PlayerState newState)
+{
+	currentState = newState;
+}
+sf::IntRect& PlayerAnimations::GetArea()
+{
+	return area;
+}
+
 void PlayerAnimations::IdleAnimation(float deltaTime, sf::Vector2f& direction)
 {
-	animationTimer += deltaTime;//tener dos direction, uno que se modficia con las teclas, y otro el que ya usa
+	animationTimer += deltaTime;
 
 	if (animationTimer >= animationSpeed)
 	{
-		if (direction == sf::Vector2f({ 1,0 })) // Right
-			area = GetClip(spriteWidth, spriteHeight * 3);
-		else if (direction == sf::Vector2f({ -1,0 })) // Left
-			area = GetClip(spriteWidth, spriteHeight);
-		else if (direction == sf::Vector2f({ 0,-1 })) // Up
-			area = GetClip(spriteWidth, 0);
-		else if (direction == sf::Vector2f({ 0,1 })) // Down
-			area = GetClip(spriteWidth, spriteHeight * 2);
-
+		if (direction == sf::Vector2f({ 1,0 }))
+		{ 
+			area = GetClip(spriteWidth, spriteHeight * 3);// Right
+		}
+		else if (direction == sf::Vector2f({ -1,0 }))
+		{ 
+			area = GetClip(spriteWidth, spriteHeight);// Left
+		}
+		else if (direction == sf::Vector2f({ 0,-1 }))
+		{ 
+			area = GetClip(spriteWidth, 0);// Up
+		}
+		else if (direction == sf::Vector2f({ 0,1 }))
+		{ 
+			area = GetClip(spriteWidth, spriteHeight * 2);// Down
+		}
 		animationTimer = 0.0f;
 	}
 }
 void PlayerAnimations::WalkingAnimation(float deltaTime, sf::Vector2f& direction) 
 {
-	animationTimer += deltaTime;//tener dos direction, uno que se modficia con las teclas, y otro el que ya usa
+	animationTimer += deltaTime;
 
 	if (animationTimer >= animationSpeed)
 	{	
-		if (direction == sf::Vector2f({ 1,0 })) // Right
-			area = GetClip(378 , spriteHeight * 7);
-		else if (direction == sf::Vector2f({ -1,0 })) // Left
-			area = GetClip(378 , spriteHeight * 5);
-		else if (direction == sf::Vector2f({ 0,-1 })) // Up
-			area = GetClip(378 , spriteHeight * 4);
-		else if (direction == sf::Vector2f({ 0,1 })) // Down
-		area = GetClip(378 , spriteHeight * 6);
+		if (direction == sf::Vector2f({ 1,0 })) 
+		{
+			area = GetClip(378, spriteHeight * 7);// Right
+		}
+		else if (direction == sf::Vector2f({ -1,0 }))
+		{ 
+			area = GetClip(378 , spriteHeight * 5);// Left
+		}
+		else if (direction == sf::Vector2f({ 0,-1 }))
+		{ 
+			area = GetClip(378 , spriteHeight * 4);// Up
+		}
+		else if (direction == sf::Vector2f({ 0,1 }))
+		{ 
+			area = GetClip(378 , spriteHeight * 6);// Down
+		}
 
 		animationTimer = 0.0f;
 	}
@@ -75,12 +94,4 @@ sf::IntRect PlayerAnimations::GetClip(int xLimit, int yAnim)
 	}	
 
 	return sf::IntRect({ currentXValue,yAnim }, { spriteWidth,spriteHeight });
-}
-void PlayerAnimations::SetState(PlayerState newState)
-{
-	currentState = newState;
-}
-sf::IntRect& PlayerAnimations::GetArea()
-{		 
-	return area;
 }

@@ -27,6 +27,7 @@ LevelCave::LevelCave(const std::string& filePath, ManagersData& managersData)
 }
 LevelCave::~LevelCave()
 {
+	goToCamp = nullptr;
 }
 void LevelCave::Initialize()
 {

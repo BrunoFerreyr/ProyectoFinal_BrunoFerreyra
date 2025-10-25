@@ -8,13 +8,14 @@ public:
 
 	void Initialize() override;
 	void PlayBackgroundMusic() override;
+	
+private:
+	void WoodsDoorInteraction();
+
 	Asset* goToHouse;
 	Asset* goToCave;
 	Asset* goToWoods01;
 	Asset* woodsDoor;
 	Asset* woodsDoorCollision;
-
-private:
-	void WoodsDoorInteraction();
 };
 

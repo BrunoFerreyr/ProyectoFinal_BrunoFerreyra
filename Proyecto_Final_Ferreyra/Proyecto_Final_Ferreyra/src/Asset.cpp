@@ -18,6 +18,7 @@ Asset::~Asset()
 		delete data.sprite;
 		data.sprite = nullptr;
 	}
+	data.texture = nullptr;
 }
 sf::Sprite* Asset::GetSprite() const
 {

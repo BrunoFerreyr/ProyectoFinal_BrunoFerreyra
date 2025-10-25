@@ -24,12 +24,11 @@ Woods03::Woods03(const std::string& filePath, ManagersData& managersData, std::f
 
 	nextMapsIDs.push_back(MapID::Woods02);
 
-	
-	enemiesAsset[1] = nullptr; // Enemy ID 3
-	enemiesData[1] = { nullptr, 4, 20, 40, 5, 1 , 4}; // Enemy ID 3
+	enemiesAsset[1] = nullptr; 
+	enemiesData[1] = { nullptr, 4, 20, 40, 5, 1 , 4}; 
 	enemiesPosition[1] = { 800.0f, 400.0f };
-	enemiesAsset[2] = nullptr; // Enemy ID 4
-	enemiesData[2] = { nullptr, 4, 25, 45, 6, 2 , 4}; // Enemy ID 4
+	enemiesAsset[2] = nullptr; 
+	enemiesData[2] = { nullptr, 4, 25, 45, 6, 2 , 4}; 
 	enemiesPosition[2] = { 500.0f, 300.0f };
 
 	enterStepsBuffer.loadFromFile("../audios/sfx/sfx_enterGrassSteps.ogg");
@@ -39,6 +38,9 @@ Woods03::Woods03(const std::string& filePath, ManagersData& managersData, std::f
 
 Woods03::~Woods03()
 {
+	goToWoods02 = nullptr;
+	castleEntranceDoor = nullptr;
+	castleEntranceDoorCollision = nullptr;
 }
 
 void Woods03::Initialize()

@@ -10,19 +10,21 @@ public:
 
 	void Update(float deltaTime, sf::Vector2f& direction);
 	void SetState(PlayerState newState);
-	sf::IntRect GetClip(int yAnim, int xLimit);
-	sf::Texture* texture;
-	sf::IntRect area;
 	sf::IntRect& GetArea();
 
 private:
+	void IdleAnimation(float deltaTime, sf::Vector2f& direction);
+	void WalkingAnimation(float deltaTime, sf::Vector2f& direction);
+	sf::IntRect GetClip(int yAnim, int xLimit);
+
+	sf::Texture* texture;
+	sf::IntRect area;
 	int currentXValue;
 	int spriteWidth = 63;
 	int spriteHeight = 96;
 	float animationTimer;
-	float animationSpeed = 0.1f; // Tiempo entre frames
+	float animationSpeed = 0.1f; 
 	PlayerState currentState = PlayerState::Walking;
-	void IdleAnimation(float deltaTime, sf::Vector2f& direction);
-	void WalkingAnimation(float deltaTime, sf::Vector2f& direction);
+	
 };
 

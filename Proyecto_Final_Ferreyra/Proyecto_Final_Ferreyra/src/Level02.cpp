@@ -5,9 +5,9 @@ Level02::Level02(const std::string& filePath, ManagersData& managersData) : Map(
 	textureFloor.loadFromFile(filePath);
 	floor = new sf::Sprite(textureFloor);
 	
-	goToHouse = new TriggerAsset({ &resourceManager.GetTexture("../textures/changeMapCollision.png", false, sf::IntRect()), sf::Vector2f{900.0f, 50.0f}, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(126, 126)), true , true, nullptr }, [this]() { this->LoadLevel(MapID::OldWomanHouse, {900.0f, 220.0f}); });
+	goToHouse = new TriggerAsset({ &resourceManager.GetTexture("../textures/changeMapCollision.png", false, sf::IntRect()), sf::Vector2f{900.0f, 50.0f}, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(126, 126)), true , false, nullptr }, [this]() { this->LoadLevel(MapID::OldWomanHouse, {900.0f, 220.0f}); });
 	goToCave = new TriggerAsset({ &resourceManager.GetTexture("../textures/changeMapCollision.png", false, sf::IntRect()), sf::Vector2f{ 590.0f, 700.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(126, 126)), true, false, nullptr }, [this]() { this->LoadLevel(MapID::Cave, { 590.0f, 580.0f }); });
-	goToWoods01 = new TriggerAsset({ &resourceManager.GetTexture("../textures/changeMapCollision.png", false, sf::IntRect()), sf::Vector2f{ -100.0f, 330.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(126, 126)), true, true, nullptr }, [this]() { this->LoadLevel(MapID::Woods01, { 64.0f, 330.0f }); });
+	goToWoods01 = new TriggerAsset({ &resourceManager.GetTexture("../textures/changeMapCollision.png", false, sf::IntRect()), sf::Vector2f{ -100.0f, 330.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(126, 126)), true, false, nullptr }, [this]() { this->LoadLevel(MapID::Woods01, { 64.0f, 330.0f }); });
 	woodsDoor = new InteractableAsset({ &resourceManager.GetTexture("../textures/woodsDoor.png", false, sf::IntRect()), sf::Vector2f{ 40.0f, 315.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(41, 136)), true, true ,nullptr }, [this]() {this->WoodsDoorInteraction(); });
 	woodsDoorCollision = new Asset({ &resourceManager.GetTexture("../textures/woodsDoor.png", false, sf::IntRect()), sf::Vector2f{ 40.0f, 315.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(22, 136)), true, false ,nullptr ,AssetType::Static });
 
@@ -25,19 +25,23 @@ Level02::Level02(const std::string& filePath, ManagersData& managersData) : Map(
 	assetsObjects.push_back(goToWoods01);
 	assetsObjects.push_back(woodsDoor);
 	assetsObjects.push_back(woodsDoorCollision);
-	//assetsObjects.push_back(new Asset({ &resourceManager.GetTexture("../textures/house/table.png", false, sf::IntRect()), sf::Vector2f{ 500.0f, 500.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(40, 195)), true, false ,nullptr }));
+
 	playerInitPosition = { 590.0f, 580.0f };
 	nextMapsIDs.push_back(MapID::OldWomanHouse);
 	nextMapsIDs.push_back(MapID::Cave);
 	nextMapsIDs.push_back(MapID::Woods01);
 	
-
 	enterStepsBuffer.loadFromFile("../audios/sfx/sfx_enterGrassSteps.ogg");
 
 	this->CreateAssets();
 }
 Level02::~Level02()
 {
+	goToHouse = nullptr;
+	goToCave = nullptr;
+	goToWoods01 = nullptr;
+	woodsDoor = nullptr;
+	woodsDoorCollision = nullptr;
 }
 void Level02::Initialize()
 {

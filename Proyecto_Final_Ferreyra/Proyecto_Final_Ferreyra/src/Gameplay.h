@@ -14,7 +14,7 @@
 class Gameplay : public Scene
 {
 public:
-	Gameplay(sf::RenderWindow& window, Player* player, Pause& pauseManager, ManagersData& managers, std::function<void()> onEnd);
+	Gameplay(sf::RenderWindow& window, Player* player, Pause& pauseManager, ManagersData& managers);
 	~Gameplay() override;
 
 	void Initialize() override;
@@ -23,25 +23,19 @@ public:
 	void Draw() override;
 	void HandleEvents(const sf::Event& event) override;
 
-	Map* GetCurrentMap() const;
-
 private:
 	void OnEndEvent();
-	Player* player;
-	//Map* map;
 
-	//std::vector<Map*> maps;
+	Player* player;
 	std::map<MapID,Map*> maps;
 	Map* currentMap;
 	LevelCave* levelCave;
-	Level01* level01;
-	Level02* level02;
+	Level01* house;
+	Level02* camp;
 	Woods01* woods01;
 	Woods02* woods02;
 	Woods03* woods03;
 
 	Pause& pauseManager;
 	ManagersData& managersData;
-	bool gameStarted = false;
-	std::function<void()> onEndGame;
 };

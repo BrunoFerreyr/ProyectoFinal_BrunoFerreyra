@@ -5,22 +5,17 @@ Slider::Slider(ResourceManager& resourceManager, std::string path, sf::Vector2f 
 	sliderY = barPosition.y;
 
 	sliderBackground = new Asset({ &resourceManager.GetTexture(path, false, sf::IntRect()), sf::Vector2f{sliderX, sliderY}, sf::IntRect({0,0}, {backgroundWidth, backgroundHeight}), false, true, nullptr });
-
 	sliderBar = new Asset({ &resourceManager.GetTexture("../textures/menu/musicBar.png", false, sf::IntRect()), { sliderX, sliderY }, sf::IntRect({ 0, 0 }, { sliderWidth, sliderHeight }), false, true, nullptr });
     value = 0.5f;
 
-
-   
     sf::Vector2f spritePos = sliderBar->GetSprite()->getPosition();
     sliderBar->GetSprite()->setOrigin({ sliderWidth / 2.f, 0 });
-    //sliderBar->GetSprite()->setOrigin({spritePos.x+ (sliderWidth * 0.5f), spritePos.y + sliderHeight});
     sliderBar->GetSprite()->setPosition({sliderX + (backgroundWidth * 0.5f), sliderY + sliderHeight + 35});
     
 	sliderBar->GetSprite()->setRotation(sf::degrees(180.f));
 	sliderY = sliderBar->GetSprite()->getPosition().y - sliderHeight;
 
     sf::IntRect rect = sliderBar->GetSprite()->getTextureRect();
-    //rect.size.x = (percentage * rect.size.x) / 100;
     rect.size.y = (50 * sliderHeight) / 100;
     sliderBar->GetSprite()->setTextureRect(rect);
 
@@ -41,7 +36,8 @@ Slider::~Slider()
 }
 void Slider::Drag(sf::Vector2i mousePosition)
 {
-    if (isDragging) {
+    if (isDragging) 
+    {
         float newY = static_cast<float>(mousePosition.y);
 
         if (newY < sliderY) newY = sliderY;
@@ -51,17 +47,23 @@ void Slider::Drag(sf::Vector2i mousePosition)
         handle->setPosition({ x, newY});
 
         float relative = (newY - sliderY) / sliderHeight;
-        if (relative < 0.f) relative = 0.f;
-        if (relative > 1.f) relative = 1.f;
+        if (relative < 0.0f)
+        { 
+            relative = 0.0f;
+        }
+        if (relative > 1.0f)
+        { 
+            relative = 1.0f;
+        }
         value = 1.0f - relative;
 
         sf::IntRect rect = sliderBar->GetSprite()->getTextureRect();
         rect.size.y = ((value * valueMultiplier) * sliderHeight) / 100;
         sliderBar->GetSprite()->setTextureRect(rect);
 
-        if (callback) {
+        if (callback) 
+        {
             callback(value);
-            
 		}
     }
 }

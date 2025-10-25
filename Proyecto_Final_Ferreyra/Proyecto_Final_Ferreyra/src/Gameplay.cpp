@@ -1,27 +1,23 @@
 #include "Gameplay.h"
-Gameplay::Gameplay(sf::RenderWindow& window, Player* player, Pause& pauseManager, ManagersData& managers, std::function<void()> onEnd)
+Gameplay::Gameplay(sf::RenderWindow& window, Player* player, Pause& pauseManager, ManagersData& managers)
 	: Scene(window),
 	player(player),
 	pauseManager(pauseManager),
-	managersData(managers),
-	onEndGame(onEnd)
+	managersData(managers)
 {
 	levelCave = new LevelCave("../textures/caveFloor.png", managers);
-	level01 = new Level01("../textures/floor.png", managers);
-	level02 = new Level02("../textures/woodsFloor.png", managers);
+	house = new Level01("../textures/floor.png", managers);
+	camp = new Level02("../textures/woodsFloor.png", managers);
 	woods01 = new Woods01("../textures/woods/woods01Floor.png", managers);
 	woods02 = new Woods02("../textures/woods/woods02Floor.png", managers);
 	woods03 = new Woods03("../textures/woods/woods03Floor.png", managers, [this]() { this->OnEndEvent(); });
 
 	maps.emplace(MapID::Cave, levelCave);
-	maps.emplace(MapID::OldWomanHouse,level01);
-	maps.emplace(MapID::Camp,level02);
+	maps.emplace(MapID::OldWomanHouse,house);
+	maps.emplace(MapID::Camp,camp);
 	maps.emplace(MapID::Woods01, woods01);
 	maps.emplace(MapID::Woods02, woods02);
 	maps.emplace(MapID::Woods03, woods03);
-	//maps.emplace(MapID::OldWomanHouse, level01);
-	//maps.emplace(MapID::Woods01, level02);
-	//currentMap = maps[MapID::OldWomanHouse];
 
 	currentMap = levelCave;
 	player->SetCurrentMap(currentMap, { 400.0f, 400.0f });
@@ -29,10 +25,18 @@ Gameplay::Gameplay(sf::RenderWindow& window, Player* player, Pause& pauseManager
 }
 Gameplay::~Gameplay()
 {
+	currentMap = nullptr;
 	for (auto value : maps) 
 	{
 		delete value.second;
 	}
+	levelCave = nullptr;
+	house = nullptr;
+	camp = nullptr;
+	woods01 = nullptr;
+	woods02 = nullptr;
+	woods03 = nullptr;
+
 	maps.clear();
 }
 void Gameplay::Initialize()
@@ -41,7 +45,6 @@ void Gameplay::Initialize()
 }
 void Gameplay::Input()
 {
-	pauseManager.Input();
 	if (pauseManager.GetGamePaused() || currentMap->GetIsInBattle())
 	{
 		return;
@@ -53,9 +56,9 @@ void Gameplay::Update(float deltaTime)
 {
 	currentMap->Update(deltaTime);
 
-	if (currentMap->wantsChange)
+	if (currentMap->GetWantsChange())
 	{
-		currentMap->wantsChange = false;
+		currentMap->SetWantsChange(false);
 		Map* map = maps.find(currentMap->GetNextMap())->second;
 		currentMap = map;
 		currentMap->Initialize();
@@ -82,8 +85,7 @@ void Gameplay::Draw()
 	{
 		return;
 	}
-	//std::cout << currentMap << std::endl;
-	//map->Draw(window);
+	
 	managersData.collectablesUI->Draw(window);
 	player->Draw(window);
 	pauseManager.Draw();
@@ -92,6 +94,7 @@ void Gameplay::HandleEvents(const sf::Event& event)
 {
 	pauseManager.HandleEvents(event);
 	currentMap->HandleEvents(event);
+
 	if (currentMap->GetIsInBattle())
 	{
 		pauseManager.SetIsOnBattle(true);
@@ -107,10 +110,6 @@ void Gameplay::HandleEvents(const sf::Event& event)
 		return;
 	}
 	player->HandleEvents(event);	
-}
-Map* Gameplay::GetCurrentMap() const
-{
-	return currentMap;
 }
 void Gameplay::OnEndEvent() 
 {

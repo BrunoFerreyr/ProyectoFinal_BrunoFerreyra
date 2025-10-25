@@ -17,7 +17,6 @@ Pause::Pause(ResourceManager& resources, AudioManager& audioManager, sf::RenderW
 
 	gamePaused = false;
 }
-
 Pause::~Pause() 
 {
 	delete continueButton;
@@ -28,7 +27,6 @@ Pause::~Pause()
 	currentScene = nullptr;
 }
 
-void Pause::Input() {}
 void Pause::Update(float deltaTime)
 {
 	if (musicVolumeSlider->GetIsDragging())
@@ -143,16 +141,18 @@ void Pause::TogglePause(bool value)
 {
 	gamePaused = value;
 }
+
 void Pause::ReturnToMainMenu()
 {
 	TogglePause(false);
 	currentScene->SetWantsChange(true);
-	//currentScene = mainMenu;
 }
+
 void Pause::ExitGame()
 {
 	currentScene->SetWantsExit(true);
 }
+
 void Pause::SetIsOnBattle(bool onBattle)
 {
 	isOnBattle = onBattle;

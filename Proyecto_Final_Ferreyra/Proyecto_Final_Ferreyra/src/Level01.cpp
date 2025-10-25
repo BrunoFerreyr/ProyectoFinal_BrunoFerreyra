@@ -2,8 +2,6 @@
 
 Level01::Level01(const std::string& filePath, ManagersData& managersData) : Map(filePath,managersData)
 {
-	//floor = nullptr;
-
 	textureFloor.loadFromFile(filePath);
 	floor = new sf::Sprite(textureFloor);
 	assetsObjects.push_back(new Asset({ &resourceManager.GetTexture("../textures/walldownLeft.png", false, sf::IntRect()), sf::Vector2f{0.0f ,720.0f - 67.0f}, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(578, 67)), true , false, nullptr}));
@@ -29,15 +27,15 @@ Level01::Level01(const std::string& filePath, ManagersData& managersData) : Map(
 	playerInitPosition = {1280.0f - 680.0f, 720.0f - 150.0f };
 
 	nextMapsIDs.push_back(MapID::Camp);
-	SetNextMap(nextMapsIDs[0]);
+	//SetNextMap(nextMapsIDs[0]);
 
 	enterStepsBuffer.loadFromFile("../audios/sfx/sfx_enterHardSteps.ogg");
 	earnKeyBuffer.loadFromFile("../audios/sfx/sfx_earnKey.ogg");
-	//audioManager.PlayMusic(musicPath);
 	this->CreateAssets();
 }
 Level01::~Level01()
 {
+	goToWoods = nullptr;
 }
 
 void Level01::Initialize()

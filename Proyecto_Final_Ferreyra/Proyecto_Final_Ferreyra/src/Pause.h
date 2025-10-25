@@ -13,7 +13,6 @@ public:
 		MainMenu*& mainMenu);
 	~Pause();
 
-	void Input();
 	void Update(float deltaTime);
 	void Draw();
 	void HandleEvents(const sf::Event& event);
@@ -23,6 +22,7 @@ public:
 	void ExitGame();
 	void SetIsOnBattle(bool onBattle);
 	void SetIsOnDialog(bool onDialog);
+
 private:
 	Scene*& currentScene;
 	AudioManager& audioManager;

@@ -12,7 +12,6 @@ public:
 	bool GetCollision() const;
 	void OnTriggerEnter();
 	void SetOnTriggerEnter(std::function<void()> func);
-	//int enemyLife;
 
 private:
 	std::function<void()> onTriggerEnterFunc;

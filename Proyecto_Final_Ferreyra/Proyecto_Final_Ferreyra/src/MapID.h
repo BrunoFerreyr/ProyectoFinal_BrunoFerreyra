@@ -9,5 +9,4 @@ enum class MapID
 	Woods03,
 	CastleEntrance01,
 	CastleEntrance02,
-	CastleEntrance03,
 };

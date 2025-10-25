@@ -1,28 +1,33 @@
 #include "InteractableAsset.h"
-InteractableAsset::InteractableAsset(AssetData assetData, std::function<void()> func)
+InteractableAsset::InteractableAsset(AssetData assetData, std::function<void()> function)
 	: Asset(assetData)
 {
-	SetOnTriggerInteract(std::move(func));
+	SetOnTriggerInteract(std::move(function));
 	this->data.assetType = AssetType::Interactable;
 }
 InteractableAsset::~InteractableAsset()
 {
 }
-void InteractableAsset::SetOnTriggerInteract(std::function<void()> func)
+
+void InteractableAsset::SetOnTriggerInteract(std::function<void()> function)
 {
-	onInteractFunc = std::move(func);
-	//ver de asignar todo desde el level01
+	onInteractFunction = std::move(function);
 }
+
 void InteractableAsset::IdleAnimation(float deltaTime)
 {
-	if (haveIdleAnimation) {
-		//DO AGREGAR ANIMACION, gameplay y vandalos, otros mapas
+	if (haveIdleAnimation) 
+	{
+		
 	}
 }
+
 void InteractableAsset::Interact()
 {
-	if (onInteractFunc) 
+	if (onInteractFunction) 
 	{
-		onInteractFunc();
+		onInteractFunction();
 	}
 }
+
+

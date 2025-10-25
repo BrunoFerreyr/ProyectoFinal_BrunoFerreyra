@@ -24,7 +24,6 @@ private:
 	void ShowKeys();
 	void DoAction();
 
-	//sf::Keyboard::Key charToKey(char keyChar) const;
 	sf::Keyboard::Key GetCorrectKey() const;
 	void UpdateStats();
 
@@ -45,7 +44,6 @@ private:
 	std::vector<sf::Keyboard::Key> correctKeys;
 	std::vector<Asset*> keysAssets;
 	std::vector<sf::Sprite*> keysSprites;
-	//capaz crear un enum con Normal, Correct y Failed
 
 	std::vector<char> keysChar;
 	std::vector<char> allKeysChar;

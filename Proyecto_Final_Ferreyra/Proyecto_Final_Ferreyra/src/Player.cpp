@@ -24,6 +24,10 @@ Player::Player(const std::string& path, const sf::Vector2i& spriteSheetSize, Res
 Player::~Player()
 {
 	delete sprite;
+	delete animations;
+
+	dialog = nullptr;
+	currentMap = nullptr;
 }
 void Player::Input()
 {
@@ -37,7 +41,6 @@ void Player::Update(float deltaTime)
 void Player::MovementInput() 
 {
 	direction = sf::Vector2f();
-	//moveDirection = sf::Vector2f({ 0,0 });
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) 
 	{
@@ -75,25 +78,30 @@ void Player::MovementInput()
 
 void Player::Movement(float deltaTime)
 {
-	if (dialog->IsActive() || currentMap == nullptr) return;
+	if (dialog->IsActive() || currentMap == nullptr)
+	{
+		return;
+	}
 
 	sf::Vector2f movement = direction * speed * deltaTime;
 	sf::Vector2f newPosition = sprite->getPosition();
 
-	// Movimiento en X
-	if (movement.x != 0.0f) {
+	if (movement.x != 0.0f) 
+	{
 		sf::FloatRect futureBounds = GetBounds();
 		futureBounds.position.x += movement.x;
-		if (!currentMap->CheckCollision(futureBounds,false)) {
+		if (!currentMap->CheckCollision(futureBounds,false)) 
+		{
 			newPosition.x += movement.x;
 		}
 	}
 
-	// Movimiento en Y
-	if (movement.y != 0.0f) {
+	if (movement.y != 0.0f) 
+	{
 		sf::FloatRect futureBounds = GetBounds();
 		futureBounds.position.y += movement.y;
-		if (!currentMap->CheckCollision(futureBounds,false)) {
+		if (!currentMap->CheckCollision(futureBounds,false)) 
+		{
 			newPosition.y += movement.y;
 		}
 	}
@@ -102,8 +110,10 @@ void Player::Movement(float deltaTime)
 }
 void Player::Animation(float deltaTime) 
 {
-	if (dialog->IsActive() || currentMap == nullptr) return;
-
+	if (dialog->IsActive() || currentMap == nullptr)
+	{ 
+		return;
+	}
 	animations->Update(deltaTime, moveDirection);
 	sprite->setTextureRect(animations->GetArea());
 }
@@ -126,11 +136,6 @@ sf::FloatRect Player::GetBounds()
 {
 	return sprite->getGlobalBounds();
 }
-void Player::SetCurrentMap(Map* map, sf::Vector2f position)
-{
-	currentMap = map;
-	sprite->setPosition(position);
-}
 void Player::HandleEvents(const sf::Event& event)
 {
 	if (const auto keyEvent = event.getIf<sf::Event::KeyPressed>())
@@ -138,7 +143,6 @@ void Player::HandleEvents(const sf::Event& event)
 
 		if (keyEvent->code == sf::Keyboard::Key::E && !isInteracting && !dialog->IsActive())
 		{
-			std::cout << "Interaccion" << std::endl;
 			isInteracting = true;
 			Interact();
 		}
@@ -153,8 +157,12 @@ void Player::HandleEvents(const sf::Event& event)
 	{
 		if (keyEvent->code == sf::Keyboard::Key::E)
 		{
-			std::cout << "Dejar interaccion" << std::endl;
 			isInteracting = false;
 		}
 	}
+}
+void Player::SetCurrentMap(Map* map, sf::Vector2f position)
+{
+	currentMap = map;
+	sprite->setPosition(position);
 }

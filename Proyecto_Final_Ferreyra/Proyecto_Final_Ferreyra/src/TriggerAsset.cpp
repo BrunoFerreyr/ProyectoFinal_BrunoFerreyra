@@ -20,12 +20,11 @@ bool TriggerAsset::GetCollision() const
 void TriggerAsset::SetOnTriggerEnter(std::function<void()> func)
 {
 	onTriggerEnterFunc = std::move(func);
-	//ver de asignar todo desde el level01
 }
 void TriggerAsset::OnTriggerEnter()
 {
-	if (onTriggerEnterFunc && data.haveCollision) {
+	if (onTriggerEnterFunc && data.haveCollision) 
+	{
 		onTriggerEnterFunc();
-		//haveCollision = false; 
 	}
 }

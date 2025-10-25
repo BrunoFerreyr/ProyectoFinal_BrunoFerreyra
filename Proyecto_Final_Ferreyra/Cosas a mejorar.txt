@@ -66,6 +66,7 @@ ver posibles mejoras de codigo.
  battle ver luego
 verificar si quiero reiniciar todo al salir
 ver si poner jefe
+ver si pongo los idles
 
 Acá les dejo las directivas para apagar la consola en Release (En Debug se debe seguir viendo):
 

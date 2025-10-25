@@ -7,7 +7,6 @@ public:
 	~Woods01() override;
 
 	void Initialize() override;
-	//bool CheckCollision(const sf::FloatRect& playerBounds, bool isInteractable) override;
 	void PlayBackgroundMusic() override;
 	Asset* goToCamp;
 	Asset* goToWoods02;

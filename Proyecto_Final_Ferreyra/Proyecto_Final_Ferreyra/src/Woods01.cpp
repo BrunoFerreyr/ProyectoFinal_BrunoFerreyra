@@ -24,11 +24,11 @@ Woods01::Woods01(const std::string& filePath, ManagersData& managersData) : Map(
 	nextMapsIDs.push_back(MapID::Camp);
 	nextMapsIDs.push_back(MapID::Woods02);
 
-	enemiesAsset[1] = nullptr; // Enemy ID 1
-	enemiesData[1] = { nullptr, 3.0f, 10, 30, 3, 1 , 2 }; // Enemy ID 1
+	enemiesAsset[1] = nullptr;
+	enemiesData[1] = { nullptr, 3.0f, 10, 30, 3, 1 , 2 }; 
 	enemiesPosition[1] = { 900.0f, 400.0f };
-	enemiesAsset[2] = nullptr; // Enemy ID 2
-	enemiesData[2] = { nullptr, 3, 15, 30, 4, 2 , 5 }; // Enemy ID 1
+	enemiesAsset[2] = nullptr; 
+	enemiesData[2] = { nullptr, 3, 15, 30, 4, 2 , 5 }; 
 	enemiesPosition[2] = { 600.0f, 300.0f };
 
 	enterStepsBuffer.loadFromFile("../audios/sfx/sfx_enterGrassSteps.ogg");
@@ -38,6 +38,8 @@ Woods01::Woods01(const std::string& filePath, ManagersData& managersData) : Map(
 
 Woods01::~Woods01()
 {
+	goToCamp = nullptr;
+	goToWoods02 = nullptr;
 }
 
 void Woods01::Initialize()

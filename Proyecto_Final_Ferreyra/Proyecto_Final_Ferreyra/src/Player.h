@@ -20,8 +20,8 @@ public:
 	void Interact();
 	void Draw(sf::RenderWindow& window);
 	sf::FloatRect GetBounds();
-	void SetCurrentMap(Map* map, sf::Vector2f position);
 	void HandleEvents(const sf::Event& event);
+	void SetCurrentMap(Map* map, sf::Vector2f position);
 
 private:
 	sf::Sprite* sprite;
