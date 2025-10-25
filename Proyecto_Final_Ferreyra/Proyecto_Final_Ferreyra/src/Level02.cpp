@@ -21,13 +21,14 @@ Level02::Level02(const std::string& filePath, ManagersData& managersData) : Map(
 	nextMapsIDs.push_back(MapID::OldWomanHouse);
 	nextMapsIDs.push_back(MapID::Cave);
 	nextMapsIDs.push_back(MapID::Woods01);
-	
 	enemiesAsset[1] = nullptr; // Enemy ID 1
-	enemiesData[1] = { nullptr, 3, 10, 30, 3, 1 }; // Enemy ID 1
+	enemiesData[1] = { nullptr, 3, 10, 30, 3, 1 , 2}; // Enemy ID 1
 	enemiesPosition[1] = { 900.0f, 400.0f };
 	enemiesAsset[2] = nullptr; // Enemy ID 2
-	enemiesData[2] = { nullptr, 3, 15, 31, 4, 2 }; // Enemy ID 1
+	enemiesData[2] = { nullptr, 3, 15, 31, 4, 2 , 5}; // Enemy ID 1
 	enemiesPosition[2] = { 600.0f, 300.0f };
+
+	enterStepsBuffer.loadFromFile("../audios/sfx/sfx_enterGrassSteps.ogg");
 
 	this->CreateAssets();
 }
@@ -47,13 +48,13 @@ void Level02::Initialize()
 			AddSpriteToRender(pair.second->GetSprite());
 		}
 	}
-	
+	Map::Initialize();
 }
 
 void Level02::PlayBackgroundMusic()
 {
 	std::string musicPath = "../audios/caveMusic.ogg";
-	audioManager->PlayMusic(musicPath);
+	audioManager.PlayMusic(musicPath);
 }
 
 void Level02::WoodsDoorInteraction()
@@ -63,6 +64,7 @@ void Level02::WoodsDoorInteraction()
 		//DO agregar asset eraser function
 		EraseAsset(woodsDoor);
 		EraseAsset(woodsDoorCollision);
+		audioManager.PlaySFX(openDoorBuffer);
 		/*assetsObjects.erase(std::remove(assetsObjects.begin(), assetsObjects.end(), woodsDoor), assetsObjects.end());
 		assets.erase(std::remove(assets.begin(), assets.end(), woodsDoor->GetSprite()), assets.end());
 		delete woodsDoor;

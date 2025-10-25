@@ -9,7 +9,7 @@
 class Player
 {
 public:
-	Player(const std::string& path, const sf::Vector2i& spriteSheetSize, ResourceManager& resourceManager, Dialog* dialog);
+	Player(const std::string& path, const sf::Vector2i& spriteSheetSize, ResourceManager& resourceManager, Dialog* dialog, AudioManager& audio);
 	~Player();
 
 	void Input();
@@ -33,5 +33,8 @@ private:
 	bool isInteracting;
 	Dialog* dialog;
 	PlayerAnimations* animations;
+
+	AudioManager& audioManager;
+	sf::SoundBuffer interactBuffer;
 };
 

@@ -30,6 +30,9 @@ private:
 	Slider* sfxVolumeSlider;
 	sf::Sprite* creditsBackground;
 	sf::Text* creditsText;
+	sf::SoundBuffer testBuffer;
+	sf::SoundBuffer testBuffer2;
+
 	bool showCredits = false;
 	void LoadGame();
 	void ToggleCredits();

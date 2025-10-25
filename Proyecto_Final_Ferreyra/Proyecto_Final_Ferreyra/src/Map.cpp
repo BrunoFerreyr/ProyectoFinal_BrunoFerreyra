@@ -1,6 +1,6 @@
 #include "Map.h"
 
-Map::Map(const std::string& filePath, ManagersData& managersData) :dialog(managersData.dialog), audioManager(&managersData.audioManager), resourceManager(managersData.resourceManager), missionsManager(managersData.missionsManager), collectablesUI(managersData.collectablesUI)
+Map::Map(const std::string& filePath, ManagersData& managersData) :dialog(managersData.dialog), audioManager(managersData.audioManager), resourceManager(managersData.resourceManager), missionsManager(managersData.missionsManager), collectablesUI(managersData.collectablesUI)
 {		
 }
 Map::~Map()
@@ -12,6 +12,10 @@ Map::~Map()
 	}
 	assets.clear();
 	delete floor;
+	if (battle != nullptr) 
+	{
+		delete battle;
+	}
 }
 
 void Map::CreateAssets()
@@ -26,6 +30,11 @@ void Map::CreateAssets()
 }
 void Map::Initialize()
 {
+	audioManager.PlaySFX(enterStepsBuffer);
+	earnMetalsBuffer.loadFromFile("../audios/sfx/sfx_earnMetalPoints.ogg");
+	interactBuffer.loadFromFile("../audios/sfx/sfx_interact.ogg");
+	openDoorBuffer.loadFromFile("../audios/sfx/sfx_openDoor.ogg");
+	startBattleBuffer.loadFromFile("../audios/sfx/sfx_startBattle.ogg");
 }
 void Map::Update(float deltaTime)
 {
@@ -78,6 +87,11 @@ bool Map::CheckCollision(const sf::FloatRect& playerBounds, bool isInteractable)
 	//std::cout << "Checking interaction..." << this << std::endl;
 	for (auto asset : assetsObjects)
 	{
+		if (asset == nullptr) 
+		{
+			std::cout << "Asset is null..." << std::endl;
+			continue;
+		}
 		switch (asset->GetType()) {
 		case AssetType::Static:
 
@@ -112,7 +126,9 @@ bool Map::CheckCollision(const sf::FloatRect& playerBounds, bool isInteractable)
 				if (isInteractable) 
 				{
 					dynamic_cast<InteractableAsset*>(asset)->Interact();
+					audioManager.PlaySFX(interactBuffer);
 				}
+				
 				//std::cout << "Interactable asset..." << std::endl;
 				//dynamic_cast<InteractableAsset*>(asset)->Interact();
 				//return true;
@@ -163,8 +179,10 @@ void Map::EndBattle(bool playerWin,int enemyID)
 		assets.erase(std::remove(assets.begin(), assets.end(), enemiesAsset[enemyID]->GetSprite()), assets.end());
 		delete enemiesAsset[enemyID];
 		enemiesAsset[enemyID] = nullptr;*/
+		int increment = static_cast<EnemyAsset*>(enemy)->enemyBattleData.metalsAmount;
 		PlayBackgroundMusic();
-		collectablesUI->SetMetalAmount(5);
+		collectablesUI->SetMetalAmount(increment);
+		audioManager.PlaySFX(earnMetalsBuffer);
 		missionsManager.CheckGetMetalsMission(collectablesUI->GetMetalAmount());
 	}
 	else
@@ -191,16 +209,21 @@ void Map::LoadBattle(int enemyLife, int enemyID)
 	//{ enemy->GetSprite(), 3, 20, enemyLife, 3, enemyID };
 	EnemyAsset* enemy = enemiesAsset[enemyID];
 	BattleData data = enemy->enemyBattleData;
-	battle = new Battle(resourceManager, 20, data, [this, enemyID](bool& playerWin, int enemyID) {this->EndBattle(playerWin, enemyID); });
+	battle = new Battle(resourceManager, audioManager, 20, data, [this, enemyID](bool& playerWin, int enemyID) {this->EndBattle(playerWin, enemyID); });
 	std::string musicPath = "../audios/battleMusic.ogg";
-	audioManager->PlayMusic(musicPath);
+	audioManager.PlayMusic(musicPath);
+	audioManager.PlaySFX(startBattleBuffer);
 	//dynamic_cast<TriggerAsset*>(enemyBat)->SetCollision(false);
 	isInBattle = true;
 }
 void Map::EraseAsset(Asset*& asset)
 {
 	assetsObjects.erase(std::remove(assetsObjects.begin(), assetsObjects.end(), asset), assetsObjects.end());
-	assets.erase(std::remove(assets.begin(), assets.end(), asset->GetSprite()), assets.end());
+	if (asset->GetData().shouldDrawSprite) 
+	{
+		assets.erase(std::remove(assets.begin(), assets.end(), asset->GetSprite()), assets.end());
+	}
+
 	delete asset;
 	asset = nullptr;
 }

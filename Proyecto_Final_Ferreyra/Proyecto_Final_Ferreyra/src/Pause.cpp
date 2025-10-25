@@ -1,6 +1,6 @@
 #include "Pause.h"
-Pause::Pause(ResourceManager& resources, sf::RenderWindow& window, Scene*& currentScene, MainMenu*& mainMenu) :
-	currentScene(currentScene), mainMenu(mainMenu), window(window)
+Pause::Pause(ResourceManager& resources, AudioManager& audioManager, sf::RenderWindow& window, Scene*& currentScene, MainMenu*& mainMenu) :
+	currentScene(currentScene), mainMenu(mainMenu), window(window), audioManager(audioManager)
 {
 	this->currentScene = currentScene;
 	this->mainMenu = mainMenu;
@@ -14,6 +14,9 @@ Pause::Pause(ResourceManager& resources, sf::RenderWindow& window, Scene*& curre
 	continueButton = new ButtonAsset({ &resources.GetTexture("../textures/continueButton.png", false, sf::IntRect()), sf::Vector2f{460.0f, 300.0f}, sf::IntRect({ 0, 0 }, { 361, 88 }), true , true, nullptr }, font, "CONTINUE", nullptr);
 	mainMenuButton = new ButtonAsset({ &resources.GetTexture("../textures/mainmenuButton.png", false, sf::IntRect()), sf::Vector2f{460.0f, 400.0f}, sf::IntRect({ 0, 0 }, { 361, 88 }), true , true, nullptr }, font, "MAIN MENU", nullptr);
 	exitButton = new ButtonAsset({ &resources.GetTexture("../textures/StartButton.png", false, sf::IntRect()), sf::Vector2f{460.0f, 500.0f}, sf::IntRect({ 0, 0 }, { 361, 88 }), true , true, nullptr }, font, "EXIT", nullptr);
+
+	enterPauseBuffer.loadFromFile("../audios/sfx/sfx_enterPause.ogg");
+	exitPauseBuffer.loadFromFile("../audios/sfx/sfx_exitPause.ogg");
 
 	gamePaused = false;
 }
@@ -54,10 +57,12 @@ void Pause::HandleEvents(const sf::Event& event)
 			if (gamePaused) 
 			{
 				TogglePause(false);
+				audioManager.PlaySFX(exitPauseBuffer);
 			}
 			else 
 			{
 				TogglePause(true);
+				audioManager.PlaySFX(enterPauseBuffer); 
 			}
 		}
 	}
@@ -75,11 +80,14 @@ void Pause::HandleEvents(const sf::Event& event)
 			if (continueButton->GetSprite()->getGlobalBounds().contains(worldPos))
 			{
 				TogglePause(false);
+				audioManager.PlaySFX(exitPauseBuffer);
+				audioManager.PlaySFX(exitButton->GetBuffer());
 			}
 
 			if (mainMenuButton->GetSprite()->getGlobalBounds().contains(worldPos))
 			{
 				ReturnToMainMenu();
+				audioManager.PlaySFX(exitButton->GetBuffer());
 			}
 			if (exitButton->GetSprite()->getGlobalBounds().contains(worldPos))
 			{
@@ -112,4 +120,8 @@ void Pause::ExitGame()
 void Pause::SetIsOnBattle(bool onBattle)
 {
 	isOnBattle = onBattle;
+}
+void Pause::SetIsOnDialog(bool onDialog)
+{
+	isOnDialog = onDialog;
 }

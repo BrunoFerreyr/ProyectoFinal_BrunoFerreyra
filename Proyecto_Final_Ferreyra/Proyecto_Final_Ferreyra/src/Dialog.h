@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include "ResourceManager.h"
 
@@ -22,4 +23,5 @@ private:
 	int finishDialogIndex;
 	sf::Font font;
 	std::function<void()> callback;
+	std::ifstream dialogFile;
 };

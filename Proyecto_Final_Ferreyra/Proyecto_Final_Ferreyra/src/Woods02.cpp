@@ -14,11 +14,13 @@ Woods02::Woods02(const std::string& filePath, ManagersData& managersData) : Map(
 
 	
 	enemiesAsset[1] = nullptr; // Enemy ID 3
-	enemiesData[1] = { nullptr, 4, 20, 40, 5, 1 }; // Enemy ID 3
+	enemiesData[1] = { nullptr, 4, 20, 40, 5, 1 , 3}; // Enemy ID 3
 	enemiesPosition[1] = { 800.0f, 400.0f };
 	enemiesAsset[2] = nullptr; // Enemy ID 4
-	enemiesData[2] = { nullptr, 4, 25, 45, 6, 2 }; // Enemy ID 4
+	enemiesData[2] = { nullptr, 4, 25, 45, 6, 2 , 3}; // Enemy ID 4
 	enemiesPosition[2] = { 500.0f, 300.0f };
+
+	enterStepsBuffer.loadFromFile("../audios/sfx/sfx_enterGrassSteps.ogg");
 
 	this->CreateAssets();
 }
@@ -40,10 +42,11 @@ void Woods02::Initialize()
 			AddSpriteToRender(pair.second->GetSprite());
 		}
 	}
+	Map::Initialize();
 }
 
 void Woods02::PlayBackgroundMusic()
 {
 	std::string musicPath = "../audios/woodsMusic.ogg";
-	audioManager->PlayMusic(musicPath);
+	audioManager.PlayMusic(musicPath);
 }

@@ -5,7 +5,14 @@ AudioManager::AudioManager()
 	// Inicializar volúmenes predeterminados
 	actualMusicPath = "";
 	musicVolume = 50.f;
-	sfxVolume = 50.f;
+	sfxVolume = 50.f;	
+
+	testBuffer.loadFromFile("../audios/caveMusic.ogg");
+
+	for (int i = 0; i < maxSfxPoolSize; i++) 
+	{
+		sfxPool.push_back(sf::Sound(testBuffer));
+	}
 }
 AudioManager::~AudioManager()
 {
@@ -39,10 +46,16 @@ void AudioManager::PlayMusic(std::string& path) {
 
 // Reproducir SFX
 void AudioManager::PlaySFX(sf::SoundBuffer& sfx) 
-{
-    currentSfx->setBuffer(sfx);
-   // sound.setVolume(sfxVolume);
-    currentSfx->play();    
+{		
+	for (int i = 0; i < sfxPool.size(); i++)
+	{		
+		if (sfxPool[i].getStatus() != sf::Sound::Status::Playing)
+		{
+			sfxPool[i].setBuffer(sfx);
+			sfxPool[i].play();
+			return;
+		}
+	}	
 }
 
 // Ajustar volumen global
@@ -52,12 +65,11 @@ void AudioManager::SetMusicVolume(float volume) {
 }
 
 void AudioManager::SetSFXVolume(float volume) {
-    sfxVolume = volume;
-	if (currentSfx == nullptr) 
+    sfxVolume = volume * 100;
+	for (int i = 0; i < sfxPool.size(); i++)
 	{
-		return;
+		sfxPool[i].setVolume(sfxVolume);
 	}
-	currentSfx->setVolume(sfxVolume);
 }
 
 float AudioManager::GetMusicVolume() const 

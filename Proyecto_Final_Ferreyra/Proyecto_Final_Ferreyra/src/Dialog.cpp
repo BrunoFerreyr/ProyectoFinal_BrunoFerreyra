@@ -11,8 +11,32 @@ Dialog::Dialog(ResourceManager& resourceManager)
 	//this->player = player;
 
 	active = false;
+
+	dialogFile.open("../files/dialogs.txt");
+	std::string dialogLine = "";
+	std::string numberLine = "";
+	std::string fullLine = "";
+	while (std::getline(dialogFile, fullLine))
+	{
+		size_t delimiterPos = fullLine.find('/');
+		if (delimiterPos != std::string::npos)
+		{
+			int dialogIndex = std::stoi(fullLine.substr(0, delimiterPos));
+			dialogLine = fullLine.substr(delimiterPos + 1);
+
+			size_t pos = 0;
+			while ((pos = dialogLine.find("\\n", pos)) != std::string::npos) {
+				dialogLine.replace(pos, 2, "\n");
+				pos += 1;
+			}
+
+			dialogs.emplace(dialogIndex, dialogLine);
+			std::cout << "Loaded dialog " << dialogIndex << ": " << dialogLine << std::endl;
+		}		
+	}
+	dialogFile.close();
 	
-	dialogs.emplace(0,"Old lady: Hello there, traveler! Welcome to my lovely home. Whats your name?");
+	/*dialogs.emplace(0, "Old lady: Hello there, traveler! Welcome to my lovely home. Whats your name?");
 	dialogs.emplace(1,"My name is Martial, where am i?");
 	dialogs.emplace(2,"For years we are having trouble with the machines, if you help me fighting with them...");
 	dialogs.emplace(3,"... and you give me 5 metals, i will give you more information");
@@ -34,7 +58,7 @@ Dialog::Dialog(ResourceManager& resourceManager)
 	dialogs.emplace(16,"Old lady: Take care of yourself, good luck on your journey");
 
 	dialogs.emplace(100,"You need the woods key to pass!");
-	dialogs.emplace(101, "You need the castle entrance key to pass!");
+	dialogs.emplace(101, "You need the castle entrance key to pass!");*/
 }
 Dialog::~Dialog()
 {
@@ -85,6 +109,7 @@ void Dialog::Draw(sf::RenderWindow& window)
 		text.setFont(font);
 		text.setString(dialogs[currentDialogIndex]);
 		text.setCharacterSize(24);
+		text.setLineSpacing(1.5f);
 		text.setFillColor(sf::Color::White);
 		text.setPosition(sf::Vector2(70.0f, window.getSize().y - 180.0f));
 		window.draw(text);

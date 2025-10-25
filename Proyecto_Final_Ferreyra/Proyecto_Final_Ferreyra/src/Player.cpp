@@ -1,5 +1,5 @@
 #include "Player.h"
-Player::Player(const std::string& path, const sf::Vector2i& spriteSheetSize, ResourceManager& resourceManager, Dialog* dialog)
+Player::Player(const std::string& path, const sf::Vector2i& spriteSheetSize, ResourceManager& resourceManager, Dialog* dialog, AudioManager& audio) : audioManager(audio)
 {
 	sf::IntRect area({0,0}, spriteSheetSize);
 
@@ -18,6 +18,8 @@ Player::Player(const std::string& path, const sf::Vector2i& spriteSheetSize, Res
 	moveDirection = { 0,0 };
 
 	this->dialog = dialog;	
+
+	interactBuffer.loadFromFile("../audios/sfx/sfx_interact.ogg");
 }
 Player::~Player()
 {
@@ -110,9 +112,8 @@ void Player::Interact()
 	if (isInteracting && !dialog->IsActive())
 	{
 		bool interacted = false;
-		//std::cout << "Interacting with NPC or object..." << std::endl;
 		if (currentMap != nullptr && !interacted)
-		{///TO DO
+		{
 			interacted = currentMap->CheckCollision(GetBounds(),true);
 		}
 	}
@@ -141,9 +142,10 @@ void Player::HandleEvents(const sf::Event& event)
 			isInteracting = true;
 			Interact();
 		}
-		if (keyEvent->code == sf::Keyboard::Key::Enter && dialog->IsActive()) 
+		else if(keyEvent->code == sf::Keyboard::Key::E && dialog->IsActive()) 
 		{
 			dialog->NextDialog();
+			audioManager.PlaySFX(interactBuffer);
 		}
 	}
 

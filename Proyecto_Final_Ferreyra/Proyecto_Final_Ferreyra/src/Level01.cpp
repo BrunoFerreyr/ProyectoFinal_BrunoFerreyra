@@ -23,6 +23,8 @@ Level01::Level01(const std::string& filePath, ManagersData& managersData) : Map(
 	nextMapsIDs.push_back(MapID::Camp);
 	SetNextMap(nextMapsIDs[0]);
 
+	enterStepsBuffer.loadFromFile("../audios/sfx/sfx_enterHardSteps.ogg");
+	earnKeyBuffer.loadFromFile("../audios/sfx/sfx_earnKey.ogg");
 	//audioManager.PlayMusic(musicPath);
 	this->CreateAssets();
 }
@@ -33,13 +35,19 @@ Level01::~Level01()
 void Level01::Initialize()
 {
 	PlayBackgroundMusic();
+
+	Map::Initialize();
 }
 
 void Level01::StartDialog()
 {
 	if (!missionsManager.HasWoodsKey()) 
 	{
-		dialog->Start(0, 5, [this]() { missionsManager.SetWoodsKey(true); });
+		dialog->Start(0, 5, [this]() 
+			{ 
+				missionsManager.SetWoodsKey(true); 
+				audioManager.PlaySFX(earnKeyBuffer);
+			});
 		return;
 	}
 	if (!missionsManager.GetMetalsMissionStatus())
@@ -50,7 +58,11 @@ void Level01::StartDialog()
 	
 	if (!missionsManager.HasCastleEntranceKey())
 	{
-		dialog->Start(7, 15, [this]() { missionsManager.SetCastleEntranceKey(true); });
+		dialog->Start(7, 15, [this]() 
+			{ 
+				missionsManager.SetCastleEntranceKey(true); 
+				audioManager.PlaySFX(earnKeyBuffer);
+			});
 		return;
 	}
 	dialog->Start(16, 16, nullptr);	
@@ -58,7 +70,7 @@ void Level01::StartDialog()
 void Level01::PlayBackgroundMusic()
 {
 	std::string musicPath = "../audios/houseMusic.ogg";
-	audioManager->PlayMusic(musicPath);
+	audioManager.PlayMusic(musicPath);
 }
 
 

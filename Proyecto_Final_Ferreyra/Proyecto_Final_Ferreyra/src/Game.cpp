@@ -60,12 +60,12 @@ void Game::CreatePlayer()
 {
 	std::string path = "../textures/PlayerIdle.png";
 	sf::Vector2i spriteSheetSize = { 378, 768 };
-	player = new Player(path, spriteSheetSize, resourceManager, dialog);
+	player = new Player(path, spriteSheetSize, resourceManager, dialog, audioManager);
 }
 void Game::CreateScenes()
 {
 	mainMenu = new MainMenu(*window, resourceManager, audioManager);
-	pauseManager = new Pause(resourceManager, *window, *&currentScene, *&mainMenu);//DO  ver signos
+	pauseManager = new Pause(resourceManager,audioManager, *window, *&currentScene, *&mainMenu);//DO  ver signos
 
 	gameplay = new Gameplay(*window, player, *pauseManager, *managersData);
 

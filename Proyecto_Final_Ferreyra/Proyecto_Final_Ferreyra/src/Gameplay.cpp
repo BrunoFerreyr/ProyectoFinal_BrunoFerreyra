@@ -93,8 +93,9 @@ void Gameplay::HandleEvents(const sf::Event& event)
 	}
 	else
 	{
-		pauseManager.SetIsOnBattle(false);//DO
+		pauseManager.SetIsOnBattle(false);
 	}
+	
 	if (pauseManager.GetGamePaused())
 	{ 
 		return;

@@ -1,5 +1,6 @@
 #pragma once
 #include <functional>
+#include <SFML/Audio.hpp>
 #include "Asset.h"
 class ButtonAsset : public Asset
 {
@@ -9,10 +10,12 @@ public:
 
 	void OnClickEvent();
 	sf::Text* GetText();
-	//int enemyLife;
+	sf::SoundBuffer& GetBuffer();
 
 private:
 	std::function<void()> onClickEvent;
 	sf::Text* buttonText;
+
+	sf::SoundBuffer clickBuffer;
 };
 

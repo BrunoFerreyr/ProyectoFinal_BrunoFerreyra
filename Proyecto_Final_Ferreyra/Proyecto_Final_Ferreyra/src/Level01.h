@@ -7,12 +7,12 @@ public:
 	~Level01() override;
 
 	void Initialize() override;
-	bool CheckCollision(const sf::FloatRect& playerBounds, bool isInteractable);
 	void PlayBackgroundMusic() override;
 	Asset* goToWoods;
 
 private: 
-	void LoadNextMap();
 	void StartDialog();
+
+	sf::SoundBuffer earnKeyBuffer;
 };
 

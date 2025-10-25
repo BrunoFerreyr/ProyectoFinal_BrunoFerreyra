@@ -4,7 +4,7 @@ Woods03::Woods03(const std::string& filePath, ManagersData& managersData) : Map(
 	textureFloor.loadFromFile(filePath);
 	floor = new sf::Sprite(textureFloor);
 	goToWoods02 = new TriggerAsset({ &resourceManager.GetTexture("../textures/changeMapCollision.png", false, sf::IntRect()), sf::Vector2f{1275.0f, 320.0f}, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(126, 126)), true, true, nullptr }, [this]() { this->LoadLevel(MapID::Woods02, {1205.0f, 340.0f}); });
-	castleEntranceDoor = new InteractableAsset({ &resourceManager.GetTexture("../textures/woods/castleEntranceDoor.png", false, sf::IntRect()), sf::Vector2f{ 10.0f, 100.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(59, 195)), true, true ,nullptr }, [this]() {this->CastleEntranceDoorInteraction(); });
+	castleEntranceDoor = new InteractableAsset({ &resourceManager.GetTexture("../textures/woods/castleEntranceDoor.png", false, sf::IntRect()), sf::Vector2f{ 100.0f, 155.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(59, 195)), true, true ,nullptr }, [this]() {this->CastleEntranceDoorInteraction(); });
 	castleEntranceDoorCollision = new Asset({ &resourceManager.GetTexture("../textures/woods/castleEntranceDoor.png", false, sf::IntRect()), sf::Vector2f{ 100.0f, 155.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(40, 195)), true, false ,nullptr });
 
 	assetsObjects.push_back(goToWoods02);
@@ -17,11 +17,13 @@ Woods03::Woods03(const std::string& filePath, ManagersData& managersData) : Map(
 
 	
 	enemiesAsset[1] = nullptr; // Enemy ID 3
-	enemiesData[1] = { nullptr, 4, 20, 40, 5, 1 }; // Enemy ID 3
+	enemiesData[1] = { nullptr, 4, 20, 40, 5, 1 , 4}; // Enemy ID 3
 	enemiesPosition[1] = { 800.0f, 400.0f };
 	enemiesAsset[2] = nullptr; // Enemy ID 4
-	enemiesData[2] = { nullptr, 4, 25, 45, 6, 2 }; // Enemy ID 4
+	enemiesData[2] = { nullptr, 4, 25, 45, 6, 2 , 4}; // Enemy ID 4
 	enemiesPosition[2] = { 500.0f, 300.0f };
+
+	enterStepsBuffer.loadFromFile("../audios/sfx/sfx_enterGrassSteps.ogg");
 
 	this->CreateAssets();
 }
@@ -43,12 +45,13 @@ void Woods03::Initialize()
 			AddSpriteToRender(pair.second->GetSprite());
 		}
 	}
+	Map::Initialize();
 }
 
 void Woods03::PlayBackgroundMusic()
 {
 	std::string musicPath = "../audios/woodsMusic.ogg";
-	audioManager->PlayMusic(musicPath);
+	audioManager.PlayMusic(musicPath);
 }
 
 void Woods03::CastleEntranceDoorInteraction()
@@ -58,6 +61,7 @@ void Woods03::CastleEntranceDoorInteraction()
 		//DO agregar asset eraser function
 		EraseAsset(castleEntranceDoor);
 		EraseAsset(castleEntranceDoorCollision);
+		audioManager.PlaySFX(openDoorBuffer);
 	}
 	else
 	{

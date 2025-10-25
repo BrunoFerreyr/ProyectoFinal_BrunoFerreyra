@@ -3,13 +3,14 @@
 #include <ctime>
 #include <iostream>
 #include "ResourceManager.h"
+#include "AudioManager.h"
 #include "Asset.h"
 #include "Bar.h"
 #include "BattleData.h"
 class Battle
 {
 public:
-	Battle(ResourceManager& resourceManager,int playerLife, const BattleData& data, std::function<void(bool&,int)> callback);
+	Battle(ResourceManager& resourceManager,AudioManager& audio,int playerLife, const BattleData& data, std::function<void(bool&,int)> callback);
 	~Battle();
 
 	void Update(float deltaTime);
@@ -62,6 +63,17 @@ private:
 	std::vector<sf::Text*> keysText;
 	sf::Text* roundText;
 	Bar* timeBar;
+	Asset* timeBarBackground;
 	std::function<void(bool&,int)> callback;
+
+	AudioManager& audioManager;
+	sf::SoundBuffer correctClickBuffer;
+	sf::SoundBuffer wrongClickBuffer;
+	sf::SoundBuffer attackBuffer;
+	sf::SoundBuffer criticalHitBuffer;
+	sf::SoundBuffer receibeDamageBuffer;
+	sf::SoundBuffer receibeHighDamageBuffer;
+	sf::SoundBuffer winBuffer;
+	sf::SoundBuffer loseBuffer;
 };
 

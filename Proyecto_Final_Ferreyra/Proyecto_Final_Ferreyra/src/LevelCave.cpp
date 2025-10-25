@@ -12,6 +12,8 @@ LevelCave::LevelCave(const std::string& filePath, ManagersData& managersData)
 	
 	nextMapsIDs.push_back(MapID::Camp);
 
+	enterStepsBuffer.loadFromFile("../audios/sfx/sfx_enterGroundSteps.ogg");
+
 	this->CreateAssets();
 }
 LevelCave::~LevelCave()
@@ -20,6 +22,7 @@ LevelCave::~LevelCave()
 void LevelCave::Initialize()
 {
 	PlayBackgroundMusic();
+	Map::Initialize();
 }
 void LevelCave::LoadCamp()
 {
@@ -31,5 +34,5 @@ void LevelCave::LoadCamp()
 void LevelCave::PlayBackgroundMusic()
 {
 	std::string musicPath = "../audios/caveMusic.ogg";
-	audioManager->PlayMusic(musicPath);
+	audioManager.PlayMusic(musicPath);
 }

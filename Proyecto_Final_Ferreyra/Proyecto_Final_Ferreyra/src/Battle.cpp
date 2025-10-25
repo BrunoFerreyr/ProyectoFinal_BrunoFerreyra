@@ -1,12 +1,12 @@
 #include "Battle.h"
 
-Battle::Battle(ResourceManager& resourceManager, int playerLife, const BattleData& data, std::function<void(bool&,int)> callback) : playerHealth(playerLife), battleData(data),enemySprite(*data.enemySprite), callback(callback)
+Battle::Battle(ResourceManager& resourceManager,AudioManager& audio, int playerLife, const BattleData& data, std::function<void(bool&,int)> callback) : audioManager(audio), playerHealth(playerLife), battleData(data),enemySprite(*data.enemySprite), callback(callback)
 {
 	playerSprite = new Asset({&resourceManager.GetTexture("../textures/PlayerIdle.png", false, sf::IntRect()), sf::Vector2f({150.0f,400.0f}), sf::IntRect({0,0}, {63,96}), false ,true,nullptr});
 	//playerLifeSprite = new Asset(&resourceManager.GetTexture("../textures/PlayerIdle.png", false, sf::IntRect()), sf::Vector2f({ 0.0f,0.0f }), sf::IntRect({ 0,0 }, { 378,768 }), false);
 	//enemyLifeSprite = new Asset(&resourceManager.GetTexture("../textures/PlayerIdle.png", false, sf::IntRect()), sf::Vector2f({ 0.0f,0.0f }), sf::IntRect({ 0,0 }, { 378,768 }), false);
 	enemyHealth = battleData.enemyHealth;
-
+	
 	font = resourceManager.GetFont("../fonts/dogicapixel.ttf");	
 	pointsText = new sf::Text(font);
 	playerText = new sf::Text(font);
@@ -17,7 +17,8 @@ Battle::Battle(ResourceManager& resourceManager, int playerLife, const BattleDat
 	enemySprite.setPosition({ 900.0f, 350.0f });
 	timeBar = new Bar(&resourceManager.GetTexture("../textures/battle/barTimer.png", false, sf::IntRect()), sf::IntRect({ 0,0 }, { 194,44 }), 194);
 	timeBar->GetBar()->GetSprite()->setPosition({ 540.0f, 100.0f });
-
+	sf::Vector2f timeBarPosition = timeBar->GetBar()->GetSprite()->getPosition();
+	timeBarBackground = new Asset({ &resourceManager.GetTexture("../textures/battle/barTimerBackground.png", false, sf::IntRect()), sf::Vector2f({ timeBarPosition.x - 3, timeBarPosition.y - 3 }), sf::IntRect({ 0,0 }, { 200,50 }), false, true, nullptr });
 	float buttonWidth = 64.0f;
 	float spacing = 200.0f; // Espacio entre botones
 	int numButtons = battleData.totalInputs; // O el valor que corresponda
@@ -47,6 +48,15 @@ Battle::Battle(ResourceManager& resourceManager, int playerLife, const BattleDat
 
 	battleActive = true;
 	UpdateStats();
+
+	correctClickBuffer.loadFromFile("../audios/sfx/sfx_battleClickCorrect.ogg");
+	wrongClickBuffer.loadFromFile("../audios/sfx/sfx_battleClickWrong.ogg");
+	attackBuffer.loadFromFile("../audios/sfx/sfx_attack.ogg");
+	criticalHitBuffer.loadFromFile("../audios/sfx/sfx_criticalHit.ogg");
+	receibeDamageBuffer.loadFromFile("../audios/sfx/sfx_receibeDamage.ogg");
+	receibeHighDamageBuffer.loadFromFile("../audios/sfx/sfx_highDamageReceibed.ogg");
+	winBuffer.loadFromFile("../audios/sfx/sfx_winEffect.ogg");
+	loseBuffer.loadFromFile("../audios/sfx/sfx_loseEffect.ogg");
 } 
 Battle::~Battle()
 {
@@ -59,6 +69,7 @@ Battle::~Battle()
 	delete enemyText;
 	delete roundText;
 	delete timeBar;
+	delete timeBarBackground;
 	for (auto keyAsset : keysAssets)
 	{
 		delete keyAsset;
@@ -130,6 +141,7 @@ void Battle::Update(float deltaTime)
 	}
 	else 
 	{		
+		timeBar->SetPercentage(0 + (waitCounter * 100) / waitLimit);
 		waitCounter += deltaTime;
 		if (waitCounter >= waitLimit)
 		{			
@@ -154,6 +166,9 @@ void Battle::Draw(sf::RenderWindow& window)
 	//window.draw(*enemyLifeSprite->GetSprite());
 	window.draw(*playerText);
 	window.draw(*enemyText);
+	window.draw(*timeBarBackground->GetSprite());
+	window.draw(*timeBar->GetBar()->GetSprite());
+
 	if (!shouldTap) 
 	{
 		window.draw(*pointsText);
@@ -168,7 +183,6 @@ void Battle::Draw(sf::RenderWindow& window)
 	{
 		window.draw(*keyText);
 	}
-	window.draw(*timeBar->GetBar()->GetSprite());
 }
 
 void Battle::ShowKeys()
@@ -199,9 +213,18 @@ void Battle::DoAction()
 	isAttacking = !isAttacking;
 	if (isAttacking)
 	{
-		if (totalPoints < 0)
-		{ 
+		if (inputIndex >= battleData.totalInputs) 
+		{
+			audioManager.PlaySFX(attackBuffer);
+			audioManager.PlaySFX(criticalHitBuffer);
+		}
+		else if(totalPoints < 0)
+		{
 			totalPoints = 0;
+		}
+		else 
+		{ 
+			audioManager.PlaySFX(attackBuffer);
 		}
 		enemyHealth -= totalPoints;
 		//calcular barra enemigo
@@ -210,24 +233,33 @@ void Battle::DoAction()
 			enemyHealth = 0;
 			playerWins = true;
 			battleEnded = true;
-			//PlayerWin();
+			audioManager.PlaySFX(winBuffer);
 		}
 	}
 	else
 	{
+		if (inputIndex <= 1) 
+		{
+			audioManager.PlaySFX(receibeHighDamageBuffer);
+		}
+		else
+		{
+			audioManager.PlaySFX(receibeDamageBuffer);
+		}
+
 		if (totalPoints > battleData.enemyDamage) 
 		{
 			totalPoints = battleData.enemyDamage - 2;
 		}
-
 		playerHealth -= (battleData.enemyDamage - totalPoints);
 		if (playerHealth <= 0)
 		{
 			playerHealth = 0;
 			battleEnded = true;
-			//PlayerLose();
+			audioManager.PlaySFX(loseBuffer);
 		}
 	}
+	//inputIndex = 0;
 	UpdateStats();	
 	shouldTap = false;
 }
@@ -242,13 +274,14 @@ void Battle::HandleEvents(const sf::Event& event)
 		if (keyEvent->code == GetCorrectKey())
 		{
 			totalPoints += keyPointValue;
+
+			audioManager.PlaySFX(correctClickBuffer);
 			keysText[inputIndex]->setString("");
 			keysAssets[inputIndex]->GetSprite()->setColor(sf::Color::Green);
 			inputIndex++;
 			if (inputIndex >= battleData.totalInputs)
 			{
 				counter = battleData.limitCounter;
-				inputIndex = 0;
 				for (auto keyAsset : keysAssets)
 				{
 					keyAsset->GetSprite()->setColor(sf::Color::White);
@@ -257,10 +290,10 @@ void Battle::HandleEvents(const sf::Event& event)
 		}
 		else
 		{			
+			audioManager.PlaySFX(wrongClickBuffer);
 			totalPoints = isAttacking? totalPoints + keyPointValue : totalPoints - keyPointValue/2;
 			counter = battleData.limitCounter;
 		}
-		
 	}
 }
 sf::Keyboard::Key Battle::GetCorrectKey() const

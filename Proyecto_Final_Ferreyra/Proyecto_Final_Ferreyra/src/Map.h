@@ -51,12 +51,18 @@ protected:
 	sf::Sprite* floor;
 	sf::Texture	textureFloor;
 	Dialog* dialog;
-	AudioManager* audioManager;
+	AudioManager& audioManager;
 	Battle* battle;
 	ResourceManager& resourceManager;
 	MissionsManager& missionsManager;
 	CollectablesUI* collectablesUI;
 
 	bool isInBattle = false;
+
+	sf::SoundBuffer enterStepsBuffer;
+	sf::SoundBuffer earnMetalsBuffer;
+	sf::SoundBuffer interactBuffer;
+	sf::SoundBuffer openDoorBuffer;
+	sf::SoundBuffer startBattleBuffer;
 };
 

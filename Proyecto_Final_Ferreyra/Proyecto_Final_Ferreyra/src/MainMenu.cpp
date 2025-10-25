@@ -88,6 +88,21 @@ void MainMenu::Draw()
 }
 void MainMenu::HandleEvents(const sf::Event& event)
 {
+	if (const auto* mouse = event.getIf<sf::Event::KeyReleased>()) {
+		if (mouse->code == sf::Keyboard::Key::R) 
+		{
+			if (testBuffer.loadFromFile("../audios/battleMusic.ogg")) {
+				audioManager.PlaySFX(testBuffer);
+			}
+		}
+		if (mouse->code == sf::Keyboard::Key::F)
+		{
+			if (testBuffer2.loadFromFile("../audios/caveMusic.ogg")) {
+				audioManager.PlaySFX(testBuffer2);
+			}
+		}
+	}
+
 	if (const auto* mouse = event.getIf<sf::Event::MouseButtonPressed>()) 
 	{
 		if (mouse->button == sf::Mouse::Button::Left) 
@@ -130,10 +145,12 @@ void MainMenu::LoadGame()
 {
 	wantsChange = true;
 	nextSceneID = SceneID::Gameplay;
+	audioManager.PlaySFX(startButton->GetBuffer());
 }
 void MainMenu::ToggleCredits()
 {
 	showCredits = !showCredits;
+	audioManager.PlaySFX(startButton->GetBuffer());
 }
 void MainMenu::ExitGame()
 {
