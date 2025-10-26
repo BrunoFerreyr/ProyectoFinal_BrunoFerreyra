@@ -18,14 +18,13 @@ public:
 	void HandleEvents(const sf::Event& event);
 
 private:
-	void StartBattle();
-	void EndBattle();
-	
+	void CreateKeyTexts(ResourceManager& resourceManager);
+	void LoadAllBuffers();
 	void ShowKeys();
-	void DoAction();
-
 	sf::Keyboard::Key GetCorrectKey() const;
+	void DoAction();
 	void UpdateStats();
+	void EndBattle();
 
 	bool battleStarted = false;
 	bool battleEnded = false;

@@ -5,12 +5,12 @@ Gameplay::Gameplay(sf::RenderWindow& window, Player* player, Pause& pauseManager
 	pauseManager(pauseManager),
 	managersData(managers)
 {
-	levelCave = new LevelCave("../textures/caveFloor.png", managers);
-	house = new Level01("../textures/floor.png", managers);
-	camp = new Level02("../textures/woodsFloor.png", managers);
-	woods01 = new Woods01("../textures/woods/woods01Floor.png", managers);
-	woods02 = new Woods02("../textures/woods/woods02Floor.png", managers);
-	woods03 = new Woods03("../textures/woods/woods03Floor.png", managers, [this]() { this->OnEndEvent(); });
+	levelCave = new LevelCave("../../res/textures/caveFloor.png", managers, [this]() { ResetMapsInitialPositions(); });
+	house = new Level01("../../res/textures/floor.png", managers, [this]() { ResetMapsInitialPositions(); });
+	camp = new Level02("../../res/textures/woodsFloor.png", managers, [this]() { ResetMapsInitialPositions(); });
+	woods01 = new Woods01("../../res/textures/woods/woods01Floor.png", managers, [this]() { ResetMapsInitialPositions(); });
+	woods02 = new Woods02("../../res/textures/woods/woods02Floor.png", managers, [this]() { ResetMapsInitialPositions(); });
+	woods03 = new Woods03("../../res/textures/woods/woods03Floor.png", managers, [this]() { this->OnEndEvent(); }, [this]() { ResetMapsInitialPositions(); });
 
 	maps.emplace(MapID::Cave, levelCave);
 	maps.emplace(MapID::OldWomanHouse,house);
@@ -114,4 +114,12 @@ void Gameplay::HandleEvents(const sf::Event& event)
 void Gameplay::OnEndEvent() 
 {
 	SetWantsExit(true);
+}
+void Gameplay::ResetMapsInitialPositions()
+{
+	for (auto& mapPair : maps)
+	{
+		Map* map = mapPair.second;
+		map->SetPlayerInitPosition(map->GetFirstTimePosition());
+	}
 }

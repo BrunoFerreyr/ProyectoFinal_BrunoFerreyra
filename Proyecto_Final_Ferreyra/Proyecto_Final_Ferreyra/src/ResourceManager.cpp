@@ -10,24 +10,28 @@ ResourceManager::~ResourceManager() {
 }
 
 sf::Texture& ResourceManager::GetTexture(const std::string& path, bool useMipmap, sf::IntRect area) {
-	auto iterator = textures.find(path);
+	std::string pathh = path;
+	pathh = GetResourcePath(pathh);
+	auto iterator = textures.find(pathh);
 	if (iterator == textures.end()) 
 	{		
 		std::unique_ptr<sf::Texture> texture = std::make_unique<sf::Texture>();
 		
-		if (!texture->loadFromFile(path, useMipmap,area)) 
+		if (!texture->loadFromFile(pathh, useMipmap,area))
 		{
 			texture.reset();
-			throw std::runtime_error("Failed to load texture: " + path);
+			throw std::runtime_error("Failed to load texture: " + pathh);
 		}
 
-		iterator = textures.try_emplace( path, std::move(texture)).first;
+		iterator = textures.try_emplace(pathh, std::move(texture)).first;
 	}
 	
 	return *iterator->second;
 }
 
 sf::Font& ResourceManager::GetFont(const std::string& path) {
+	std::string pathh = path;
+	pathh = GetResourcePath(pathh);
 	auto iterator = fonts.find(path);
 	if (iterator == fonts.end()) 
 	{
@@ -57,4 +61,15 @@ sf::SoundBuffer& ResourceManager::GetSound(const std::string& path) {
 	}
 
 	return *iterator->second;
+}
+
+std::string ResourceManager::GetResourcePath(const std::string& relativePath) 
+{
+	// Si no existe, intenta con "res/" + path sin los "../"
+	std::string resPath = "../../res/" + relativePath.substr(3); // quita los "../"
+	if (std::filesystem::exists(resPath))
+		return resPath;
+
+	// Si no existe ninguna, devuelve la original (para debug)
+	return relativePath;
 }

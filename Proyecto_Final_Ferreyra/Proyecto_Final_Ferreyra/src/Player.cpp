@@ -19,7 +19,7 @@ Player::Player(const std::string& path, const sf::Vector2i& spriteSheetSize, Res
 
 	this->dialog = dialog;	
 
-	interactBuffer.loadFromFile("../audios/sfx/sfx_interact.ogg");
+	interactBuffer.loadFromFile("../../res/audios/sfx/sfx_interact.ogg");
 }
 Player::~Player()
 {

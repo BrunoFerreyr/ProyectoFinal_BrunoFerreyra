@@ -1,12 +1,12 @@
 #include "LevelCave.h"
 
-LevelCave::LevelCave(const std::string& filePath, ManagersData& managersData)
-	: Map(filePath, managersData)
+LevelCave::LevelCave(const std::string& filePath, ManagersData& managersData, std::function<void()> resetPositions)
+	: Map(filePath, managersData,resetPositions)
 {
 	textureFloor.loadFromFile(filePath);
 	floor = new sf::Sprite(textureFloor);
-
-	playerInitPosition = { 950.0f, 100.0f };
+	firstTimePosition = { 950.0f, 100.0f };
+	playerInitPosition = firstTimePosition;
 	goToCamp = new TriggerAsset({ &resourceManager.GetTexture("../textures/changeMapCollision.png", false, sf::IntRect()), sf::Vector2f{ 900.0f, -100.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(126, 126)), true, false, nullptr, AssetType::Static}, [this]() { this->LoadCamp(); });
 
 	assetsObjects.push_back(new Asset({ &resourceManager.GetTexture("../textures/collisionCube.png", false, sf::IntRect()), sf::Vector2f{ 0.0f, 0.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(100 * 5.27f, 100 * 1.4f)), true, false ,nullptr ,AssetType::Static }));
@@ -21,7 +21,7 @@ LevelCave::LevelCave(const std::string& filePath, ManagersData& managersData)
 	
 	nextMapsIDs.push_back(MapID::Camp);
 
-	enterStepsBuffer.loadFromFile("../audios/sfx/sfx_enterGroundSteps.ogg");
+	enterStepsBuffer.loadFromFile("../../res/audios/sfx/sfx_enterGroundSteps.ogg");
 
 	this->CreateAssets();
 }
@@ -38,11 +38,9 @@ void LevelCave::LoadCamp()
 {
 	nextMapID = MapID::Camp;
 	wantsChange = true;
-	//necesito agregar todas las escenas en map current scenes.
-	//tener un enum con los nombres, y adentro de cada coso pones current dependiendo de a donde va
 }
 void LevelCave::PlayBackgroundMusic()
 {
-	std::string musicPath = "../audios/caveMusic.ogg";
+	std::string musicPath = "../../res/audios/caveMusic.ogg";
 	audioManager.PlayMusic(musicPath);
 }

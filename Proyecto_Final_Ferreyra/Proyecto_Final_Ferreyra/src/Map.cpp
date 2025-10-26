@@ -1,6 +1,6 @@
 #include "Map.h"
 
-Map::Map(const std::string& filePath, ManagersData& managersData) :dialog(managersData.dialog), audioManager(managersData.audioManager), resourceManager(managersData.resourceManager), missionsManager(managersData.missionsManager), collectablesUI(managersData.collectablesUI)
+Map::Map(const std::string& filePath, ManagersData& managersData, std::function<void()> resetPositions) :dialog(managersData.dialog), audioManager(managersData.audioManager), resourceManager(managersData.resourceManager), missionsManager(managersData.missionsManager), collectablesUI(managersData.collectablesUI),resetPositionsFunction(resetPositions)
 {		
 }
 Map::~Map()
@@ -24,10 +24,10 @@ Map::~Map()
 void Map::Initialize()
 {
 	audioManager.PlaySFX(enterStepsBuffer);
-	earnMetalsBuffer.loadFromFile("../audios/sfx/sfx_earnMetalPoints.ogg");
-	interactBuffer.loadFromFile("../audios/sfx/sfx_interact.ogg");
-	openDoorBuffer.loadFromFile("../audios/sfx/sfx_openDoor.ogg");
-	startBattleBuffer.loadFromFile("../audios/sfx/sfx_startBattle.ogg");
+	earnMetalsBuffer.loadFromFile("../../res/audios/sfx/sfx_earnMetalPoints.ogg");
+	interactBuffer.loadFromFile("../../res/audios/sfx/sfx_interact.ogg");
+	openDoorBuffer.loadFromFile("../../res/audios/sfx/sfx_openDoor.ogg");
+	startBattleBuffer.loadFromFile("../../res/audios/sfx/sfx_startBattle.ogg");
 }
 void Map::CreateAssets()
 {
@@ -136,13 +136,17 @@ MapID& Map::GetNextMap()
 	return nextMapID;
 }
 
-sf::Vector2f Map::GetPlayerInitPosition()
+sf::Vector2f Map::GetPlayerInitPosition() const
 {
 	return playerInitPosition;
 }
 bool Map::GetIsInBattle() const
 {
 	return isInBattle;
+}
+sf::Vector2f Map::GetFirstTimePosition() const
+{
+	return firstTimePosition;
 }
 
 void Map::PlayBackgroundMusic() 
@@ -172,7 +176,7 @@ void Map::LoadBattle(int enemyLife, int enemyID)
 	BattleData data = enemy->enemyBattleData;
 	battle = new Battle(resourceManager, audioManager, 20, data, [this, enemyID](bool& playerWin, int enemyID) {this->EndBattle(playerWin, enemyID); });
 
-	std::string musicPath = "../audios/battleMusic.ogg";
+	std::string musicPath = "../../res/audios/battleMusic.ogg";
 	audioManager.PlayMusic(musicPath);
 	audioManager.PlaySFX(startBattleBuffer);
 	isInBattle = true;
@@ -196,8 +200,11 @@ void Map::EndBattle(bool playerWin,int enemyID)
 	}
 	else
 	{
-		SetPlayerInitPosition({ 950.0f, 100.0f });
-		nextMapID = MapID::OldWomanHouse;
+		if (resetPositionsFunction) 
+		{
+			resetPositionsFunction();
+		}
+		nextMapID = MapID::Cave;
 		wantsChange = true;
 	}
 }

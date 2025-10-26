@@ -2,12 +2,12 @@
 
 AudioManager::AudioManager()
 {
-	// Inicializar volúmenes predeterminados
 	actualMusicPath = "";
 	musicVolume = 50.f;
 	sfxVolume = 50.f;	
 
-	testBuffer.loadFromFile("../audios/caveMusic.ogg");
+	 
+	testBuffer.loadFromFile("../../res/audios/caveMusic.ogg");
 
 	for (int i = 0; i < maxSfxPoolSize; i++) 
 	{

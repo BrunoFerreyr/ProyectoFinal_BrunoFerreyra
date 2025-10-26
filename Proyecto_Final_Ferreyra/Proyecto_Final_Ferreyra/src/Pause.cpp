@@ -5,15 +5,15 @@ Pause::Pause(ResourceManager& resources, AudioManager& audioManager, sf::RenderW
 	this->currentScene = currentScene;
 	this->mainMenu = mainMenu;
 
-	sf::Font& font = resources.GetFont("../fonts/dogicapixel.ttf");
+	sf::Font& font = resources.GetFont("../../res/fonts/dogicapixel.ttf");
 	continueButton = new ButtonAsset({ &resources.GetTexture("../textures/continueButton.png", false, sf::IntRect()), sf::Vector2f{490.0f, 250.0f}, sf::IntRect({ 0, 0 }, { 300, 100 }), true , true, nullptr }, font, "CONTINUE");
 	mainMenuButton = new ButtonAsset({ &resources.GetTexture("../textures/mainmenuButton.png", false, sf::IntRect()), sf::Vector2f{490.0f, 380.0f}, sf::IntRect({ 0, 0 }, { 300, 100 }), true , true, nullptr }, font, "MAIN MENU");
 	exitButton = new ButtonAsset({ &resources.GetTexture("../textures/menu/startButton.png", false, sf::IntRect()), sf::Vector2f{532.0f, 510.0f}, sf::IntRect({ 0, 0 }, { 216, 52 }), true , true, nullptr }, font, "EXIT");
 	musicVolumeSlider = new Slider(resources, "../textures/menu/musicSliderBackground.png", { 360,330 }, [this](float value) { this->audioManager.SetMusicVolume(value); });
 	sfxVolumeSlider = new Slider(resources, "../textures/menu/sfxSliderBackground.png", { 400,330 }, [this](float value) { this->audioManager.SetSFXVolume(value); });
 
-	enterPauseBuffer.loadFromFile("../audios/sfx/sfx_enterPause.ogg");
-	exitPauseBuffer.loadFromFile("../audios/sfx/sfx_exitPause.ogg");
+	enterPauseBuffer.loadFromFile("../../res/audios/sfx/sfx_enterPause.ogg");
+	exitPauseBuffer.loadFromFile("../../res/audios/sfx/sfx_exitPause.ogg");
 
 	gamePaused = false;
 }
@@ -44,7 +44,6 @@ void Pause::Draw()
 {
 	if (!gamePaused) return;
 
-	//window.draw(*pauseBackground);
 	window.draw(*continueButton->GetSprite());
 	window.draw(*continueButton->GetText());
 	window.draw(*mainMenuButton->GetSprite());

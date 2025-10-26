@@ -3,7 +3,7 @@
 class Level02 : public Map
 {
 public:
-	Level02(const std::string& filePath, ManagersData& managersData);
+	Level02(const std::string& filePath, ManagersData& managersData, std::function<void()> resetPositions);
 	~Level02() override;
 
 	void Initialize() override;

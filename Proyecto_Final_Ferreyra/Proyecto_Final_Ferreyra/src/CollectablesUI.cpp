@@ -7,7 +7,7 @@ CollectablesUI::CollectablesUI(ResourceManager& resourceManager, MissionsManager
 	castleEntranceKeyIcon = new Asset({ &resourceManager.GetTexture("../textures/ui/castleEntranceKey.png", false, sf::IntRect()), sf::Vector2f({ 400.0f,50.0f }), sf::IntRect({ 0,0 }, { 14,27 }), false, true, nullptr });
 	castleKeyIcon = new Asset({ &resourceManager.GetTexture("../textures/ui/castleKey.png", false, sf::IntRect()), sf::Vector2f({ 500.0f,50.0f }), sf::IntRect({ 0,0 }, { 10,28 }), false, true, nullptr });
 	
-	font = resourceManager.GetFont("../fonts/dogicapixel.ttf");
+	font = resourceManager.GetFont("../../res/fonts/dogicapixel.ttf");
 	metalsText = new sf::Text(font);
 	metalsText->setString(" 0");	
 	metalsText->setCharacterSize(20);

@@ -1,9 +1,4 @@
 #include "Game.h"
-//IF NOT EXIST "$(TargetDir)res\" MKDIR "$(TargetDir)res\"
-//XCOPY "$(ProjectDir)res\" "$(TargetDir)res\" /e /h /y /s
-//https://alkakrab.itch.io/free-12-tracks-pixel-rpg-game-music-pack
-//https://karsiori.itch.io/pixel-art-key-pack-animated
-//https://craftpix.net/freebies/free-mining-pixel-32x32-icons/?srsltid=AfmBOooNsua5TJ0V6sMYV_OfdhMAg0-ecYfJi1iaSNOii4fPzB8LuLWm
 Game::Game()
 {
 
@@ -58,7 +53,7 @@ void Game::CreateManagers()
 }
 void Game::CreatePlayer()
 {
-	std::string path = "../textures/PlayerIdle.png";
+	std::string path = "../../res/textures/PlayerIdle.png";
 	sf::Vector2i spriteSheetSize = { 378, 768 };
 	player = new Player(path, spriteSheetSize, resourceManager, dialog, audioManager);
 }

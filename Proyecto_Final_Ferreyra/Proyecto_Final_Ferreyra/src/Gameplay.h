@@ -25,7 +25,7 @@ public:
 
 private:
 	void OnEndEvent();
-
+	void ResetMapsInitialPositions();
 	Player* player;
 	std::map<MapID,Map*> maps;
 	Map* currentMap;

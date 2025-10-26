@@ -2,7 +2,7 @@
 
 Dialog::Dialog(ResourceManager& resourceManager)
 {
-	font = resourceManager.GetFont("../fonts/dogicapixel.ttf");
+	font = resourceManager.GetFont("../../res/fonts/dogicapixel.ttf");
 	if (font.getInfo().family.empty())
 	{
 		std::cerr << "Failed to load font for dialog." << std::endl;
@@ -10,7 +10,7 @@ Dialog::Dialog(ResourceManager& resourceManager)
 	
 	active = false;
 
-	dialogFile.open("../files/dialogs.txt");
+	dialogFile.open("../../res/files/dialogs.txt");
 	std::string dialogLine = "";
 	std::string numberLine = "";
 	std::string fullLine = "";
@@ -29,7 +29,6 @@ Dialog::Dialog(ResourceManager& resourceManager)
 			}
 
 			dialogs.emplace(dialogIndex, dialogLine);
-			std::cout << "Loaded dialog " << dialogIndex << ": " << dialogLine << std::endl;
 		}		
 	}
 	dialogFile.close();		

@@ -3,26 +3,47 @@
 MainMenu::MainMenu(sf::RenderWindow& window, ResourceManager& resources, AudioManager& audioManager) 
 	: Scene(window),  
 	audioManager(audioManager),
-	text(resources.GetFont("../fonts/dogicapixel.ttf"),"COMENZAR", 48)
+	text(resources.GetFont("../../res/fonts/dogicapixel.ttf"),"COMENZAR", 48)
 {
-	std::string backgroundPath = "../textures/MainMenuBackground.png";
+	std::string backgroundPath = "../../res/textures/MainMenuBackground.png";
 	sf::IntRect backgroundArea({ 0, 0 }, { 1280, 720 });
 
 	sf::Texture& backgroundTexture = resources.GetTexture(backgroundPath,false, backgroundArea);
 	background = new sf::Sprite(backgroundTexture);
-	sf::Font& font = resources.GetFont("../fonts/dogicapixel.ttf");
+	sf::Font& font = resources.GetFont("../../res/fonts/dogicapixel.ttf");
 
-	sf::Texture& creditsBackgroundTexture = resources.GetTexture("../textures/menu/creditsBackground.png", false,sf::IntRect({ 0, 0 }, { 600, 600 }));
+	sf::Texture& creditsBackgroundTexture = resources.GetTexture("../textures/menu/creditsBackground.png", false,sf::IntRect({ 0, 0 }, { 518, 336 }));
 	creditsBackground = new sf::Sprite(creditsBackgroundTexture);
-	creditsBackground->setPosition({ 640.0f, 60.0f });
+	creditsBackground->setPosition({ 640.0f, 240.0f });
 
 	sf::Texture& controlsBackgroundTexture = resources.GetTexture("../textures/menu/controlsBackground.png", false, sf::IntRect({ 0, 0 }, { 518, 336 }));
 	controlsBackground = new sf::Sprite(controlsBackgroundTexture);
 	controlsBackground->setPosition({ 640.0f, 240.0f });
 
 	creditsText = new sf::Text(font);
-	creditsText->setString("Game developed by:\n\n- John Doe\n- Jane Smith\n- Alice Johnson\n- Bob Brown\n\nThank you for playing!");
-	creditsText->setCharacterSize(24);
+	creditsText->setString(
+	"Game developed during a course in\n"
+	"\n"
+	"ImageCampus by : Bruno Ferreyra\n"  
+	"\n"
+    "Sprites Characters :\n"
+	"\n"
+	"Digimon World 3 Bandai Namco Entertainment\n"
+    "\n"
+    "SFX : Itch.io\n"
+    "Helton Yan\n"
+    "Beto Bezerra\n"
+    "\n"
+    "OST : Itch.io\n"
+    "alkakrab04@gmail.com\n"
+    "\n"
+    "UI: Itch.io, Craftpix.net\n"
+    "Free Mining Pixel 32×32 Icons\n"
+	"karsiori\n"
+	"\n"
+	"Thank you for playing!");
+	creditsText->setCharacterSize(12);
+	creditsText->setLineSpacing(1.5f);
 	creditsText->setPosition({ creditsBackground->getPosition().x + 20.0f, creditsBackground->getPosition().y + 20.0f });
 	startButton = new ButtonAsset({ &resources.GetTexture("../textures/menu/startButton.png", false, sf::IntRect()), sf::Vector2f{532.0f, 300.0f}, sf::IntRect({ 0, 0 }, { 216, 52 }), true , true, nullptr },font,"START");
 	controlsButton = new ButtonAsset({ &resources.GetTexture("../textures/menu/startButton.png", false, sf::IntRect()), sf::Vector2f{532.0f, 360.0f}, sf::IntRect({ 0, 0 }, { 216, 52 }), true , true, nullptr }, font, "CONTROLS");
@@ -48,7 +69,7 @@ MainMenu::~MainMenu()
 }
 void MainMenu::Initialize()
 {
-	std::string musicPath = "../audios/mainmenuMusic.ogg";
+	std::string musicPath = "../../res/audios/mainmenuMusic.ogg";
 	audioManager.PlayMusic(musicPath);
 }
 void MainMenu::Input()

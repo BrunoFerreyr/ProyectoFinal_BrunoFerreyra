@@ -12,7 +12,7 @@
 class Map
 {
 public:
-	Map(const std::string& filePath, ManagersData& managersData);
+	Map(const std::string& filePath, ManagersData& managersData, std::function<void()> resetPositions);
 	virtual ~Map() = 0;
 
 	virtual void Initialize() = 0;
@@ -23,14 +23,15 @@ public:
 	void SetWantsChange(bool value);
 	bool GetWantsChange() const;
 	MapID& GetNextMap();
-	sf::Vector2f GetPlayerInitPosition();
+	sf::Vector2f GetPlayerInitPosition() const;
 	bool GetIsInBattle() const;
+	sf::Vector2f GetFirstTimePosition() const;
+	void SetPlayerInitPosition(const sf::Vector2f pos);
 	
 protected:	
 	
 	void CreateAssets();
 	virtual void PlayBackgroundMusic();
-	void SetPlayerInitPosition(const sf::Vector2f pos);
 	void AddSpriteToRender(sf::Sprite* sprite);
 	void LoadLevel(MapID, sf::Vector2f);
 	void LoadBattle(int enemyLife, int enemyID);
@@ -45,6 +46,7 @@ protected:
 	std::vector<MapID> nextMapsIDs;
 
 	sf::Vector2f playerInitPosition;
+	sf::Vector2f firstTimePosition;
 
 	std::map<int, EnemyAsset*> enemiesAsset;
 	std::map<int, sf::Vector2f> enemiesPosition;
@@ -66,5 +68,7 @@ protected:
 	sf::SoundBuffer interactBuffer;
 	sf::SoundBuffer openDoorBuffer;
 	sf::SoundBuffer startBattleBuffer;
+
+	std::function<void()> resetPositionsFunction;
 };
 

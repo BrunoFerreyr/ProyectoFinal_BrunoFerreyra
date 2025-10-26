@@ -1,12 +1,12 @@
 #include "Level02.h"
 
-Level02::Level02(const std::string& filePath, ManagersData& managersData) : Map(filePath, managersData)
+Level02::Level02(const std::string& filePath, ManagersData& managersData, std::function<void()> resetPositions) : Map(filePath, managersData,resetPositions)
 {
 	textureFloor.loadFromFile(filePath);
 	floor = new sf::Sprite(textureFloor);
-	
+	firstTimePosition = { 590.0f, 580.0f };
 	goToHouse = new TriggerAsset({ &resourceManager.GetTexture("../textures/changeMapCollision.png", false, sf::IntRect()), sf::Vector2f{900.0f, 50.0f}, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(126, 126)), true , false, nullptr }, [this]() { this->LoadLevel(MapID::OldWomanHouse, {900.0f, 220.0f}); });
-	goToCave = new TriggerAsset({ &resourceManager.GetTexture("../textures/changeMapCollision.png", false, sf::IntRect()), sf::Vector2f{ 590.0f, 700.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(126, 126)), true, false, nullptr }, [this]() { this->LoadLevel(MapID::Cave, { 590.0f, 580.0f }); });
+	goToCave = new TriggerAsset({ &resourceManager.GetTexture("../textures/changeMapCollision.png", false, sf::IntRect()), sf::Vector2f{ 590.0f, 700.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(126, 126)), true, false, nullptr }, [this]() { this->LoadLevel(MapID::Cave, firstTimePosition); });
 	goToWoods01 = new TriggerAsset({ &resourceManager.GetTexture("../textures/changeMapCollision.png", false, sf::IntRect()), sf::Vector2f{ -100.0f, 330.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(126, 126)), true, false, nullptr }, [this]() { this->LoadLevel(MapID::Woods01, { 64.0f, 330.0f }); });
 	woodsDoor = new InteractableAsset({ &resourceManager.GetTexture("../textures/woodsDoor.png", false, sf::IntRect()), sf::Vector2f{ 40.0f, 315.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(41, 136)), true, true ,nullptr }, [this]() {this->WoodsDoorInteraction(); });
 	woodsDoorCollision = new Asset({ &resourceManager.GetTexture("../textures/woodsDoor.png", false, sf::IntRect()), sf::Vector2f{ 40.0f, 315.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(22, 136)), true, false ,nullptr ,AssetType::Static });
@@ -26,12 +26,12 @@ Level02::Level02(const std::string& filePath, ManagersData& managersData) : Map(
 	assetsObjects.push_back(woodsDoor);
 	assetsObjects.push_back(woodsDoorCollision);
 
-	playerInitPosition = { 590.0f, 580.0f };
+	playerInitPosition = firstTimePosition;
 	nextMapsIDs.push_back(MapID::OldWomanHouse);
 	nextMapsIDs.push_back(MapID::Cave);
 	nextMapsIDs.push_back(MapID::Woods01);
 	
-	enterStepsBuffer.loadFromFile("../audios/sfx/sfx_enterGrassSteps.ogg");
+	enterStepsBuffer.loadFromFile("../../res/audios/sfx/sfx_enterGrassSteps.ogg");
 
 	this->CreateAssets();
 }
@@ -52,7 +52,7 @@ void Level02::Initialize()
 
 void Level02::PlayBackgroundMusic()
 {
-	std::string musicPath = "../audios/caveMusic.ogg";
+	std::string musicPath = "../../res/audios/caveMusic.ogg";
 	audioManager.PlayMusic(musicPath);
 }
 
@@ -60,17 +60,9 @@ void Level02::WoodsDoorInteraction()
 {
 	if (missionsManager.HasWoodsKey())
 	{
-		//DO agregar asset eraser function
 		EraseAsset(woodsDoor);
 		EraseAsset(woodsDoorCollision);
-		audioManager.PlaySFX(openDoorBuffer);
-		/*assetsObjects.erase(std::remove(assetsObjects.begin(), assetsObjects.end(), woodsDoor), assetsObjects.end());
-		assets.erase(std::remove(assets.begin(), assets.end(), woodsDoor->GetSprite()), assets.end());
-		delete woodsDoor;
-		woodsDoor = nullptr;*/
-
-		
-		
+		audioManager.PlaySFX(openDoorBuffer);				
 	}
 	else
 	{

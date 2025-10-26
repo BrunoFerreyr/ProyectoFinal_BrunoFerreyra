@@ -3,7 +3,7 @@
 class Woods01 : public Map
 {
 public:
-	Woods01(const std::string& filePath, ManagersData& managersData);
+	Woods01(const std::string& filePath, ManagersData& managersData, std::function<void()> resetPositions);
 	~Woods01() override;
 
 	void Initialize() override;
