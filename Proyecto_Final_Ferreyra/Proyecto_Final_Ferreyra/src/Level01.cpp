@@ -76,7 +76,7 @@ void Level01::StartDialog()
 }
 void Level01::PlayBackgroundMusic()
 {
-	std::string musicPath = ".../../res/audios/houseMusic.ogg";
+	std::string musicPath = "../../res/audios/houseMusic.ogg";
 	audioManager.PlayMusic(musicPath);
 }
 

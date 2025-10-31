@@ -20,6 +20,10 @@ Battle::Battle(ResourceManager& resourceManager,AudioManager& audio, int playerL
 	sf::Vector2f timeBarPosition = timeBar->GetBarAsset()->GetSprite()->getPosition();
 	timeBarBackground = new Asset({ &resourceManager.GetTexture("../textures/battle/barTimerBackground.png", false, sf::IntRect()), sf::Vector2f({ timeBarPosition.x - 3, timeBarPosition.y - 3 }), sf::IntRect({ 0,0 }, { 200,50 }), false, true, nullptr });
 	
+	sf::IntRect backgroundArea({ 0, 0 }, { 1280, 720 });
+	sf::Texture& backgroundTexture = resourceManager.GetTexture("../textures/battle/background.png", false, backgroundArea);
+	background = new sf::Sprite(backgroundTexture);
+
 	CreateKeyTexts(resourceManager);
 	LoadAllBuffers();
 	UpdateStats();	
@@ -37,6 +41,7 @@ Battle::~Battle()
 	delete roundText;
 	delete timeBar;
 	delete timeBarBackground;
+	delete background;
 	for (auto keyAsset : keysAssets)
 	{
 		delete keyAsset;
@@ -160,6 +165,7 @@ void Battle::Draw(sf::RenderWindow& window)
 		return;
 	}
 
+	window.draw(*background);
 	window.draw(*playerSprite->GetSprite());
 	window.draw(enemySprite);
 	window.draw(*playerText);

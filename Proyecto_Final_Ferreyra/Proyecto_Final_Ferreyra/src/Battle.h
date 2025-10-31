@@ -36,6 +36,7 @@ private:
 	float waitCounter = 0.0f;
 	float waitLimit = 3.0f;
 	float timeToStart = 3.0f;
+	sf::Sprite* background;
 	Asset* playerSprite;
 	sf::Sprite enemySprite;
 	Asset* playerLifeSprite;

@@ -16,6 +16,7 @@ public:
 	void SetWoodsKey(bool status);
 	void SetCastleEntranceKey(bool status);
 	void SetCastleKey(bool status);
+	void ResetAll();
 
 private:
 	bool metalsMission = false;

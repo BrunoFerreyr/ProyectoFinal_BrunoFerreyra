@@ -36,12 +36,13 @@ Gameplay::~Gameplay()
 	woods01 = nullptr;
 	woods02 = nullptr;
 	woods03 = nullptr;
-
+	managersData.missionsManager.ResetAll();
 	maps.clear();
 }
 void Gameplay::Initialize()
 {
 	currentMap->Initialize();
+	sceneID = SceneID::Gameplay;
 }
 void Gameplay::Input()
 {
@@ -113,7 +114,7 @@ void Gameplay::HandleEvents(const sf::Event& event)
 }
 void Gameplay::OnEndEvent() 
 {
-	SetWantsExit(true);
+	SetWantsChange(true);
 }
 void Gameplay::ResetMapsInitialPositions()
 {

@@ -18,9 +18,11 @@ public:
 	virtual void SetWantsChange(bool value);
 	virtual bool GetWantsExit() const;
 	virtual void SetWantsExit(bool value);
+	SceneID GetSceneID() const;
 
 protected:
 	SceneID nextSceneID;
+	SceneID sceneID;
 	sf::RenderWindow& window;
 	bool wantsChange;
 	bool wantsExit;

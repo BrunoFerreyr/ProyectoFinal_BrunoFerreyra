@@ -71,6 +71,7 @@ void MainMenu::Initialize()
 {
 	std::string musicPath = "../../res/audios/mainmenuMusic.ogg";
 	audioManager.PlayMusic(musicPath);
+	sceneID = SceneID::MainMenu;
 }
 void MainMenu::Input()
 {

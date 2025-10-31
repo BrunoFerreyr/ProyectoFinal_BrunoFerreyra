@@ -16,7 +16,7 @@ void Game::Initialize()
 {
 	srand(time(nullptr));
 
-	CreateWindow();
+	CreateWindow();	
 	CreateManagers();
 	CreatePlayer();
 	CreateScenes();
@@ -34,8 +34,8 @@ void Game::GameLoop()
 void Game::DeInitialize()
 {
 	DestroyWindow();
-	DestroyPlayer();
 	DestroyScenes();
+	DestroyPlayer();
 }
 void Game::CreateWindow()
 {
@@ -62,10 +62,7 @@ void Game::CreateScenes()
 	mainMenu = new MainMenu(*window, resourceManager, audioManager);
 	pauseManager = new Pause(resourceManager,audioManager, *window, *&currentScene, *&mainMenu);
 
-	gameplay = new Gameplay(*window, player, *pauseManager, *managersData);
-
 	scenes.emplace(SceneID::MainMenu, mainMenu);
-	scenes.emplace(SceneID::Gameplay, gameplay);
 }
 
 void Game::Input()
@@ -91,14 +88,32 @@ void Game::Update()
 	float deltaTime = clock.restart().asSeconds();
 	currentScene->Update(deltaTime);
 
-	if (currentScene->GetWantsChange()) 
+
+	if (currentScene->GetWantsChange())
 	{
 		currentScene->SetWantsChange(false);
-		
-		currentScene = scenes.find(currentScene->GetNextSceneID())->second;
+		if (currentScene->GetSceneID() == SceneID::MainMenu) {			
+			gameplay = new Gameplay(*window, player, *pauseManager, *managersData);
+			scenes.emplace(SceneID::Gameplay, gameplay);
+		}
+
+		if (currentScene->GetSceneID() == SceneID::Gameplay)
+		{
+			currentScene = scenes.find(currentScene->GetNextSceneID())->second;
+			delete gameplay;
+			gameplay = nullptr;
+			DestroyPlayer();
+			CreateManagers();
+			CreatePlayer();
+			scenes.erase(SceneID::Gameplay);
+		}
+		else
+		{
+			currentScene = scenes.find(currentScene->GetNextSceneID())->second;
+		}
+
 		currentScene->Initialize();
 	}
-
 	if (currentScene->GetWantsExit()) 
 	{
 		window->close();
@@ -121,7 +136,6 @@ void Game::DestroyPlayer()
 	delete dialog;
 	delete managersData;
 	delete collectablesUI;
-	delete pauseManager;
 }
 void Game::DestroyScenes()
 {
@@ -133,4 +147,6 @@ void Game::DestroyScenes()
 	scenes.clear();
 	gameplay = nullptr;
 	mainMenu = nullptr;
+
+	delete pauseManager;
 }

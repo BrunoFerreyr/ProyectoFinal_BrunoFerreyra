@@ -62,4 +62,12 @@ void MissionsManager::SetCastleKey(bool status)
 {
 	hasCastleKey = status;
 }
+void MissionsManager::ResetAll() 
+{
+	metalsMission = false;
+	defeatKnightMission = false;
+	hasWoodsKey = false;
+	hasCastleEntranceKey = false;
+	hasCastleKey = false;
+}
 

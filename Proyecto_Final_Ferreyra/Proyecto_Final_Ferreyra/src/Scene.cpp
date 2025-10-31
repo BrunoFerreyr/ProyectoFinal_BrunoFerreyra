@@ -30,3 +30,7 @@ void Scene::SetWantsExit(bool value)
 {
 	wantsExit = value;
 }
+SceneID Scene::GetSceneID() const
+{
+	return sceneID;
+}

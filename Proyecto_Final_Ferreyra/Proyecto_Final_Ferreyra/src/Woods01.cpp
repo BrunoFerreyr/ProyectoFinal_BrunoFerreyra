@@ -6,7 +6,7 @@ Woods01::Woods01(const std::string& filePath, ManagersData& managersData, std::f
 	floor = new sf::Sprite(textureFloor);
 	firstTimePosition = { 1120.0f, 530.0f };
 	goToCamp = new TriggerAsset({ &resourceManager.GetTexture("../textures/changeMapCollision.png", false, sf::IntRect()), sf::Vector2f{1275.0f, 514.0f}, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(126, 126)), true , false, nullptr }, [this]() { this->LoadLevel(MapID::Camp, firstTimePosition); });
-	goToWoods02 = new TriggerAsset({ &resourceManager.GetTexture("../textures/changeMapCollision.png", false, sf::IntRect()), sf::Vector2f{ 960.0f, -100.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(126, 126)), true, false, nullptr }, [this]() { this->LoadLevel(MapID::Woods02, { 1010.0f, 62.0f }); });
+	goToWoods02 = new TriggerAsset({ &resourceManager.GetTexture("../textures/changeMapCollision.png", false, sf::IntRect()), sf::Vector2f{ 960.0f, -100.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(126, 126)), true, false, nullptr }, [this]() { this->LoadLevel(MapID::Woods02, { 965.0f, 62.0f }); });
 	
 	assetsObjects.push_back(new Asset({ &resourceManager.GetTexture("../textures/collisionCube.png", false, sf::IntRect()), sf::Vector2f{ 0.0f, 0.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(100 * 7.5f, 100 * 1.4f)), true, false ,nullptr ,AssetType::Static }));
 	assetsObjects.push_back(new Asset({ &resourceManager.GetTexture("../textures/collisionCube.png", false, sf::IntRect()), sf::Vector2f{ 750.0f, 0.0f }, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(100 * 1.9f, 100 * 0.4f)), true, false ,nullptr ,AssetType::Static }));
